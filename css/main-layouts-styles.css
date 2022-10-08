@@ -34,10 +34,8 @@
     border-bottom-color: var(--theme-enfasis-color);
 }
 
-
-
 .fixed-top-navbar {
-    min-height: 15vh;    
+    min-height: 10vh;    
     background-color: var(--theme-background-color);
     color: var(--theme-text-color);
     
@@ -46,21 +44,57 @@
 
 .navbar-link {
     color: var(--theme-text-color);
+    border-bottom: solid 2px var(--theme-background-color);
     text-decoration: none;
 }
 
-.navbar-link:hover {
+#navLinks .navbar-link:hover {
+    background-image: linear-gradient(to top,var(--theme-enfasis-background-color), white, white);
+    border-bottom: solid 2px var(--theme-enfasis-color);
+}
+
+#navOffcanvas {
+    min-width: 70%;
+}
+
+#offcanvas-header {
+    background-image: url(../img/patron.jpg);
+    background-position: center;
+    background-repeat: repeat;
+    
+    animation: pattern_anim 10s alternate-reverse;
+    animation-iteration-count: infinite;
+}
+
+@keyframes pattern_anim {
+    
+    0% {
+        background-position-x: 50%;
+        background-position-y: 0%;
+    }
+    
+    25% {
+        background-position-x: 100%;
+        background-position-y: 50%;
+    }
+    
+    75% {
+        background-position-x: 50%;
+        background-position-y: 100%;
+    }
+    
+    100% {
+        background-position-x: 0%;
+        background-position-y: 50%;
+    }
+
+}
+
+#offcanvasCloseButton {
     background-color: var(--theme-enfasis-background-color);
-    text-decoration: underline;
 }
 
 .content-layout {
     background-color: lightgrey;
 }
 
-.banner {
-    background-image: url("../img/minsap.png");
-    background-clip: content-box; 
-    background-size: auto;
-    background-repeat: no-repeat; 
-}

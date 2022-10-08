@@ -25,52 +25,51 @@
     <!-- Navigation Bar -->
     <nav class="navbar fixed-top fixed-top-navbar">
         <div class="container-fluid">
-            <div class="row w-100 h-100 justify-items-center text-center">
-
+            <div class="row w-100 h-25 h-md-100 m-0 fustify-items-center text-center">
+                
                 <!--Nav banner-->
                 <div class="col-sm-12 col-md-3">
-                    <img src="img/minsap.png" class="img-fluid">
+                    <img src="img/minsap.png" class="img-fluid h-sm-0">
                 </div>
                 
                 <!--Nav blank Space-->
                 <div class="col-sm-12 col-md-4 text-start">
-                    <button class="btn d-inline d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#navOffcanvas" aria-controls="navOffcanvas">
+                    <button class="btn d-inline d-sm-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#navOffcanvas" aria-controls="navOffcanvas">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
                 
                 <!--Nav links-->
                 <div class="col-sm-12 col-md-5">
-                    <div class="row h-100 align-items-end d-none d-md-flex fs-6" id="collapseExample">
-                        <a class="col-md nav-link navbar-link" href=".">Inicio</a>
-                        <a class="col-md nav-link navbar-link" href=".">Perfil</a>
-                        <a class="col-md nav-link navbar-link" href=".">Ayuda</a>
+                    <div class="row h-100 align-items-end d-none d-sm-flex fs-6" id="navLinks">
+                        <a class="col nav-link navbar-link" href=".">Inicio</a>
+                        <a class="col nav-link navbar-link" href=".">Perfil</a>
+                        <a class="col nav-link navbar-link" href=".">Ayuda</a>
                     </div>
                 </div>
                 
                 <!--Offcanvas Menu-->
-                <div class="offcanvas offcanvas-start p-0" tabindex="-1" id="navOffcanvas"
+                <div class="offcanvas offcanvas-start p-0 w-50" tabindex="-1" id="navOffcanvas"
                     aria-labelledby="offcanvasLabel">
-                    <div class="offcanvas-header bg-success text-center">
+                    <div class="offcanvas-header bg-success align-items-start h-25" id="offcanvas-header">
                         <h5 class="offcanvas-title">
                         </h5>
-                        <button type="button" class="btn-close end-0" data-bs-dismiss="offcanvas" aria-label="Close">
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" id="offcanvasCloseButton">
                         </button>
                     </div>
-                    <div class="offcanvas-body p-0 w-100 text-start fs-3">
+                    <div class="offcanvas-body p-0 w-100 text-start fs-2">
                         <a class="col-12 nav-link navbar-link ps-3" href=".">Inicio</a>
                         <a class="col-12 nav-link navbar-link ps-3" href=".">Perfil</a>
                         <a class="col-12 nav-link navbar-link ps-3" href=".">Ayuda</a>
                     </div>
                 </div>
-            
             </div>
         </div>
     </nav>
     <br />
     
     <!--Content layout-->
-    <div class="container-fluid bg-gray content-layout">
+    <div class="container-fluid bg-gray content-layout mt-5">
         <div class="row">
             <div class="col">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
