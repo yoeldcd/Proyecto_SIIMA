@@ -1,6 +1,10 @@
 
+/* {border: solid 1px; }/**/
+
 /*Define Custom Theme Colors set*/
 :root {
+    --theme-background-color: white;
+    --theme-enfasis-background-color: lightgrey;
     --theme-primary-color: green;
     --theme-enfasis-color: green;
     --theme-secondary-color: green;
@@ -30,20 +34,33 @@
     border-bottom-color: var(--theme-enfasis-color);
 }
 
-.fixed-top-nav {
-    position: fixed;
-    
-    left: 0%;
-    top: 0%;
-    
-    color: white;
 
-    height: 10vh;    
+
+.fixed-top-navbar {
+    min-height: 15vh;    
+    background-color: var(--theme-background-color);
+    color: var(--theme-text-color);
+    
+    border-bottom: solid 2px var(--theme-primary-color);
+}
+
+.navbar-link {
+    color: var(--theme-text-color);
+    text-decoration: none;
+}
+
+.navbar-link:hover {
+    background-color: var(--theme-enfasis-background-color);
+    text-decoration: underline;
 }
 
 .content-layout {
     background-color: lightgrey;
-    height: 100vh;
-    margin-top: 10vh;
+}
 
+.banner {
+    background-image: url("../img/minsap.png");
+    background-clip: content-box; 
+    background-size: auto;
+    background-repeat: no-repeat; 
 }
