@@ -1,5 +1,4 @@
 
-/* {border: solid 1px; }/**/
 
 /*Define Custom Theme Colors set*/
 :root {
@@ -12,26 +11,8 @@
     --theme-buttons-text-color: green;
 }
 
-/*Define custom buttoms color*/
-.button {
-    background-color: var(--theme-primary-color);
-    color: var(--theme-buttons-text-color);
-}
-
-.button:hover {
-    background-color: var(--theme-enfasis-color);
-}
-
-/*Define custom inputs colors*/
-
-.input {
-    border: none;
-    border-bottom-width: 2px;
-    border-bottom-color: var(--theme-primary-color);
-}
-
-.input:focus {
-    border-bottom-color: var(--theme-enfasis-color);
+#web-logo {
+    height: 12vh;
 }
 
 .fixed-top-navbar {
@@ -62,7 +43,7 @@
     background-position: center;
     background-repeat: repeat;
     
-    animation: pattern_anim 10s alternate-reverse;
+    animation: pattern_anim 20s alternate-reverse;
     animation-iteration-count: infinite;
 }
 
@@ -91,10 +72,39 @@
 }
 
 #offcanvasCloseButton {
+    width: 5%;
+    height: 10%;
+    border: solid 2px black;
+    border-radius: 10px;
+}
+
+#navOffcanvas .navbar-link:hover {
     background-color: var(--theme-enfasis-background-color);
 }
 
+/*Defining Content layout style*/
 .content-layout {
-    background-color: lightgrey;
+    margin-top: 25vh;
+    background-color: var(--theme-background-color);
 }
 
+/*Define custom buttoms color*/
+.button {
+    background-color: var(--theme-primary-color);
+    color: var(--theme-buttons-text-color);
+}
+
+.button:hover {
+    background-color: var(--theme-enfasis-color);
+}
+
+/*Define custom inputs colors*/
+.input {
+    border: none;
+    border-bottom-width: 2px;
+    border-bottom-color: var(--theme-primary-color);
+}
+
+.input:focus {
+    border-bottom-color: var(--theme-enfasis-color);
+}
