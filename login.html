@@ -8,22 +8,22 @@
     <title>
         SIIMA Login
     </title>
-    
+
     <!-- Bootstrap Binding
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     -->
-    
+
     <link rel="stylesheet" type="text/css" href="bootstrap-5.2.2-dist/css/bootstrap.min.css">
     <script src="bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <!--Custom styles sheets-->
     <link rel="stylesheet" type="text/css" href="css/main-layouts-styles.css">
 
 </head>
 
 <body>
-    
+
     <!-- Navigation Bar -->
     <header>
         <nav class="navbar fixed-top-navbar fixed-top" id="navbar">
@@ -34,104 +34,89 @@
                     <div class="col-sm-12 col-md-4">
                         <img src="img/minsap.png" class="img-fluid" id="web-logo">
                     </div>
-                    
+
                     <!--Nav blank Space-->
                     <div class="col-sm-12 col-md-3 text-start">
-                        <button class="btn d-inline d-sm-none" type="button" data-bs-toggle="offcanvas"
-                            data-bs-target="#navOffcanvas" aria-controls="navOffcanvas">
-                            <span class="navbar-toggler-icon"></span>
+                        <button class="btn d-inline d-sm-none p-0" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#navOffcanvas" aria-controls="navOffcanvas" id="offcanvasOpenButton">
+                            <span class="container-fluid navbar-toggler-icon"></span>
                         </button>
                     </div>
 
                     <!--Nav links-->
                     <div class="col-sm-12 col-md-5">
-                        <div class="row h-100 align-items-end d-none d-sm-flex fs-6" id="navLinks">
-                            <a class="col nav-link navbar-link" href=".">Inicio</a>
-                            <a class="col nav-link navbar-link" href=".">Perfil</a>
-                            <a class="col nav-link navbar-link" href=".">Ayuda</a>
+                        <div class="row d-none d-sm-flex h-100 justify-content-end align-items-end fs-6"
+                            id="navbarLinks">
+                            <a class="col col-md-4 nav-link navbar-link" href=".">Inicio</a>
+                            <a class="col col-md-4 nav-link navbar-link" href=".">Ayuda</a>
+
+                            <!--Nav user profile area-->
+                            <div class="col col-md-4">
+                                <div class="row align-items-end text-center p-0">
+                                    <div
+                                        class="p-0 col-8 col-md-12 order-md-2 fs-6 text-end text-md-center text-nowrap overflow-hidden text-decoration-underline only-text">
+                                        USERNAME HERE
+                                    </div>
+                                    <a class="col-4 col-md-12 order-md-1 p-0" href=".">
+                                        <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo"
+                                            src="img/perfil.png" width="50" height="50">
+                                    </a>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
                     <!--Offcanvas Menu-->
                     <div class="offcanvas offcanvas-start p-0 w-50" tabindex="-1" id="navOffcanvas"
                         aria-labelledby="offcanvasLabel">
-                        <div class="offcanvas-header bg-success align-items-start h-25" id="offcanvas-header">
-                            <h5 class="offcanvas-title">
+                        <div class="offcanvas-header bg-success align-items-start" id="offcanvasHeader">
+                            <!--User Profile data-->
+                            <h5 class="offcanvas-title text-start">
+
+                                <a href=".">
+                                    <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo"
+                                        src="img/perfil.png" width="80" height="80">
+                                </a>
                             </h5>
+
+                            <!--Offcanvas Close button -->
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
                                 id="offcanvasCloseButton">
                             </button>
+
                         </div>
-                        <div class="offcanvas-body p-0 w-100 text-start fs-4">
-                            <a class="col-12 nav-link navbar-link ps-3" href=".">Inicio</a>
-                            <a class="col-12 nav-link navbar-link ps-3" href=".">Perfil</a>
-                            <a class="col-12 nav-link navbar-link ps-3" href=".">Ayuda</a>
+                        <div class="offcanvas-body p-0 w-100 text-start fs-4" id="offcanvasLinks">
+                            
+                            <div class="col-12 text-ligth ps-3 w-100 fs-6 text-nowrap overflow-hidden user-name">
+                                USERNAME IS HERE
+                            </div>
+                            
+                            <a class="col-12 nav-link navbar-link ps-3" href=".">
+                                Inicio
+                            </a>
+                            <a class="col-12 nav-link navbar-link ps-3" href=".">
+                                Ayuda
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
-
+    
     <!--Content layout-->
     <main class="flex-shrink-0">
         <div class="container-fluid bg-gray content-layout">
             <div class="row">
                 <div class="col">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                    dolore eu
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
-                    <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                    dolore eu
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
-                    <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                    dolore eu
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
-                    <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                    dolore eu
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
-                    <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                    dolore eu
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
-                    <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                    dolore eu
-                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
 
+                <!--Any web pages contents is here-->  
+                
+                
+                
+                <!--End of web contenet -->
+                
                 </div>
             </div>
         </div>

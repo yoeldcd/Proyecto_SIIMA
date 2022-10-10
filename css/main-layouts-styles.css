@@ -4,7 +4,7 @@
 :root {
     --theme-background-color: white;
     --theme-enfasis-background-color: lightgrey;
-    --theme-primary-color: green;
+    --theme-primary-color: #2fb166;
     --theme-enfasis-color: #393a39;
     --theme-secondary-color: darkgreen;
     --theme-text-color: #2a792a;
@@ -94,6 +94,10 @@
     border-color: var(--theme-enfasis-color);
 }
 
+.user-name {
+    background-color: var(--theme-primary-color);
+    color: var(--theme-buttons-text-color);
+}
 
 #offcanvasCloseButton {
     width: 5%;
@@ -105,8 +109,6 @@
 #navOffcanvas .navbar-link:hover {
     background-color: var(--theme-enfasis-background-color);
 }
-
-
 
 /*Defining Content layout style*/
 .content-layout {
