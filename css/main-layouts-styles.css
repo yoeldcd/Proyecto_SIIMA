@@ -1,11 +1,9 @@
-
-
 /*Define Custom Theme Colors set*/
 :root {
     --theme-background-color: white;
     --theme-enfasis-background-color: lightgrey;
     --theme-primary-color: #2fb166;
-    --theme-enfasis-color: #393a39;
+    --theme-enfasis-color: #2b5a2b;
     --theme-secondary-color: darkgreen;
     --theme-text-color: #2a792a;
     --theme-buttons-text-color: #fcfdfc;
@@ -22,10 +20,10 @@
 }
 
 .fixed-top-navbar {
-    min-height: 10vh;    
+    min-height: 10vh;
     background-color: var(--theme-background-color);
     color: var(--theme-text-color);
-    
+
     border-bottom: solid 2px var(--theme-primary-color);
 }
 
@@ -36,7 +34,7 @@
 }
 
 #navbarLinks .navbar-link:hover {
-    background-image: linear-gradient(to top,var(--theme-enfasis-background-color), white, white);
+    background-image: linear-gradient(to top, var(--theme-enfasis-background-color), white, white);
     border-bottom: solid 2px var(--theme-enfasis-color);
 }
 
@@ -46,7 +44,7 @@
     max-width: 8vh;
     max-height: 7vh;
     width: 8vh;
-    
+
 }
 
 #navOffcanvas {
@@ -57,31 +55,36 @@
     background-image: url(../img/patron.jpg);
     background-position: center;
     background-repeat: repeat;
-    
-    animation: pattern_anim 20s alternate-reverse;
+
+    animation: pattern_anim linear 20s;
     animation-iteration-count: infinite;
 }
 
 @keyframes pattern_anim {
     
     0% {
-        background-position-x: 50%;
+        background-position-x: 0%;
         background-position-y: 0%;
     }
     
     25% {
         background-position-x: 100%;
-        background-position-y: 50%;
+        background-position-y: 100%;
+    }
+
+    50% {
+        background-position-x: 100%;
+        background-position-y: 0%;
     }
     
     75% {
-        background-position-x: 50%;
+        background-position-x: 0%;
         background-position-y: 100%;
     }
-    
+
     100% {
         background-position-x: 0%;
-        background-position-y: 50%;
+        background-position-y: 0%;
     }
 
 }
@@ -116,7 +119,7 @@
     background-color: var(--theme-background-color);
 }
 
-#fixedBootomFooter{
+#fixedBootomFooter {
     border: none;
     border-top: solid 2px var(--theme-primary-color);
 }
