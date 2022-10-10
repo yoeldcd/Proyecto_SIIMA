@@ -10,12 +10,12 @@
     </title>
 
     <!-- Bootstrap Binding
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        -->
 
+    <script src="bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="bootstrap-5.2.2-dist/css/bootstrap.min.css">
-    <script src="bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 
     <!--Custom styles sheets-->
     <link rel="stylesheet" type="text/css" href="css/main-layouts-styles.css">
@@ -24,103 +24,167 @@
 
 <body>
 
-    <!-- Navigation Bar -->
+    <!--Web site header-->
     <header>
+        <!-- Navigation Bar -->
         <nav class="navbar fixed-top-navbar fixed-top" id="navbar">
             <div class="container-fluid">
-                <div class="row w-100 h-25 h-md-100 m-0 fustify-items-center text-center">
+                <div class="row w-100 h-25 h-md-100 m-0 text-center">
 
                     <!--Nav banner-->
-                    <div class="col-sm-12 col-md-4">
+                    <div class="col-12 col-sm-8 col-md-4 order-md-1">
                         <img src="img/minsap.png" class="img-fluid" id="web-logo">
                     </div>
 
                     <!--Nav blank Space-->
-                    <div class="col-sm-12 col-md-3 text-start">
-                        <button class="btn d-inline d-sm-none p-0" type="button" data-bs-toggle="offcanvas"
+                    <div class="col-sm-12 col-md-1 order-md-2 text-start">
+                        <a class="btn d-inline d-sm-none p-0" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#navOffcanvas" aria-controls="navOffcanvas" id="offcanvasOpenButton">
                             <span class="container-fluid navbar-toggler-icon"></span>
-                        </button>
+                        </a>
                     </div>
 
                     <!--Nav links-->
-                    <div class="col-sm-12 col-md-5">
-                        <div class="row d-none d-sm-flex h-100 justify-content-end align-items-end fs-6"
+                    <div class="col-sm-12 col-md-5 order-md-3">
+                        <div class="row d-none d-sm-flex h-100 justify-content-md-end align-items-end fs-6"
                             id="navbarLinks">
-                            <a class="col col-md-4 nav-link navbar-link" href=".">Inicio</a>
-                            <a class="col col-md-4 nav-link navbar-link" href=".">Ayuda</a>
+                            <a class="col-2 nav-link navbar-link" href=".">Inicio</a>
 
-                            <!--Nav user profile area-->
-                            <div class="col col-md-4">
-                                <div class="row align-items-end text-center p-0">
-                                    <div
-                                        class="p-0 col-8 col-md-12 order-md-2 fs-6 text-end text-md-center text-nowrap overflow-hidden text-decoration-underline only-text">
-                                        USERNAME HERE
-                                    </div>
-                                    <a class="col-4 col-md-12 order-md-1 p-0" href=".">
-                                        <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo"
-                                            src="img/perfil.png" width="50" height="50">
-                                    </a>
-                                </div>
-                            </div>
 
                         </div>
                     </div>
 
-                    <!--Offcanvas Menu-->
-                    <div class="offcanvas offcanvas-start p-0 w-50" tabindex="-1" id="navOffcanvas"
-                        aria-labelledby="offcanvasLabel">
-                        <div class="offcanvas-header bg-success align-items-start" id="offcanvasHeader">
-                            <!--User Profile data-->
-                            <h5 class="offcanvas-title text-start">
-
-                                <a href=".">
-                                    <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo"
-                                        src="img/perfil.png" width="80" height="80">
-                                </a>
-                            </h5>
-
-                            <!--Offcanvas Close button -->
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
-                                id="offcanvasCloseButton">
-                            </button>
-
-                        </div>
-                        <div class="offcanvas-body p-0 w-100 text-start fs-4" id="offcanvasLinks">
-                            
-                            <div class="col-12 text-ligth ps-3 w-100 fs-6 text-nowrap overflow-hidden user-name">
-                                USERNAME IS HERE
-                            </div>
-                            
-                            <a class="col-12 nav-link navbar-link ps-3" href=".">
-                                Inicio
-                            </a>
-                            <a class="col-12 nav-link navbar-link ps-3" href=".">
-                                Ayuda
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </nav>
-    </header>
-    
-    <!--Content layout-->
-    <main class="flex-shrink-0">
-        <div class="container-fluid bg-gray content-layout">
-            <div class="row">
-                <div class="col">
 
-                <!--Any web pages contents is here-->  
+        <!-- Navigation Offcanvas Side Menu-->
+        <div class="offcanvas offcanvas-start p-0 w-50" tabindex="-1" id="navOffcanvas"
+            aria-labelledby="offcanvasLabel">
+            <div class="offcanvas-header bg-success align-items-start" id="offcanvasHeader">
+
+                <!--User Profile data-->
+                <h5 class="offcanvas-title text-start">
+                    <!--No user logo -->
+                    <spam style="display: inline-block; min-width: 80px; min-height: 80px;">
+                    </spam>
+                </h5>
                 
+                <!--Offcanvas Close button -->
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+                    id="offcanvasCloseButton">
+                </button>
                 
+            </div>
+            <div class="offcanvas-body p-0 w-100 text-start fs-4" id="offcanvasLinks">
+
+                <div
+                    class="col-12 row justify-content-between text-ligth m-0 fs-6 text-nowrap overflow-hidden user-name">
+                </div>
+
+                <!--Offcnavas Links-->
+                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href=".">
+                    Inicio
+                </a>
+
+            </div>
+        </div>
+    </header>
+
+    <!--Web site Content layout-->
+    <main class="flex-shrink-0">
+        <div class="container-fluid bg-gray p-0 content-layout" style="margin-bottom: 15vh;">
+
+            <!--Any web pages contents is here-->
+
+            <div class="row w-100 h-50 m-0">
                 
-                <!--End of web contenet -->
-                
+                <div class="col d-none d-sm-flex">
+                </div>
+
+                <!--Center column-->
+                <div class="col-12 col-sm-8 col-md-6 text-center h-100">
+                    <form class="form rounded-3 data-form p-2 m-0">
+                        
+                        <!-- Form Title Text -->
+                        <spam class="fs-5 text-uppercase text-bold mb-5">
+                            Autenticar:
+                        </spam>
+                        <br>
+
+                        <!--User name-->
+                        <fieldset class="form-group text-start">
+                            <label class="form-label" for="userName">Usuario:</label>
+                            <div class="input-group mb-3">
+                                <input class="form-control form-input" name="userName" type="text" maxlength="30"
+                                    placeholder="Teclee su usuario">
+                                <span class="input-group-text">@</span>
+                            </div>
+                        </fieldset>
+
+                        <!--User password (click -> showPassword)-->
+                        <fieldset class="form-group text-start mt-1">
+                            <label class="form-label" for="userPasswor">Contraseña:</label>
+                            <div class="input-group mb-3">
+                                <input class="form-control form-input" id="userPassword" type="password"
+                                    id="userPassword" maxlength="30" placeholder="Teclee su cotraseña">
+
+                                <span class="input-group-text" onclick="(function a() {
+                                        let btimg = document.getElementById('seeUserPasswordImage');
+                                        let input = document.getElementById('userPassword');
+                                        
+                                        // change password visibility and button logo
+                                        input.type = (input.type == 'password') ? 'text': input.type = 'password';
+                                        btimg.src = (input.type == 'text') ? './img/eye-slash-fill.svg': './img/eye-fill.svg';
+                                        
+                                    })();">
+                                    <img class="img-fluid" id="seeUserPasswordImage" src="./img/eye-slash-fill.svg">
+                                </span>
+
+                            </div>
+                        </fieldset>
+
+                        <!--Sigin anchor link-->
+                        <a href="signin.html" class="form-group --text-small --link">
+                            Registrarse
+                        </a>
+
+                        <!--Submit buttom-->
+                        <div class="form-group text-end me-1 me-md-2">
+                            <button class="btn float-self-center --button" type="submit">
+                                Entrar
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="col d-none d-sm-flex">
+                </div>
+
+            </div>
+
+            <!--End of web contenet -->
+
+        </div>
+    </main>
+
+    <!-- Web site Fixed bootom foterBar -->
+    <footer class="">
+        <div class="container-fluid fixed-bottom m-0" id="fixedBootomFooter">
+            <div class="row h-100 justify-content-center align-items-center text-center">
+                <div class="col bg-light" style="height: 10vh;">
+                    <!-- Footer content is here -->
+
+                    <time>
+                        10-10-2022
+                    </time>
+
+                    <!-- End Footer content -->
                 </div>
             </div>
         </div>
-    </main>
+    </footer>
 
 </body>
 

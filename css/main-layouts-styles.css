@@ -1,16 +1,23 @@
 /*Define Custom Theme Colors set*/
 :root {
-    --theme-background-color: white;
-    --theme-enfasis-background-color: lightgrey;
+    --theme-background-color: #ffffff;
+    --tehem-enfasis-background-color: #eaeceb;
+
     --theme-primary-color: #2fb166;
-    --theme-enfasis-color: #2b5a2b;
-    --theme-secondary-color: darkgreen;
-    --theme-text-color: #2a792a;
-    --theme-buttons-text-color: #fcfdfc;
-    --theme-buttons-background-color: #0c290c;
+    --theme-secondary-color: #278f52;
+    --theme-enfasis-color: #006400;
+    
+    --theme-text-color: #000000;
+    --theme-ligth-text-color: white;
+    --theme-focus-text-color: #0e300e;
+    
 }
 
-.only-text {
+.--text-small {
+    font-size: 1rem;
+}
+
+.--only-text {
     text-decoration: none;
     color: var(--theme-text-color);
 }
@@ -22,18 +29,18 @@
 .fixed-top-navbar {
     min-height: 10vh;
     background-color: var(--theme-background-color);
-    color: var(--theme-text-color);
-
+    color: var(--theme-secondary-color);
+    
     border-bottom: solid 2px var(--theme-primary-color);
 }
 
 .navbar-link {
-    color: var(--theme-text-color);
+    color: var(--theme-primary-color);
     border-bottom: solid 2px var(--theme-background-color);
     text-decoration: none;
 }
 
-#navbarLinks .navbar-link:hover {
+.navbar-link:hover {
     background-image: linear-gradient(to top, var(--theme-enfasis-background-color), white, white);
     border-bottom: solid 2px var(--theme-enfasis-color);
 }
@@ -97,9 +104,9 @@
     border-color: var(--theme-enfasis-color);
 }
 
-.user-name {
-    background-color: var(--theme-primary-color);
-    color: var(--theme-buttons-text-color);
+#navOffcanvas .user-name {
+    background-color: var(--theme-secondary-color);
+    color: var(--theme-ligth-text-color);
 }
 
 #offcanvasCloseButton {
@@ -109,8 +116,9 @@
     border-radius: 10px;
 }
 
-#navOffcanvas .navbar-link:hover {
-    background-color: var(--theme-enfasis-background-color);
+.offcanvas-link:hover {
+    background-color: var(--theme-secondary-color);
+    color: var(--theme-ligth-text-color);
 }
 
 /*Defining Content layout style*/
@@ -124,23 +132,45 @@
     border-top: solid 2px var(--theme-primary-color);
 }
 
-/*Define custom buttoms color*/
-.button {
-    background-color: var(--theme-primary-color);
-    color: var(--theme-buttons-text-color);
+/*************************************************/
+.data-form {
+    min-height: 50vh;
+    background-color: var(--tehem-enfasis-background-color);
+    border: double 2px var(--theme-primary-color);
 }
 
-.button:hover {
-    background-color: var(--theme-enfasis-color);
+.--link {
+    color: var(--theme-primary-color);
+}
+
+.--link:hover{
+    color: var(--theme-focus-text-color);
+}
+
+.--link:visited {
+    text-decoration: underline;
+    color: var(--theme-primary-color);
+}
+
+/*Define custom buttoms color*/
+.--button {
+    background-color: var(--theme-primary-color);
+    color: var(--theme-ligth-text-color);
+}
+
+.--button:hover {
+    background-color: var(--theme-secondary-color);
+    color: var(--theme-ligth-text-color);
 }
 
 /*Define custom inputs colors*/
-.input {
-    border: none;
-    border-bottom-width: 2px;
-    border-bottom-color: var(--theme-primary-color);
+.form-input {
+    outline: none;
+    border: solid 2px var(--tehem-enfasis-background-color);
+    border-bottom: solid 2px var(--theme-primary-color);
 }
 
-.input:focus {
-    border-bottom-color: var(--theme-enfasis-color);
+.form-input:focus {
+    box-shadow: none;
+    border: solid 2px var(--theme-primary-color);
 }
