@@ -116,6 +116,11 @@
     background-color: var(--theme-background-color);
 }
 
+#fixedBootomFooter{
+    border: none;
+    border-top: solid 2px var(--theme-primary-color);
+}
+
 /*Define custom buttoms color*/
 .button {
     background-color: var(--theme-primary-color);
