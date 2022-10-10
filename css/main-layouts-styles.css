@@ -5,14 +5,20 @@
     --theme-background-color: white;
     --theme-enfasis-background-color: lightgrey;
     --theme-primary-color: green;
-    --theme-enfasis-color: green;
-    --theme-secondary-color: green;
-    --theme-text-color: green;
-    --theme-buttons-text-color: green;
+    --theme-enfasis-color: #393a39;
+    --theme-secondary-color: darkgreen;
+    --theme-text-color: #2a792a;
+    --theme-buttons-text-color: #fcfdfc;
+    --theme-buttons-background-color: #0c290c;
+}
+
+.only-text {
+    text-decoration: none;
+    color: var(--theme-text-color);
 }
 
 #web-logo {
-    height: 12vh;
+    max-height: 12vh;
 }
 
 .fixed-top-navbar {
@@ -29,16 +35,25 @@
     text-decoration: none;
 }
 
-#navLinks .navbar-link:hover {
+#navbarLinks .navbar-link:hover {
     background-image: linear-gradient(to top,var(--theme-enfasis-background-color), white, white);
     border-bottom: solid 2px var(--theme-enfasis-color);
+}
+
+/*Offcanvas style rules*/
+
+#offcanvasOpenButton {
+    max-width: 8vh;
+    max-height: 7vh;
+    width: 8vh;
+    
 }
 
 #navOffcanvas {
     min-width: 70%;
 }
 
-#offcanvas-header {
+#offcanvasHeader {
     background-image: url(../img/patron.jpg);
     background-position: center;
     background-repeat: repeat;
@@ -71,6 +86,15 @@
 
 }
 
+.user-icon {
+    border: solid 2px var(--theme-primary-color);
+}
+
+.user-icon:hover {
+    border-color: var(--theme-enfasis-color);
+}
+
+
 #offcanvasCloseButton {
     width: 5%;
     height: 10%;
@@ -81,6 +105,8 @@
 #navOffcanvas .navbar-link:hover {
     background-color: var(--theme-enfasis-background-color);
 }
+
+
 
 /*Defining Content layout style*/
 .content-layout {
