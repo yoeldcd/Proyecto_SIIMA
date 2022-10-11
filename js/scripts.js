@@ -13,16 +13,34 @@ function switchPasswordVisibility(inputid, targetid) {
 function mathInputs(input1id, input2id) {
     let input1 = document.getElementById(input1id);
     let input2 = document.getElementById(input2id);
-    
+
     // enfatize input with succes or error color
-    if(input1.value != '' || input2.value != ''){
+    if (input1.value != '' || input2.value != '') {
         input2.style.cssText = (input2.value != input1.value) ? 'background: #ef9a96' : 'background: #49f3ac';
         return;
     }
-    
-    input2.style.cssText = 'background: white';
+
+    input2.style.cssText = 'background: inherited';
 };
 
-function clickElement(id){
+function mathType(ke, inputid, type) {
+
+    let input1 = document.getElementById(inputid);
+    let math = false;
+    
+    // acept only characters of ASCII type range
+    switch (type) {
+        case 'number-only':
+            return ke.charCode >= 48 && ke.charCode <= 57
+            break;
+        case 'text-only':
+            return ke.charCode < 48 && ke.charCode > 57
+            break;
+    }
+    
+    return true;
+}
+
+function clickElement(id) {
     document.getElementById(id).click();
 }

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        SIIMA Perfil
+        SIIMA Adminer
     </title>
 
     <!-- Bootstrap Binding
@@ -59,7 +59,9 @@
                     <div class="col-sm-12 col-md-5 order-md-3">
                         <div class="row d-none d-sm-flex h-100 justify-content-md-end align-items-end fs-6"
                             id="navbarLinks">
-                            <a class="col-3 nav-link navbar-link" href="/test-log.html">Analisis</a>
+                            <a class="col-3 nav-link navbar-link" href="/users-list.html">Usuarios</a>
+                            <a class="col-3 nav-link navbar-link" href="/events-log.html">Eventos</a>
+                            
                         </div>
                     </div>
 
@@ -71,9 +73,10 @@
         <div class="offcanvas offcanvas-start p-0 w-50" tabindex="-1" id="navOffcanvas"
             aria-labelledby="offcanvasLabel">
             <div class="offcanvas-header bg-success align-items-start" id="offcanvasHeader">
+                
                 <!--User Profile data-->
                 <h5 class="offcanvas-title text-start">
-                    <a href=".">
+                    <a>
                         <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo" src="img/perfil.png"
                             width="80" height="80">
                     </a>
@@ -92,9 +95,9 @@
 
                     <!--Profile user name-->
                     <span class="col-8 text-nowrap overflow-hidden ps-3 user-name">
-                        USERNAME IS HERE
+                        ADMIN: ROOT
                     </span>
-
+                    
                     <!--Profile Exit button-->
                     <a href="login.html" class="col-2 border-none p-0 text-end me-2">
                         <img class="img-fluid" src="img/exit-ligth.png" width="30" height="30">
@@ -104,8 +107,11 @@
 
                 
                 <!--Offcnavas Links-->
-                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/test-log.html">
-                    Analisis
+                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/user-list.html">
+                    Usuarios
+                </a>
+                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/events-log.html">
+                    Eventos
                 </a>
 
             </div>
@@ -138,8 +144,8 @@
                             </spam>
                             
                             <!--Profile user name-->
-                            <span class="col-12 text-nowrap overflow-hidden text-center user-name-label">
-                                USERNAME IS HERE
+                            <span class="col-12 text-nowrap overflow-hidden text-center user-name user-name-label">
+                                ADMIN: ROOT
                             </span>
                             
                             <span class="col-6 text-nowrap overflow-hidden">
@@ -173,13 +179,6 @@
                                 23 Años
                             </span>
                             
-                            <spam class="col-6 text-nowrap overflow-hidden">
-                                Grupo sanguineo:    
-                            </spam>
-                            <span class="col-6 text-nowrap overflow-hidden blod-label" id="userBlodGroup">
-                                AB+
-                            </span>
-                            
                             <!--Separation line-->
                             <span class="col-12 border border-dark"></span>
                             
@@ -187,7 +186,7 @@
                                 Ultimo Acceso:    
                             </spam>
                             <span class="col-6 text-nowrap overflow-hidden" id="userBlodGroup">
-                                <time>10/10/2022 <b>12:24PM</b></time>
+                                <time>11/10/2022 <b>9:25AM</b></time>
                             </span>
                             
                             

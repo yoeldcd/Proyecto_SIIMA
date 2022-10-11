@@ -1,15 +1,19 @@
 /*Define Custom Theme Colors set*/
 :root {
     --theme-background-color: #ffffff;
-    --tehem-enfasis-background-color: #eaeceb;
+    --tehem-enphasis-background-color: #eaeceb;
 
     --theme-primary-color: #2fb166;
     --theme-secondary-color: #278f52;
-    --theme-enfasis-color: #006400;
+    --theme-enphasis-color: #006400;
 
     --theme-text-color: #000000;
     --theme-ligth-text-color: white;
     --theme-focus-text-color: #0e300e;
+    
+    --theme-red-background-color: #f88282;
+    --theme-red-text-color: #f85555;
+    --theme-enphasis-red-text-color: #a02525;
 
 }
 
@@ -34,16 +38,44 @@
     border-bottom: solid 2px var(--theme-primary-color);
 }
 
-.navbar-link {
+.navbar-link, .link-green {
     color: var(--theme-secondary-color);
     border-bottom: solid 2px var(--theme-background-color);
     text-decoration: none;
 }
 
-.navbar-link:hover {
-    color: var(--theme-secondary-color);
-    background-image: linear-gradient(to top, var(--theme-enfasis-background-color), white, white);
-    border-bottom: solid 2px var(--theme-enfasis-color);
+.navbar-link:hover, .link-green:hover {
+    color: var(--theme-enphasis-color);
+    background-image: linear-gradient(to top, var(--theme-enphasis-background-color), white, white);
+    border-bottom: solid 2px var(--theme-enphasis-color);
+}
+
+.link-black {
+    color: black;
+    text-decoration: none;
+}
+
+.link-black:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.link-red {
+    color: var(--theme-red-text-color);
+    text-decoration: none;
+}
+
+.link-red:hover {
+    color: var(--theme-enphasis-red-text-color);
+    text-decoration: underline;
+}
+
+.bg-green {
+    background-color: var(--theme-primary-color);
+}
+
+.bg-red {
+    background-color: var(--theme-red-background-color);
 }
 
 /*Offcanvas style rules*/
@@ -106,7 +138,7 @@
 }
 
 .user-icon:hover {
-    border-color: var(--theme-enfasis-color);
+    border-color: var(--theme-enphasis-color);
 }
 
 #navOffcanvas .user-name, .user-name-label {
@@ -140,7 +172,7 @@
 /*************************************************/
 .data-form {
     min-height: 50vh;
-    background-color: var(--tehem-enfasis-background-color);
+    background-color: var(--tehem-enphasis-background-color);
     border: double 2px var(--theme-primary-color);
 }
 
@@ -171,7 +203,7 @@
 /*Define custom inputs colors*/
 .form-input {
     outline: none;
-    border: solid 2px var(--tehem-enfasis-background-color);
+    border: solid 2px var(--tehem-enphasis-background-color);
     border-bottom: solid 2px var(--theme-primary-color);
 }
 
@@ -202,7 +234,7 @@ input[type="radio"] {
 /* appearance for checked radiobutton */
 input[type="radio"]:checked {
     box-shadow: none;
-    background-color: var(--theme-enfasis-color);
+    background-color: var(--theme-enphasis-color);
 }
 
 

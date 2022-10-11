@@ -98,13 +98,10 @@
 
             <!--Any web pages contents is here-->
 
-            <div class="row w-100 h-50 m-0">
+            <div class="row w-100 h-50 m-0 justify-content-center">
                 
-                <div class="col d-none d-sm-flex">
-                </div>
-
                 <!--Center column-->
-                <div class="col-12 col-sm-8 col-md-6 text-center h-100">
+                <div class="col-12 col-sm-8 col-md-6 col-lg-4 text-center h-100">
                     <form action="user-profile.html" class="form rounded-3 data-form p-2 m-0">
                         
                         <!-- Form Title Text -->
@@ -129,50 +126,47 @@
                             <div class="input-group mb-3">
                                 <input class="form-control form-input" id="userPassword" type="password"
                                     id="userPassword" maxlength="30" placeholder="Teclee su cotraseña" required>
-
+                                
                                 <span class="input-group-text" onclick="switchPasswordVisibility('userPassword','seeUserPasswordImage');">
                                     <img class="img-fluid" id="seeUserPasswordImage" src="./img/eye-fill.svg">
                                 </span>
-
+                            
                             </div>
                         </fieldset>
-
+                        
                         <!--Sigin anchor link-->
                         <a href="signin-user.html" class="form-group --text-small --link">
                             Registrarse
                         </a>
-
+                        
                         <!--Submit buttom-->
                         <div class="form-group text-end me-1 me-md-2">
                             <button class="btn float-self-center --button" type="submit">
                                 Entrar
                             </button>
                         </div>
-
+                    
                     </form>
                 </div>
-
-                <div class="col d-none d-sm-flex">
-                </div>
-
+                            
             </div>
-
+            
             <!--End of web contenet -->
-
+        
         </div>
     </main>
-
+    
     <!-- Web site Fixed bootom foterBar -->
     <footer class="">
         <div class="container-fluid fixed-bottom m-0" id="fixedBootomFooter">
             <div class="row h-100 justify-content-center align-items-center text-center">
                 <div class="col bg-light" style="height: 10vh;">
                     <!-- Footer content is here -->
-
+                    
                     <time>
                         10-10-2022
                     </time>
-
+                    
                     <!-- End Footer content -->
                 </div>
             </div>

@@ -118,26 +118,26 @@
                                 <label class="form-label">Nombres:</label>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <input class="form-control form-input" name="firstName" type="text" maxlength="30"
+                                <input class="form-control form-input" id="firstName" type="text" maxlength="30"
                                     placeholder="Primer Nombre" required>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <input class="form-control form-input" name="firstName" type="text" maxlength="30"
+                                <input class="form-control form-input" id="secondName" type="text" maxlength="30"
                                     placeholder="Segundo Nombre">
                             </div>
                         </fieldset>
-
+                        
                         <!--User Surnames Inputs-->
                         <fieldset class="row p-1 g-1">
                             <div class="col-12 text-start">
                                 <label class="form-label">Apellidos:</label>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <input class="form-control form-input" name="firstSurName" type="text" maxlength="30"
+                                <input class="form-control form-input" id="firstSurName" type="text" maxlength="30"
                                     placeholder="Primer Apellido" required>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <input class="form-control form-input" name="firstSurName" type="text" maxlength="30"
+                                <input class="form-control form-input" id="secondSurName" type="text" maxlength="30"
                                     placeholder="Segundo Apellido">
                             </div>
                         </fieldset>
@@ -148,43 +148,46 @@
                                 <label class="form-label">Genero:</label>
                             </div>
                             <div class="col-6 form-check">
+                                <input class="form-radio-input me-3" name="genere" id="male" type="radio" checked>
                                 <label class="form-check-label" for="#male"> Hombre</label>
-                                <input class="form-check-input" name="genere" id="male" type="radio" checked>
                             </div>
                             <div class="col-6 form-check">
+                                <input class="form-radio-input me-3" name="genere" id="female" type="radio">
                                 <label class="form-check-label" for="#female"> Mujer</label>
-                                <input class="form-check-input" name="genere" id="female" type="radio">
+
                             </div>
                         </fieldset>
-
+                        
                         <!--CI number-->
                         <fieldset class="row p-1 g-1">
                             <div class="col-12 text-start">
                                 <label class="form-label">Numero de CI:</label>
-                                <input class="form-control form-input" name="userPhone" type="number"
-                                    placeholder="No. de Carnet" required minlength="11" maxlength="11">
+                                <input class="form-control form-input" id="userCI" type="text"
+                                    placeholder="No. de Carnet" required minlength="11" maxlength="11"
+                                    onkeypress="return mathType(event ,'userCI','number-only');">
                             </div>
                         </fieldset>
 
                         <!--Phone number-->
                         <fieldset class="row p-1 g-1 justify-content-center">
-                            <div class="col-12">
+                            <div class="col-12 text-start">
                                 <label class="form-label">Telefono:</label>
                             </div>
 
-                            <div class="col-4 text-start">
+                            <div class="col-4 col-md-2 text-start">
                                 <span class="form-control form-input">
                                     +53
                                 </span>
                             </div>
 
-                            <div class="col-8">
-                                <input class="form-control form-input" name="userPhone" type="number"
-                                    placeholder="#######" minlength="8" maxlength="8">
+                            <div class="col">
+                                <input class="form-control form-input" id="userPhone" type="text" placeholder="#######"
+                                    minlength="8" maxlength="8"
+                                    onkeypress="return mathType(event ,'userPhone','number-only');">
                             </div>
-
+                        
                         </fieldset>
-
+                        
                         <!--Worker Information-->
                         <fieldset class="row p-2 m-2 mt-2 g-2 border border-secondary rounded-3">
 
@@ -192,7 +195,7 @@
                             <spam class="col-12 text-center fw-bold">
                                 Especialidad:
                             </spam>
-
+                            
                             <!--Worker user role-->
                             <div class="col-12 m-1 text-start">
                                 <label for="workerJob" class="form-label m-1">Puesto:</label>
@@ -234,7 +237,7 @@
                                     muesta
                                 </label>
                             </div>
-                            
+
                             <!-- Admin Password-->
                             <div class="col-12 col-md-6 text-start fw-bold">
                                 <label class="form-label m-1">
@@ -247,9 +250,8 @@
                                 <div class="input-group mb-3">
                                     <input class="form-control form-input" name="adminPassword" type="password"
                                         id="adminPassword" maxlength="30" placeholder="Contraseña de Administrador"
-                                        required
-                                    >
-                                    
+                                        required>
+
                                     <!--See password button-->
                                     <span class="input-group-text"
                                         onclick="switchPasswordVisibility('adminPassword','seeAdminPasswordImage')">
@@ -264,53 +266,50 @@
                         <!-- Credentials -->
                         <fieldset class="row p-2 g-1">
                             <div class="col-12 p-2 text-start border border-secondary rounded-3">
-
-                                <!--Credentials section title -->
                                 <label class="form-label w-100 text-center fw-bold">Credenciales:</label>
 
                                 <div class="row p-1">
 
                                     <!--User nickname-->
                                     <fieldset class="col-12 form-group text-start">
-                                        <label class="form-label ms-1" for="userName">Usuario:</label>
-                                        <input class="form-control form-input" name="userName" type="text"
+                                        <label class="form-label ms-1" for="#userName">Usuario:</label>
+                                        <input class="form-control form-input" id="userName" type="text"
                                             maxlength="30" placeholder="Teclee un nombre de usuario">
                                     </fieldset>
-                                    
+
                                     <!--Recuperation mail-->
                                     <fieldset class="col-12 form-group text-start mt-3">
-                                        <label class="form-label ms-1" for="userName">Correo de Recuperacion:</label>
-                                        <input class="form-control form-input" name="userName" type="email"
-                                            maxlength="30" placeholder="example@nauta.cu">
+                                        <label class="form-label ms-1" for="#userMail">Correo de Recuperacion:</label>
+                                        <input class="form-control form-input" name="userMail" type="email"
+                                            maxlength="30" placeholder="example@nauta.cu" required>
                                     </fieldset>
                                     
+                                    <!--User password (click -> showPassword)-->
                                     <label class="form-label mt-3 ms-1" for="userPassword">Contraseña:</label>
 
-                                    <!--User password (click -> showPassword)-->
                                     <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
                                         <div class="input-group mb-3">
-                                            <input class="form-control form-input" name="userPassword" type="password"
-                                                id="userPassword" maxlength="30" placeholder="Teclee su c0ntr4s3ñ4"
+                                            <input class="form-control form-input" id="userPassword" type="password"
+                                                maxlength="30" placeholder="Teclee su c0ntr4s3ñ4"
                                                 onkeyup="mathInputs('userPassword','userPassword2')">
-
+                                            
                                             <!--See password button-->
                                             <span class="input-group-text"
                                                 onclick="switchPasswordVisibility('userPassword','seeUserPasswordImage')">
                                                 <img class="img-fluid" id="seeUserPasswordImage"
                                                     src="./img/eye-fill.svg">
                                             </span>
-
+                                        
                                         </div>
                                     </fieldset>
-
+                                    
                                     <!--User password verify (click -> showPassword)-->
                                     <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
                                         <div class="input-group mb-3">
-                                            <input class="form-control form-input" name="userPassword2" type="password"
-                                                id="userPassword2" maxlength="30" placeholder="Repita su c0ntr4s3ñ4"
-                                                onkeyup="mathInputs('userPassword','userPassword2')"
-                                                required>
-
+                                            <input class="form-control form-input" id="userPassword2" type="password"
+                                                maxlength="30" placeholder="Repita su c0ntr4s3ñ4"
+                                                onkeyup="mathInputs('userPassword','userPassword2')">
+                                            
                                             <!--See password button-->
                                             <span class="input-group-text"
                                                 onclick="switchPasswordVisibility('userPassword2','seeUserPassword2Image')">
@@ -325,7 +324,7 @@
 
                             </div>
                         </fieldset>
-
+                        
                         <!--Submit buttom-->
                         <div class="form-group text-end me-1 me-md-2">
                             <button class="btn float-self-center --button" type="submit">

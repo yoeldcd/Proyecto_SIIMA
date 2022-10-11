@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Welcom SIIMA
+    </title>
+
+    <!-- Bootstrap Binding
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        -->
+
+    <link rel="stylesheet" type="text/css" href="bootstrap-5.2.2-dist/css/bootstrap.min.css">
+    <script src="bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+
+    <!--Custom styles sheets-->
+    <link rel="stylesheet" type="text/css" href="css/main-layouts-styles.css">
+
+</head>
+
+<body>
+
+    <!--Web site header-->
+    <header>
+        <!-- Navigation Bar -->
+        <nav class="navbar fixed-top-navbar fixed-top" id="navbar">
+            <div class="container-fluid">
+                <div class="row w-100 h-25 h-md-100 m-0 text-center">
+
+                    <!--Nav banner-->
+                    <div class="col-12 col-sm-8 col-md-4 order-md-1">
+                        <img src="img/minsap.png" class="img-fluid" id="web-logo">
+                    </div>
+
+                    <!--Nav user profile area-->
+                    <div class="col-4 col-md-2 order-md-4">
+                        <div class="row d-none d-sm-flex h-100 justify-content-end align-items-end text-center p-0">
+
+                            <!--Profile User icon-->
+                            <a class="col-11 p-0" href="user-profile.html">
+                                <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo" src="img/perfil.png"
+                                    width="50" height="50">
+                            </a>
+
+                            <!--Profile User name-->
+                            <div
+                                class="col-8 p-0 me-1 fs-6 text-end text-md-center text-nowrap overflow-hidden text-decoration-underline only-text">
+                                USERNAME
+                            </div>
+
+                            <!--Profile Exit button-->
+                            <div class="col-2 p-0">
+                                <a href="login.html" class="p-0 border-none">
+                                    <img class="img-fluid" src="img/exit-dark.png" width="25" height="25">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Nav blank Space-->
+                    <div class="col-sm-12 col-md-1 order-md-2 text-start">
+                        <a class="btn d-inline d-sm-none p-0" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#navOffcanvas" aria-controls="navOffcanvas" id="offcanvasOpenButton">
+                            <span class="container-fluid navbar-toggler-icon"></span>
+                        </a>
+                    </div>
+
+                    <!--Nav links-->
+                    <div class="col-sm-12 col-md-5 order-md-3">
+                        <div class="row d-none d-sm-flex h-100 justify-content-md-end align-items-end fs-6"
+                            id="navbarLinks">
+                            <a class="col-3 nav-link navbar-link" href="/test-edition.html">Analisis</a>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+
+        <!-- Navigation Offcanvas Side Menu-->
+        <div class="offcanvas offcanvas-start p-0 w-50" tabindex="-1" id="navOffcanvas"
+            aria-labelledby="offcanvasLabel">
+            <div class="offcanvas-header bg-success align-items-start" id="offcanvasHeader">
+                <!--User Profile data-->
+                <h5 class="offcanvas-title text-start">
+                    <a href="user-profile.html">
+                        <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo" src="img/perfil.png"
+                            width="80" height="80">
+                    </a>
+                </h5>
+
+                <!--Offcanvas Close button -->
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+                    id="offcanvasCloseButton">
+                </button>
+
+            </div>
+            <div class="offcanvas-body p-0 w-100 text-start fs-4" id="offcanvasLinks">
+
+                <div
+                    class="col-12 row justify-content-between text-ligth m-0 fs-6 text-nowrap overflow-hidden user-name">
+
+                    <!--Profile user name-->
+                    <span class="col-8 text-nowrap overflow-hidden ps-3 user-name">
+                        USERNAME
+                    </span>
+
+                    <!--Profile Exit button-->
+                    <a href="login.html" class="col-2 border-none p-0 text-end me-2">
+                        <img class="img-fluid" src="img/exit-ligth.png" width="30" height="30">
+                    </a>
+
+                </div>
+
+
+                <!--Offcnavas Links-->
+                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/test-edition.html">
+                    Analisis
+                </a>
+
+            </div>
+        </div>
+    </header>
+
+    <!--Web site Content layout-->
+    <main class="flex-shrink-0" style="margin-bottom: 15vh;">
+        <div class="container-fluid bg-gray content-layout">
+
+            <!--Any web pages contents is here-->
+
+            <div class="row justify-content-center">
+
+                <div class="col-12 text-center fs-5 fw-bold">
+                    Gestion de Tareas
+                </div>
+
+                <!--User analisis list-->
+                <div class="col-11 col-md-8 mt-2 border border-dark overflow-auto" style="height: 50vh;">
+
+                    <table class="table">
+                        <thead>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Accion</th>
+                        </thead>
+                        <tbody>
+                            <tr class="examen bg-green">
+                                <td>Orina</td>
+                                <td><time>11/10/22</time></td>
+                                <td>
+                                    <a class="link-black">EDITAR</a> /
+                                    <a class="link-black">NOTFICAR</a>
+                                </td>
+                            </tr>
+                            <tr class="examen bg-green">
+                                <td>Sangre</td>
+                                <td><time>09/10/22</time></td>
+                                <td>
+                                    <a class="link-black">EDITAR</a> /
+                                    <a class="link-black">NOTIFICAR</a>
+                                </td>
+                            </tr>
+                            <tr class="examen bg-red">
+                                <td>Orina</td>
+                                <td><time>08/10/22</time></td>
+                                <td><a class="link-black">EDITAR</a></td>
+                            </tr>
+                            <tr class="examen bg-red">
+                                <td>Orina</td>
+                                <td><time>11/10/22</time></td>
+                                <td><a class="link-black">EDITAR</a></td>
+                            </tr>
+                            <tr class="examen bg-red">
+                                <td>Sangre</td>
+                                <td><time>09/10/22</time></td>
+                                <td><a class="link-black">EDITAR</a></td>
+                            </tr>
+                            <tr class="examen bg-red">
+                                <td>Orina</td>
+                                <td><time>08/10/22</time></td>
+                                <td><a class="link-black">EDITAR</a></td>
+                            </tr>
+                            <tr class="examen bg-red">
+                                <td>Orina</td>
+                                <td><time>11/10/22</time></td>
+                                <td><a class="link-black">EDITAR</a></td>
+                            </tr>
+                            <tr class="examen bg-red">
+                                <td>Sangre</td>
+                                <td><time>09/10/22</time></td>
+                                <td><a class="link-black">EDITAR</a></td>
+                            </tr>
+                            <tr class="examen bg-red">
+                                <td>Orina</td>
+                                <td><time>08/10/22</time></td>
+                                <td><a class="link-black">EDITAR</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                
+                </div>
+
+                <!--User analisis actions-->
+                <div class="col-11 col-md-8 mt-2 text-end">
+                    <button class="btn p-1 px-3 me-3 --button" data-bs-toggle="modal"
+                        data-bs-target="#addTestDialog">NUEVO</button>
+                </div>
+
+                <!--Modal Add Dialog-->
+                <div class="modal fade" tabindex="-1" aria-hidden="true" id="addTestDialog">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            
+                            <div class="modal-header text-center">
+                                <spam class="modal-title">Nuevo Analisis</spam>
+                            </div>
+                            
+                            <!--test description formulary-->
+                            <div class="modal-body">
+                                <form class="form">
+                                    <fieldset class="col-12 form-group m-2 text-start">
+
+                                        <!-- test user role-->
+                                        <label for="#testType" class="form-label m-1">Tipo:</label>
+                                        <select id="testType" class="form-select form-input">
+                                            <option selected>Nefrologico</option>
+                                            <option>Sanguineo</option>
+                                            <option>Virologico</option>
+                                        </select>
+                                            
+                                        <!--tested User CI number-->
+                                        <fieldset class="row p-1 g-1">
+                                            <div class="col-12 text-start">
+                                                <label class="form-label">CI de paciente:</label>
+                                                <input class="form-control form-input" id="testCI" type="text"
+                                                    placeholder="No. de Carnet" required minlength="11" maxlength="11"
+                                                    onkeypress="return mathType(event ,'testCI','number-only');">
+                                            </div>
+                                        </fieldset>
+                                    
+                                        <!-- Test ID User number-->
+                                        <fieldset class="row p-1 g-1">
+                                            <div class="col-12 text-start">
+                                                <label class="form-label">ID de muestra:</label>
+                                                <input class="form-control form-input" id="testID" type="text"
+                                                    placeholder="No. de ID" required minlength="11" maxlength="11"
+                                                    onkeypress="return mathType(event ,'testID','number-only');">
+                                            </div>
+                                        </fieldset>
+                                    
+                                    </fieldset>
+                                </form>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn --button">AGREGAR</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!--End of web contenet -->
+
+        </div>
+    </main>
+
+    <!-- Web site Fixed bootom foterBar -->
+    <footer class="">
+        <div class="container-fluid fixed-bottom m-0" id="fixedBootomFooter">
+            <div class="row h-100 justify-content-center align-items-center text-center">
+                <div class="col bg-light" style="height: 10vh;">
+                    <!-- Footer content is here -->
+
+                    <time>
+                        10-10-2022
+                    </time>
+
+                    <!-- End Footer content -->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
