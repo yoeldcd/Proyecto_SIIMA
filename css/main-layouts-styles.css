@@ -96,6 +96,10 @@
 
 }
 
+.user-icon-large {
+    border: none;
+}
+
 .user-icon {
     border: solid 2px var(--theme-primary-color);
 }
@@ -104,7 +108,7 @@
     border-color: var(--theme-enfasis-color);
 }
 
-#navOffcanvas .user-name {
+#navOffcanvas .user-name, .user-name-label {
     background-color: var(--theme-secondary-color);
     color: var(--theme-ligth-text-color);
 }
@@ -123,7 +127,7 @@
 
 /*Defining Content layout style*/
 .content-layout {
-    margin-top: 25vh;
+    margin-top: 22vh;
     background-color: var(--theme-background-color);
 }
 
@@ -180,7 +184,7 @@ input[type="radio"] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-
+    
     /* create custom radiobutton appearance */
     display: inline-block;
     width: 20px;
@@ -201,4 +205,7 @@ input[type="radio"]:checked {
 }
 
 
-
+.blod-label {
+    font-weight: bold;
+    color: red;
+}

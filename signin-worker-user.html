@@ -104,7 +104,7 @@
 
                 <!--Center column-->
                 <div class="col-12 col-sm-8 col-md-6 text-center h-100">
-                    <form class="form rounded-3 data-form p-2 m-0">
+                    <form action="user-profile.html" class="form rounded-3 data-form p-2 m-0">
 
                         <!-- Form Title Text -->
                         <spam class="fs-5 fw-bold text-uppercase text-bold mb-5">
@@ -202,41 +202,63 @@
                                 </select>
                             </div>
 
-                            <!--Worker user permissions -->
+                            <!-- Worker User permissions -->
                             <div class="col-12 m-2 text-start">
                                 Permisos:
                             </div>
-                            
-                            <div class="col-12 m-1 text-start">
+
+                            <div class="col-12 col-md-6 text-start">
                                 <label class="form-label m-1">
-                                <input type="checkbox" id="userPermisionRead" class="form-checkox me-2">Consultar muesta
-                                </label>
-                            </div>
-                            
-                            <div class="col-12 m-1 text-start">
-                                <label class="form-label m-1">
-                                <input type="checkbox" id="userPermisionAdd" class="form-checkox me-2">Agregar muesta
-                                </label>
-                            </div>
-                        
-                            <div class="col-12 m-1 text-start">
-                                <label class="form-label m-1">
-                                <input type="checkbox" id="userPermisionEdit" class="form-checkox me-2">Modificar muesta
-                                </label>
-                            </div>
-                            
-                            <div class="col-12 m-1 text-start">
-                                <label class="form-label m-1">
-                                <input type="checkbox" id="userPermisionDelet" class="form-checkox me-2">Eliminar muesta
+                                    <input type="checkbox" id="userPermisionRead" class="form-checkox me-2">Consultar
+                                    muesta
                                 </label>
                             </div>
 
-                             <div class="col-12 m-1 text-start">
+                            <div class="col-12 col-md-6 text-start">
                                 <label class="form-label m-1">
-                                <input type="checkbox" id="userPermisionRoot" class="form-checkox me-2">Administrador
+                                    <input type="checkbox" id="userPermisionAdd" class="form-checkox me-2">Agregar
+                                    muesta
                                 </label>
                             </div>
-                        
+
+                            <div class="col-12 col-md-6 text-start">
+                                <label class="form-label m-1">
+                                    <input type="checkbox" id="userPermisionEdit" class="form-checkox me-2">Modificar
+                                    muesta
+                                </label>
+                            </div>
+
+                            <div class="col-12 col-md-6 text-start">
+                                <label class="form-label m-1">
+                                    <input type="checkbox" id="userPermisionDelet" class="form-checkox me-2">Eliminar
+                                    muesta
+                                </label>
+                            </div>
+                            
+                            <!-- Admin Password-->
+                            <div class="col-12 col-md-6 text-start fw-bold">
+                                <label class="form-label m-1">
+                                    <input type="checkbox" id="userPermisionRoot"
+                                        class="form-checkox me-2">Administrador
+                                </label>
+                            </div>
+
+                            <fieldset class="col-12 form-group text-start mt-1">
+                                <div class="input-group mb-3">
+                                    <input class="form-control form-input" name="adminPassword" type="password"
+                                        id="adminPassword" maxlength="30" placeholder="Contraseña de Administrador"
+                                        required
+                                    >
+                                    
+                                    <!--See password button-->
+                                    <span class="input-group-text"
+                                        onclick="switchPasswordVisibility('adminPassword','seeAdminPasswordImage')">
+                                        <img class="img-fluid" id="seeAdminPasswordImage" src="./img/eye-fill.svg">
+                                    </span>
+
+                                </div>
+                            </fieldset>
+
                         </fieldset>
 
                         <!-- Credentials -->
@@ -254,7 +276,14 @@
                                         <input class="form-control form-input" name="userName" type="text"
                                             maxlength="30" placeholder="Teclee un nombre de usuario">
                                     </fieldset>
-                                    <br>
+                                    
+                                    <!--Recuperation mail-->
+                                    <fieldset class="col-12 form-group text-start mt-3">
+                                        <label class="form-label ms-1" for="userName">Correo de Recuperacion:</label>
+                                        <input class="form-control form-input" name="userName" type="email"
+                                            maxlength="30" placeholder="example@nauta.cu">
+                                    </fieldset>
+                                    
                                     <label class="form-label mt-3 ms-1" for="userPassword">Contraseña:</label>
 
                                     <!--User password (click -> showPassword)-->
@@ -279,7 +308,8 @@
                                         <div class="input-group mb-3">
                                             <input class="form-control form-input" name="userPassword2" type="password"
                                                 id="userPassword2" maxlength="30" placeholder="Repita su c0ntr4s3ñ4"
-                                                onkeyup="mathInputs('userPassword','userPassword2')">
+                                                onkeyup="mathInputs('userPassword','userPassword2')"
+                                                required>
 
                                             <!--See password button-->
                                             <span class="input-group-text"
@@ -299,7 +329,7 @@
                         <!--Submit buttom-->
                         <div class="form-group text-end me-1 me-md-2">
                             <button class="btn float-self-center --button" type="submit">
-                                REGISTARSE
+                                REGISTAR
                             </button>
                         </div>
 

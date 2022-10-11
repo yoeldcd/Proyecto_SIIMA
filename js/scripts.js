@@ -22,3 +22,7 @@ function mathInputs(input1id, input2id) {
     
     input2.style.cssText = 'background: white';
 };
+
+function clickElement(id){
+    document.getElementById(id).click();
+}

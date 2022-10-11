@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Welcom SIIMA
+    </title>
+
+    <!-- Bootstrap Binding
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        -->
+
+    <link rel="stylesheet" type="text/css" href="bootstrap-5.2.2-dist/css/bootstrap.min.css">
+    <script src="bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+
+    <!--Custom styles sheets-->
+    <link rel="stylesheet" type="text/css" href="css/main-layouts-styles.css">
+
+    <script src="js/scripts.js"></script>
+</head>
+
+<body>
+
+    <!--Web site header-->
+    <header>
+        <!-- Navigation Bar -->
+        <nav class="navbar fixed-top-navbar fixed-top" id="navbar">
+            <div class="container-fluid">
+                <div class="row w-100 h-25 h-md-100 m-0 text-center align-items-end">
+                    
+                    <!--Nav banner-->
+                    <div class="col-12 col-sm-10 col-md-5 order-md-1">
+                        <img src="img/minsap.png" class="img-fluid" id="web-logo">
+                    </div>
+                    
+                    <!--Nav user profile area-->
+                    <div class="col-1 order-md-4 d-none d-sm-flex text-center text-ms-end">
+                        
+                        <!--Profile Exit button-->
+                        <a class="p-0 border-none navbar-link nav-link">
+                            <img class="img-fluid" src="img/exit-dark.png" width="25" height="25">SALIR
+                        </a>
+                    
+                    </div>
+                    
+                    <!--Nav blank Space-->
+                    <div class="col-sm-12 col-md-1 order-md-2 text-start">
+                        <a class="btn d-inline d-sm-none p-0" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#navOffcanvas" aria-controls="navOffcanvas" id="offcanvasOpenButton">
+                            <span class="container-fluid navbar-toggler-icon"></span>
+                        </a>
+                    </div>
+                    
+                    <!--Nav links-->
+                    <div class="col-sm-12 col-md-5 order-md-3">
+                        <div class="row d-none d-sm-flex h-100 justify-content-md-end align-items-end fs-6"
+                            id="navbarLinks">
+                            <a class="col-3 nav-link navbar-link" href=".">Analisis</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+
+        <!-- Navigation Offcanvas Side Menu-->
+        <div class="offcanvas offcanvas-start p-0 w-50" tabindex="-1" id="navOffcanvas"
+            aria-labelledby="offcanvasLabel">
+            <div class="offcanvas-header bg-success align-items-start" id="offcanvasHeader">
+                <!--User Profile data-->
+                <h5 class="offcanvas-title text-start">
+                    <a href=".">
+                        <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo" src="img/perfil.png"
+                            width="80" height="80">
+                    </a>
+                </h5>
+
+                <!--Offcanvas Close button -->
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+                    id="offcanvasCloseButton">
+                </button>
+
+            </div>
+            <div class="offcanvas-body p-0 w-100 text-start fs-4" id="offcanvasLinks">
+
+                <div
+                    class="col-12 row justify-content-between text-ligth m-0 fs-6 text-nowrap overflow-hidden user-name">
+
+                    <!--Profile user name-->
+                    <span class="col-8 text-nowrap overflow-hidden ps-3 user-name">
+                        USERNAME IS HERE
+                    </span>
+
+                    <!--Profile Exit button-->
+                    <a class="col-2 border-none p-0 text-end me-2">
+                        <img class="img-fluid" src="img/exit-ligth.png" width="30" height="30">
+                    </a>
+                
+                </div>
+
+                
+                <!--Offcnavas Links-->
+                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href=".">
+                    Analisis
+                </a>
+
+            </div>
+        </div>
+    </header>
+
+    <!--Web site Content layout-->
+    <main class="flex-shrink-0" style="margin-bottom: 15vh;">
+        <div class="container-fluid bg-gray content-layout mb-25">
+
+            <!--Any web pages contents is here-->
+            
+            <div class="row">
+                <div class="row w-100 h-50 m-0">
+                    <div class="col d-none d-sm-flex">
+                    </div>
+                    
+                    <!--Center column-->
+                    <div class="col-12 col-sm-8 col-md-6 text-center border border-dark px-1">
+                        <div class="row p-2 justify-content-center align-items-center g-2 text-start">
+                            
+                            <!--Profile User icon-->
+                            <spam class="col-12 text-center" href=".">
+                                <img class="img rounded-1 fs-6 bg-gray user-icon-large" alt="user logo" src="img/perfil.png"
+                                    width="150" height="150">
+                                <br>
+                                <img src="img/edit-logo.png" width="40" height="40" class="img border-dark bottom-0" onclick="clickElement('userLogoFile')">
+                                <input type="file" id="userLogoFile" class="visually-hidden-focusable">
+                                
+                            </spam>
+                            
+                            <!--Profile user name-->
+                            <span class="col-12 text-nowrap overflow-hidden text-center user-name-label">
+                                USERNAME IS HERE
+                            </span>
+                            
+                            <span class="col-6 text-nowrap overflow-hidden">
+                                Nombre:
+                            </span>
+                            <span class="col-6 text-nowrap overflow-hidden">
+                                Yoel David
+                            </span>
+                            
+                            
+                            <span class="col-6 text-nowrap overflow-hidden">
+                                Apellidos
+                            </span>
+                            <spam class="col-6 text-nowrap overflow-hidden" id="userSurNames">
+                                Correa Duke
+                            </spam>
+                            
+                            
+                            <spam class="col-6 text-nowrap overflow-hidden">
+                                Sexo:    
+                            </spam>
+                            <span class="col-6 text-nowrap overflow-hidden" id="userGenere">
+                                masculino
+                            </span>
+                            
+                            
+                            <spam class="col-6 text-nowrap overflow-hidden">
+                                Edad:    
+                            </spam>
+                            <span class="col-6 text-nowrap overflow-hidden" id="userAge">
+                                23 Años
+                            </span>
+                            
+                            <spam class="col-6 text-nowrap overflow-hidden">
+                                Grupo sanguineo:    
+                            </spam>
+                            <span class="col-6 text-nowrap overflow-hidden blod-label" id="userBlodGroup">
+                                AB+
+                            </span>
+                            
+                            
+                            
+                        
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="col d-none d-sm-flex">
+                    </div>
+                </div>
+            </div>
+
+            <!--End of web contenet -->
+
+        </div>
+    </main>
+
+    <!-- Web site Fixed bootom foterBar -->
+    <footer class="">
+        <div class="container-fluid fixed-bottom m-0" id="fixedBootomFooter">
+            <div class="row h-100 justify-content-center align-items-center text-center">
+                <div class="col bg-light" style="height: 10vh;">
+                    <!-- Footer content is here -->
+
+                    <time>
+                        10-10-2022
+                    </time>
+
+                    <!-- End Footer content -->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>
