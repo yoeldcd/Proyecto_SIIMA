@@ -6,19 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        SIIMA Login
+        SIIMA Registro de Usuario
     </title>
 
     <!-- Bootstrap Binding
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
         -->
-
     <script src="bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="bootstrap-5.2.2-dist/css/bootstrap.min.css">
 
     <!--Custom styles sheets-->
     <link rel="stylesheet" type="text/css" href="css/main-layouts-styles.css">
+
+    <script src="js/scripts.js"></script>
 
 </head>
 
@@ -125,12 +126,11 @@
                                     placeholder="Segundo Nombre">
                             </div>
                         </fieldset>
-
                         
                         <!--User Surnames Inputs-->
                         <fieldset class="row p-1 g-1">
                             <div class="col-12 text-start">
-                                <label class="form-label">Nombres:</label>
+                                <label class="form-label">Apellidos:</label>
                             </div>
                             <div class="col-12 col-sm-6">
                                 <input class="form-control form-input" name="firstSurName" type="text" maxlength="30"
@@ -142,14 +142,18 @@
                             </div>
                         </fieldset>
                         
+                        <!--User Genere-->
                         <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
-                            <div class="col-12 form-check">
-                                <label class="form-check-label"> Hombre</label>
-                                <input class="form-check-input" name="genere" type="radio">
+                            <div class="col-12 text-start">
+                                <label class="form-label">Genero:</label>
                             </div>
-                            <div class="col-12 form-check">
-                                <label class="form-check-label"> Mujer</label>
-                                <input class="form-check-input" name="genere" type="radio">
+                            <div class="col-6 form-check">
+                                <label class="form-check-label" for="#male"> Hombre</label>
+                                <input class="form-check-input" name="genere" id="male" type="radio" checked>
+                            </div>
+                            <div class="col-6 form-check">
+                                <label class="form-check-label" for="#female"> Mujer</label>
+                                <input class="form-check-input" name="genere" id="female" type="radio">
                             </div>
                         </fieldset>
                         
@@ -161,14 +165,24 @@
                                     placeholder="No. de Carnet" required minlength="11" maxlength="11">
                             </div>
                         </fieldset>
-
+                        
                         <!--Phone number-->
-                        <fieldset class="row p-1 g-1">
-                            <div class="col-12 text-start">
+                        <fieldset class="row p-1 g-1 justify-content-center">
+                            <div class="col-12">
                                 <label class="form-label">Telefono:</label>
-                                <input class="form-control form-input" name="userPhone" type="number"
-                                    placeholder="No. de Telefono" minlength="8" maxlength="8">
                             </div>
+
+                            <div class="col-4 text-start">
+                                <span class="form-control form-input">
+                                    +53
+                                </span>
+                            </div>
+
+                            <div class="col-8">
+                                <input class="form-control form-input" name="userPhone" type="number"
+                                    placeholder="#######" minlength="8" maxlength="8">
+                            </div>
+
                         </fieldset>
 
                         <!-- Credentials -->
@@ -177,7 +191,7 @@
                                 <label class="form-label w-100 text-center fw-bold">Credenciales:</label>
 
                                 <div class="row p-1">
-                                    
+
                                     <!--User nickname-->
                                     <fieldset class="col-12 form-group text-start">
                                         <label class="form-label ms-1" for="userName">Usuario:</label>
@@ -186,50 +200,43 @@
                                     </fieldset>
                                     <br>
                                     <label class="form-label mt-3 ms-1" for="userPassword">Contraseña:</label>
-                                        
+
                                     <!--User password (click -> showPassword)-->
-                                    <fieldset class="col-12 col-md-6 form-group text-start mt-1">
+                                    <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
                                         <div class="input-group mb-3">
                                             <input class="form-control form-input" name="userPassword" type="password"
-                                                id="userPassword" maxlength="30" placeholder="Teclee su cotraseña">
+                                                id="userPassword" maxlength="30" placeholder="Teclee su c0ntr4s3ñ4"
+                                                onkeyup="mathInputs('userPassword','userPassword2')">
                                             
-                                            <span class="input-group-text" onclick="(function a() {
-                                                let btimg = document.getElementById('seeUserPasswordImage');
-                                                let input = document.getElementById('userPassword');
-                                                
-                                                // change password visibility and button logo
-                                                input.type = (input.type == 'password') ? 'text': input.type = 'password';
-                                                btimg.src = (input.type == 'text') ? './img/eye-slash-fill.svg': './img/eye-fill.svg';
-                                                })();">
+                                            <!--See password button-->
+                                            <span class="input-group-text"
+                                                onclick="switchPasswordVisibility('userPassword','seeUserPasswordImage')">
                                                 <img class="img-fluid" id="seeUserPasswordImage"
-                                                    src="./img/eye-slash-fill.svg">
+                                                    src="./img/eye-fill.svg">
                                             </span>
                                         
                                         </div>
                                     </fieldset>
                                     
                                     <!--User password verify (click -> showPassword)-->
-                                    <fieldset class="col-12 col-md-6 form-group text-start mt-1">
+                                    <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
                                         <div class="input-group mb-3">
                                             <input class="form-control form-input" name="userPassword2" type="password"
-                                                id="userPassword2" maxlength="30" placeholder="Teclee nuevamente">
-                                            
-                                            <span class="input-group-text" onclick="(function a() {
-                                                let btimg = document.getElementById('seeUserPassword2Image');
-                                                let input = document.getElementById('userPassword2');
-                                                
-                                                // change password visibility and button logo
-                                                input.type = (input.type == 'password') ? 'text': input.type = 'password';
-                                                btimg.src = (input.type == 'text') ? './img/eye-slash-fill.svg': './img/eye-fill.svg';
-                                                
-                                                })();">
+                                                id="userPassword2" maxlength="30" placeholder="Repita su c0ntr4s3ñ4"
+                                                onkeyup="mathInputs('userPassword','userPassword2')">
+
+                                            <!--See password button-->
+                                            <span class="input-group-text"
+                                                onclick="switchPasswordVisibility('userPassword2','seeUserPassword2Image')">
                                                 <img class="img-fluid" id="seeUserPassword2Image"
-                                                    src="./img/eye-slash-fill.svg">
+                                                    src="./img/eye-fill.svg">
                                             </span>
+
                                         </div>
                                     </fieldset>
 
                                 </div>
+
                             </div>
                         </fieldset>
 
