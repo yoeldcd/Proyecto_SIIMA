@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    
+
     <!--Web site header-->
     <header>
         <!-- Navigation Bar -->
@@ -73,12 +73,7 @@
                     <div class="col-sm-12 col-md-5 order-md-3">
                         <div class="row d-none d-sm-flex h-100 justify-content-md-end align-items-end fs-6"
                             id="navbarLinks">
-                            <a class="col-2 col-md nav-link navbar-link" href=".">Link 1</a>
-                            <a class="col-2 col-md nav-link navbar-link" href=".">Link 2</a>
-                            <a class="col-2 col-md nav-link navbar-link" href=".">Link 3</a>
-                            <a class="col-2 col-md nav-link navbar-link" href=".">Link 4</a>
-                            <a class="col-2 col-md nav-link navbar-link" href=".">Link 5</a>
-                            <a class="col-2 col-md nav-link navbar-link" href=".">Link 279</a>
+                            <a class="col-3 nav-link navbar-link" href="/examens-register.html">Analisis</a>
 
                         </div>
                     </div>
@@ -124,10 +119,10 @@
 
 
                 <!--Offcnavas Links-->
-                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href=".">
-                    Link 1
+                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/examens-register.html">
+                    Analisis
                 </a>
-                
+
             </div>
         </div>
     </header>
@@ -138,21 +133,94 @@
 
             <!--Any web pages contents is here-->
 
-            <div class="row">
-                <div class="col">
+            <div class="row justify-content-center">
 
-                    hello world
+                <div class="col-12 text-center fs-5 fw-bold">
+                    Registro de Examenes
+                </div>
 
+                <!--User analisis list-->
+                <div class="col-11 col-md-8 mt-2 border border-dark overflow-auto" style="height: 50vh;">
 
+                    <table class="table">
+                        <thead>
+                            <th scope="col"></th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Estado</th>
+                        </thead>
+                        <tbody>
+                            <tr class="examen">
+                                <td><input type="checkbox" class="form-ckeck"></td>
+                                <td>Orina</td>
+                                <td><time>11/10/22</time></td>
+                                <td><a class="navbar-link link">LISTO (VER)</a></td>
+                            </tr>
+                            <tr class="examen">
+                                <td><input type="checkbox" class="form-ckeck"></td>
+                                <td>Sangre</td>
+                                <td><time>09/10/22</time></td>
+                                <td><a class="navbar-link link">LISTO (VER)</a></td>
+                            </tr>
+                            <tr class="examen">
+                                <td><input type="checkbox" class="form-ckeck"></td>
+                                <td>Orina</td>
+                                <td><time>08/10/22</time></td>
+                                <td>Procesando</td>
+                            </tr>
+                            <tr class="examen">
+                                <td><input type="checkbox" class="form-ckeck"></td>
+                                <td>Orina</td>
+                                <td><time>11/10/22</time></td>
+                                <td>Procesando</td>
+                            </tr>
+                            <tr class="examen">
+                                <td><input type="checkbox" class="form-ckeck"></td>
+                                <td>Sangre</td>
+                                <td><time>09/10/22</time></td>
+                                <td>Procesando</td>
+                            </tr>
+                            <tr class="examen">
+                                <td><input type="checkbox" class="form-ckeck"></td>
+                                <td>Orina</td>
+                                <td><time>08/10/22</time></td>
+                                <td>Procesando</td>
+                            </tr>
+                            <tr class="examen">
+                                <td><input type="checkbox" class="form-ckeck"></td>
+                                <td>Orina</td>
+                                <td><time>11/10/22</time></td>
+                                <td>Procesando</td>
+                            </tr>
+                            <tr class="examen">
+                                <td><input type="checkbox" class="form-ckeck"></td>
+                                <td>Sangre</td>
+                                <td><time>09/10/22</time></td>
+                                <td>Procesando</td>
+                            </tr>
+                            <tr class="examen">
+                                <td><input type="checkbox" class="form-ckeck"></td>
+                                <td>Orina</td>
+                                <td><time>08/10/22</time></td>
+                                <td>Procesando</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                 </div>
+
+                <!--User analisis actions-->
+                <div class="col-11 col-md-8 mt-2 text-end">
+                    <button class="btn btn-danger p-1 px-3">BORRAR</button>
+                </div>
+
             </div>
 
             <!--End of web contenet -->
 
         </div>
     </main>
-    
+
     <!-- Web site Fixed bootom foterBar -->
     <footer class="">
         <div class="container-fluid fixed-bottom m-0" id="fixedBootomFooter">
