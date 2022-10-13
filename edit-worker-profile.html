@@ -49,8 +49,6 @@
                     <div class="col-sm-12 col-md-5 order-md-3">
                         <div class="row d-none d-sm-flex h-100 justify-content-md-end align-items-end fs-6"
                             id="navbarLinks">
-                            <a class="col-2 nav-link navbar-link" href=".">Inicio</a>
-
 
                         </div>
                     </div>
@@ -84,10 +82,7 @@
                 </div>
 
                 <!--Offcnavas Links-->
-                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href=".">
-                    Inicio
-                </a>
-
+                
             </div>
         </div>
     </header>
@@ -101,17 +96,30 @@
             <div class="row w-100 h-50 m-0">
                 <div class="col d-none d-sm-flex">
                 </div>
-                
+
                 <!--Center column-->
                 <div class="col-12 col-sm-8 col-md-6 text-center h-100">
                     <form action="user-profile.html" class="form rounded-3 data-form p-2 m-0">
-                        
+
                         <!-- Form Title Text -->
                         <spam class="fs-5 fw-bold text-uppercase text-bold mb-5">
-                            Editar Datos de Especialista:
+                            Editar Perfil:
                         </spam>
                         <br>
-                        
+
+                        <!--Profile User icon-->
+                        <spam class="col-12 text-center fw-bold" href=".">
+                            <img class="img-fluid rounded-5 user-icon-large" alt="user logo" src="img/perfil.png"
+                                width="150" height="150">
+                            <br>
+                            
+                            <!--Worker Icon change section-->
+                            <img src="img/edit-logo.png" width="40" height="40" class="img border-dark bottom-0">
+                            <a class="--link" onclick="clickElement('userLogoFile')">CAMBIAR</a>
+                            <input type="file" id="userLogoFile" class="visually-hidden-focusable">
+
+                        </spam>
+
                         <!--First name input group-->
                         <fieldset class="row p-1 g-1">
                             <div class="col-12 text-start">
@@ -126,7 +134,7 @@
                                     placeholder="Segundo Nombre">
                             </div>
                         </fieldset>
-                        
+
                         <!--User Surnames Inputs-->
                         <fieldset class="row p-1 g-1">
                             <div class="col-12 text-start">
@@ -141,7 +149,7 @@
                                     placeholder="Segundo Apellido">
                             </div>
                         </fieldset>
-                        
+
                         <!--User Genere-->
                         <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
                             <div class="col-12 text-start">
@@ -157,7 +165,7 @@
 
                             </div>
                         </fieldset>
-                        
+
                         <!--CI number-->
                         <fieldset class="row p-1 g-1">
                             <div class="col-12 text-start">
@@ -167,35 +175,35 @@
                                     onkeypress="return mathType(event ,'userCI','number-only');">
                             </div>
                         </fieldset>
-                        
+
                         <!--Phone number-->
                         <fieldset class="row p-1 g-1 justify-content-center">
                             <div class="col-12 text-start">
                                 <label class="form-label">Telefono:</label>
                             </div>
-                            
+
                             <div class="col-4 col-md-2 text-start">
                                 <span class="form-control form-input">
                                     +53
                                 </span>
                             </div>
-                            
+
                             <div class="col">
                                 <input class="form-control form-input" id="userPhone" type="text" placeholder="#######"
                                     minlength="8" maxlength="8"
                                     onkeypress="return mathType(event ,'userPhone','number-only');">
                             </div>
-                        
+
                         </fieldset>
-                        
+
                         <!--Worker Information-->
                         <fieldset class="row p-2 m-2 mt-2 g-2 border border-secondary rounded-3">
-                            
+
                             <!--Form worker section title-->
                             <spam class="col-12 text-center fw-bold">
                                 Especialidad:
                             </spam>
-                            
+
                             <!--Worker user role-->
                             <div class="col-12 m-1 text-start">
                                 <label for="workerJob" class="form-label m-1">Puesto:</label>
@@ -216,7 +224,7 @@
                                     muesta
                                 </label>
                             </div>
-                            
+
                             <div class="col-12 col-md-6 text-start">
                                 <label class="form-label m-1">
                                     <input type="checkbox" id="userPermisionAdd" class="form-checkox me-2">Agregar
@@ -230,7 +238,7 @@
                                     muesta
                                 </label>
                             </div>
-                            
+
                             <div class="col-12 col-md-6 text-start">
                                 <label class="form-label m-1">
                                     <input type="checkbox" id="userPermisionDelet" class="form-checkox me-2">Eliminar
@@ -245,29 +253,29 @@
                                         class="form-checkox me-2">Administrador
                                 </label>
                             </div>
-                            
+
                             <fieldset class="col-12 form-group text-start mt-1">
                                 <div class="input-group mb-3">
                                     <input class="form-control form-input" name="adminPassword" type="password"
                                         id="adminPassword" maxlength="30" placeholder="Contraseña de Administrador"
                                         required>
-                                    
+
                                     <!--See password button-->
                                     <span class="input-group-text"
                                         onclick="switchPasswordVisibility('adminPassword','seeAdminPasswordImage')">
                                         <img class="img-fluid" id="seeAdminPasswordImage" src="./img/eye-fill.svg">
                                     </span>
-                                
+
                                 </div>
                             </fieldset>
-                        
+
                         </fieldset>
-                        
+
                         <!-- Credentials -->
                         <fieldset class="row p-2 g-1">
                             <div class="col-12 p-2 text-start border border-secondary rounded-3">
                                 <label class="form-label w-100 text-center fw-bold">Credenciales:</label>
-                                
+
                                 <div class="row p-1">
 
                                     <!--User nickname-->
@@ -276,47 +284,47 @@
                                         <input class="form-control form-input" id="userName" type="text" maxlength="30"
                                             placeholder="Teclee un nombre de usuario">
                                     </fieldset>
-                                    
+
                                     <!--Recuperation mail-->
                                     <fieldset class="col-12 form-group text-start mt-3">
                                         <label class="form-label ms-1" for="#userMail">Correo de Recuperacion:</label>
                                         <input class="form-control form-input" name="userMail" type="email"
                                             maxlength="30" placeholder="example@nauta.cu" required>
                                     </fieldset>
-                                    
+
                                     <!--User password (click -> showPassword)-->
                                     <label class="form-label mt-3 ms-1" for="userPassword">Contraseña:</label>
-                                    
+
                                     <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
                                         <div class="input-group mb-3">
                                             <input class="form-control form-input" id="userPassword" type="password"
                                                 maxlength="30" placeholder="Teclee su c0ntr4s3ñ4"
                                                 onkeyup="mathInputs('userPassword','userPassword2')">
-                                            
+
                                             <!--See password button-->
                                             <span class="input-group-text"
                                                 onclick="switchPasswordVisibility('userPassword','seeUserPasswordImage')">
                                                 <img class="img-fluid" id="seeUserPasswordImage"
                                                     src="./img/eye-fill.svg">
                                             </span>
-                                        
+
                                         </div>
                                     </fieldset>
-                                    
+
                                     <!--User password verify (click -> showPassword)-->
                                     <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
                                         <div class="input-group mb-3">
                                             <input class="form-control form-input" id="userPassword2" type="password"
                                                 maxlength="30" placeholder="Repita su c0ntr4s3ñ4"
                                                 onkeyup="mathInputs('userPassword','userPassword2')">
-                                            
+
                                             <!--See password button-->
                                             <span class="input-group-text"
                                                 onclick="switchPasswordVisibility('userPassword2','seeUserPassword2Image')">
                                                 <img class="img-fluid" id="seeUserPassword2Image"
                                                     src="./img/eye-fill.svg">
                                             </span>
-                                        
+
                                         </div>
                                     </fieldset>
 
@@ -324,18 +332,24 @@
 
                             </div>
                         </fieldset>
-                        
+
                         <!--Submit buttom-->
                         <div class="form-group text-end me-1 me-md-2">
-                            <button class="btn float-self-center --button" type="submit">
-                                <img src="img/add-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
-                                REGISTAR
+                            <button type="submit" class="btn --button me-2" type="submit">
+                                <img src="img/save.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                                GUARDAR
                             </button>
+
+                            <button class="btn btn-danger" type="submit">
+                                <img src="img/delete-test-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                                DESCARTAR
+                            </button>
+
                         </div>
-                    
+
                     </form>
                 </div>
-                
+
                 <div class="col d-none d-sm-flex">
                 </div>
 
