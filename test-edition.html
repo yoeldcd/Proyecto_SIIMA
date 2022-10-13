@@ -20,6 +20,7 @@
     <!--Custom styles sheets-->
     <link rel="stylesheet" type="text/css" href="css/main-layouts-styles.css">
 
+    <script src="js/scripts.js"></script>
 </head>
 
 <body>
@@ -146,69 +147,105 @@
                         <thead>
                             <th scope="col">Tipo</th>
                             <th scope="col">Fecha</th>
-                            <th scope="col">Accion</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col" class="col text-center">Accion</th>
                         </thead>
                         <tbody>
-                            <tr class="examen bg-green">
-                                <td>Orina</td>
-                                <td><time>11/10/22</time></td>
-                                <td>
-                                    <a class="link-black">EDITAR</a> /
-                                    <a class="link-black">NOTFICAR</a>
+                            <tr class="examen bg-red">
+                                <td class="col">Nefrologico</td>
+                                <td class="col"><time>11/10/22</time></td>
+                                <td class="col">Pendiente</td>
+                                <td class="col text-end bg-light">
+                                    
+                                    <button class="btn --button border-light">
+                                        <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                                        EDITAR
+                                    </button>
                                 </td>
                             </tr>
-                            <tr class="examen bg-green">
-                                <td>Sangre</td>
-                                <td><time>09/10/22</time></td>
-                                <td>
-                                    <a class="link-black">EDITAR</a> /
-                                    <a class="link-black">NOTIFICAR</a>
+                            
+                            <tr class="examen bg-red">
+                                <td class="col">Microbilogico</td>
+                                <td class="col"><time>10/10/22</time></td>
+                                <td class="col">Pendiente</td>
+                                <td class="col text-end bg-light">
+                                    
+                                    <button class="btn --button border-light">
+                                        <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                                        EDITAR
+                                    </button>
                                 </td>
                             </tr>
-                            <tr class="examen bg-red">
-                                <td>Orina</td>
-                                <td><time>08/10/22</time></td>
-                                <td><a class="link-black">EDITAR</a></td>
+                            
+                            <tr class="examen bg-green">
+                                <td class="col">Sangre</td>
+                                <td class="col"><time>09/10/22</time></td>
+                                <td class="col">LISTO</td>
+                                <td class="col text-end bg-light">
+                                    
+                                    <button class="btn btn-danger border-light">
+                                        <img src="img/delete-test-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                                        NOTIFICAR
+                                    </button>
+
+                                    <button class="btn --button border-light">
+                                        <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                                        EDITAR
+                                    </button>
+                                    
+                                </td>
                             </tr>
-                            <tr class="examen bg-red">
-                                <td>Orina</td>
-                                <td><time>11/10/22</time></td>
-                                <td><a class="link-black">EDITAR</a></td>
+                            
+                            <tr class="examen bg-green">
+                                <td class="col">Nefrologico</td>
+                                <td class="col"><time>08/10/22</time></td>
+                                <td class="col">LISTO</td>
+                                <td class="col text-end bg-light">
+                                    
+                                    <button class="btn btn-danger border-light">
+                                        <img src="img/delete-test-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                                        NOTIFICAR
+                                    </button>
+                                    
+                                    <button class="btn --button border-light">
+                                        <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                                        EDITAR
+                                    </button>
+                                    
+                                </td>
                             </tr>
-                            <tr class="examen bg-red">
-                                <td>Sangre</td>
-                                <td><time>09/10/22</time></td>
-                                <td><a class="link-black">EDITAR</a></td>
+                            
+                            <tr class="examen bg-green">
+                                <td class="col">Microbilogico</td>
+                                <td class="col"><time>07/10/22</time></td>
+                                <td class="col">LISTO</td>
+                                <td class="col text-end bg-light">
+                                    
+                                    <button class="btn btn-danger border-light">
+                                        <img src="img/delete-test-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                                        NOTIFICAR
+                                    </button>
+
+                                    <button class="btn --button border-light">
+                                        <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                                        EDITAR
+                                    </button>
+                                    
+                                </td>
                             </tr>
-                            <tr class="examen bg-red">
-                                <td>Orina</td>
-                                <td><time>08/10/22</time></td>
-                                <td><a class="link-black">EDITAR</a></td>
-                            </tr>
-                            <tr class="examen bg-red">
-                                <td>Orina</td>
-                                <td><time>11/10/22</time></td>
-                                <td><a class="link-black">EDITAR</a></td>
-                            </tr>
-                            <tr class="examen bg-red">
-                                <td>Sangre</td>
-                                <td><time>09/10/22</time></td>
-                                <td><a class="link-black">EDITAR</a></td>
-                            </tr>
-                            <tr class="examen bg-red">
-                                <td>Orina</td>
-                                <td><time>08/10/22</time></td>
-                                <td><a class="link-black">EDITAR</a></td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                 
                 </div>
-
+                
                 <!--User analisis actions-->
                 <div class="col-11 col-md-8 mt-2 text-end">
                     <button class="btn p-1 px-3 me-3 --button" data-bs-toggle="modal"
-                        data-bs-target="#addTestDialog">NUEVO</button>
+                        data-bs-target="#addTestDialog">
+                        <img src="img/add.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                        NUEVO
+                        </button>
                 </div>
 
                 <!--Modal Add Dialog-->
@@ -258,7 +295,10 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn --button">AGREGAR</button>
+                                <button type="button" class="btn --button">
+                                    <img src="img/add.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                                    AGREGAR
+                                </button>
                             </div>
 
                         </div>

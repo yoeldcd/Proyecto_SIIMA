@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        SIIMA Usuarios
+    </title>
+
+    <!-- Bootstrap Binding
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        -->
+
+    <link rel="stylesheet" type="text/css" href="bootstrap-5.2.2-dist/css/bootstrap.min.css">
+    <script src="bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+
+    <!--Custom styles sheets-->
+    <link rel="stylesheet" type="text/css" href="css/main-layouts-styles.css">
+
+</head>
+
+<body>
+
+    <!--Web site header-->
+    <header>
+        <!-- Navigation Bar -->
+        <nav class="navbar fixed-top-navbar fixed-top" id="navbar">
+            <div class="container-fluid">
+                <div class="row w-100 h-25 h-md-100 m-0 text-center">
+
+                    <!--Nav banner-->
+                    <div class="col-12 col-sm-8 col-md-4 order-md-1">
+                        <img src="img/minsap.png" class="img-fluid" id="web-logo">
+                    </div>
+
+                    <!--Nav user profile area-->
+                    <div class="col-4 col-md-2 order-md-4">
+                        <div class="row d-none d-sm-flex h-100 justify-content-end align-items-end text-center p-0">
+
+                            <!--Profile User icon-->
+                            <a class="col-11 p-0" href="admin-profile.html">
+                                <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo" src="img/perfil.png"
+                                    width="50" height="50">
+                            </a>
+
+                            <!--Profile User name-->
+                            <div
+                                class="col-8 p-0 me-1 fs-6 text-end text-md-center text-nowrap overflow-hidden text-decoration-underline only-text">
+                                ADMIN: ROOT
+                            </div>
+
+                            <!--Profile Exit button-->
+                            <div class="col-2 p-0">
+                                <a href="login.html" class="p-0 border-none">
+                                    <img class="img-fluid" src="img/exit-dark.png" width="25" height="25">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Nav blank Space-->
+                    <div class="col-sm-12 col-md-1 order-md-2 text-start">
+                        <a class="btn d-inline d-sm-none p-0" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#navOffcanvas" aria-controls="navOffcanvas" id="offcanvasOpenButton">
+                            <span class="container-fluid navbar-toggler-icon"></span>
+                        </a>
+                    </div>
+
+                    <!--Nav links-->
+                    <div class="col-sm-12 col-md-5 order-md-3">
+                        <div class="row d-none d-sm-flex h-100 justify-content-md-end align-items-end fs-6"
+                            id="navbarLinks">
+                            <a class="col-3 nav-link navbar-link" href="/users-list.html">
+                                Usuarios
+                            </a>
+                            <a class="col-5 nav-link navbar-link" href="/workers-list.html">
+                                Especialistas
+                            </a>
+                            <a class="col-3 nav-link navbar-link" href="/events-log.html">
+                                Eventos
+                            </a>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+
+        <!-- Navigation Offcanvas Side Menu-->
+        <div class="offcanvas offcanvas-start p-0 w-50" tabindex="-1" id="navOffcanvas"
+            aria-labelledby="offcanvasLabel">
+            <div class="offcanvas-header bg-success align-items-start" id="offcanvasHeader">
+                <!--User Profile data-->
+                <h5 class="offcanvas-title text-start">
+                    <a href="user-profile.html">
+                        <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo" src="img/perfil.png"
+                            width="80" height="80">
+                    </a>
+                </h5>
+
+                <!--Offcanvas Close button -->
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+                    id="offcanvasCloseButton">
+                </button>
+
+            </div>
+            <div class="offcanvas-body p-0 w-100 text-start fs-4" id="offcanvasLinks">
+
+                <div
+                    class="col-12 row justify-content-between text-ligth m-0 fs-6 text-nowrap overflow-hidden user-name">
+
+                    <!--Profile user name-->
+                    <span class="col-8 text-nowrap overflow-hidden ps-3 user-name">
+                        ADMIN: ROOT
+                    </span>
+
+                    <!--Profile Exit button-->
+                    <a href="login.html" class="col-2 border-none p-0 text-end me-2">
+                        <img class="img-fluid" src="img/exit-ligth.png" width="30" height="30">
+                    </a>
+
+                </div>
+
+
+                <!--Offcnavas Links-->
+                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/user-list.html">
+                    Usuarios
+                </a>
+                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/workers-list.html">
+                    Especialistas
+                </a>
+                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/events-log.html">
+                    Eventos
+                </a>
+
+            </div>
+        </div>
+    </header>
+
+    <!--Web site Content layout-->
+    <main class="flex-shrink-0" style="margin-bottom: 15vh;">
+        <div class="container-fluid bg-gray content-layout">
+
+            <!--Any web pages contents is here-->
+
+            <div class="row justify-content-center">
+
+                <div class="col-12 text-center fs-5 fw-bold">
+                    Registro de Eventos
+                </div>
+
+                <!--User analisis list-->
+                <div class="col-11 col-md-8 mt-2 border border-dark overflow-auto" style="height: 50vh;">
+
+                    <table class="table fw-bold">
+                        <thead>
+                            <th scope="col" class="col"></th>
+                            <th scope="col" class="col text-center">Evento</th>
+                            <th scope="col" class="col text-center">Fecha</th>
+                            <th scope="col" class="col text-center">Tipo</th>
+                            <th scope="col" class="col text-center">Accion</th>
+                        </thead>
+                        <tbody class="text-center">
+
+                            <!--Unusual event log-->
+                            <tr class="bg-warning">
+                                <td class="col-1">
+                                    <img class="img-fluid p-1 rounded-3 bg-dark" src="img/profile-log.svg" width="40px"
+                                        height="40px">
+                                </td>
+                                <td class="col">Usuario eliminado</td>
+                                <td class="col">12/10/2022 10:46 AM</td>
+                                <td class="col">Inusual</td>
+                                <td class="col">
+                                    <button class="btn btn-sm btn-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#eventLogDetailsDialog">DETALES</button>
+                                </td>
+                            </tr>
+
+                            <!--Dangerous event log-->
+                            <tr>
+                                <td class="col-1">
+                                    <img class="img-fluid p-1 rounded-3 bg-dark" src="img/profile-log.svg" width="40px"
+                                        height="40px">
+                                </td>
+                                <td class="col">Usuario registrado</td>
+                                <td class="col">11/10/2022 12:00 AM</td>
+                                <td class="col">Comun</td>
+                                <td class="col">
+                                    <button class="btn btn-sm btn-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#eventLogDetailsDialog">DETALES</button>
+                                </td>
+                            </tr>
+
+                            <!--Normal event log-->
+                            <tr>
+                                <td class="col-1">
+                                    <img class="img-fluid p-1 rounded-3 bg-dark" src="img/profile-log.svg" width="40px"
+                                        height="40px">
+                                </td>
+                                <td class="col">Usuario registrado</td>
+                                <td class="col">10/10/2022 12:00 PM</td>
+                                <td class="col">Comun</td>
+                                <td class="col">
+                                    <button class="btn btn-sm btn-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#eventLogDetailsDialog">DETALES</button>
+                                </td>
+                            </tr>
+
+                            <!--Dangerous event log-->
+                            <tr class="bg-danger text-light">
+                                <td class="col-1">
+                                    <img class="img-fluid p-1 rounded-3 bg-dark" src="img/profile-log.svg" width="40px"
+                                        height="40px">
+                                </td>
+                                <td class="col">Permiso -a- Concedido</td>
+                                <td class="col">11/10/2022 11:46 AM</td>
+                                <td class="col">Peligroso</td>
+                                <td class="col">
+                                    <button class="btn btn-sm btn-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#eventLogDetailsDialog">DETALES</button>
+                                </td>
+                            </tr>
+
+                            <!--Dangerous event log-->
+                            <tr>
+                                <td class="col-1">
+                                    <img class="img-fluid p-1 rounded-3 bg-dark" src="img/profile-log.svg" width="40px"
+                                        height="40px">
+                                </td>
+                                <td class="col">Usuario registrado</td>
+                                <td class="col">10/10/2022 10:46 PM</td>
+                                <td class="col">Comun</td>
+                                <td class="col">
+                                    <button class="btn btn-sm btn-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#eventLogDetailsDialog">DETALES</button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!--Modal Add Dialog-->
+            <div class="modal fade" tabindex="-1" aria-hidden="true" id="eventLogDetailsDialog">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+
+                        <div class="modal-header text-center">
+                            <spam class="modal-title">Detalles de Evento</spam>
+                        </div>
+
+                        <!-- user description formulary-->
+                        <div class="modal-body">
+                            <!--Center column-->
+                            <div class="row p-2 justify-content-center align-items-center g-2 text-start">
+                                <!--Profile User icon-->
+                                <spam class="col-12 text-center" href=".">
+                                    <img class="img-fluid rounded-3 fs-6 bg-dark p-2 user-icon-large" alt="user logo"
+                                        src="img/profile-log.svg" width="150" height="150">
+                                    <br>
+                                </spam>
+
+                                <!--Profile user name-->
+                                <span class="col-12 bg-warning text-dark fw-bold text-nowrap overflow-auto text-center" id="eventLogLabel">
+                                    EVENT RESUME
+                                </span>
+                                
+                                <!-- User name of Logged event -->
+                                <span class="col-6 text-nowrap overflow-hidden">
+                                    Usuario:
+                                </span>
+                                <spam class="col-6 text-nowrap overflow-hidden" id="userSurNames">
+                                    username
+                                </spam>
+                                
+                                <!-- User permission of Logged event -->
+                                <span class="col-6 text-nowrap overflow-hidden">
+                                    Permisos:
+                                </span>
+                                <spam class="col-6 text-nowrap overflow-hidden" id="userSurNames">
+                                    r - a - e - d
+                                </spam>
+                                
+                                <!--Separation line-->
+                                <span class="col-12 border border-dark"></span>
+                                
+                                <!--Event log trigger description on System -->
+                                <span class="col-6 text-nowrap overflow-hidden">
+                                    Accion:
+                                </span>
+                                <span class="col-6 text-wrap">
+                                    En este apartado se encuentra
+                                    la descripcion de una traza de
+                                    evento producida por el usuario`
+                                </span>
+                                
+                                <!--Separation line-->
+                                <span class="col-12 border border-dark"></span>
+                                
+                                <!--Event log result on System -->
+                                <span class="col-6 text-nowrap overflow-hidden">
+                                    Resulatdo:
+                                </span>
+                                <span class="col-6 text-wrap">
+                                    En este apartado se encuentra
+                                    la descripcion del resulatdo del
+                                    evento descrito
+                                </span>
+                                
+                                <!--Separation line-->
+                                <span class="col-12 border border-dark"></span>
+                                
+                                <spam class="col-6 text-nowrap overflow-hidden">
+                                    Fecha:
+                                </spam>
+                                <span class="col-6 text-nowrap overflow-hidden" id="userBlodGroup">
+                                    <time>10/10/2022 <b>12:24PM</b></time>
+                                </span>
+                                
+                            </div>
+
+                            <!-- User Profile Options -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-sm btn-danger">
+                                    <img src="img/delete-test-log.svg" width="20" height="20"
+                                        class="img-fluid mb-1 me-1">
+                                    SUPRIMIR
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <!--End of web contenet -->
+
+            </div>
+    </main>
+
+    <!-- Web site Fixed bootom foterBar -->
+    <footer class="">
+        <div class="container-fluid fixed-bottom m-0" id="fixedBootomFooter">
+            <div class="row h-100 justify-content-center align-items-center text-center">
+                <div class="col bg-light" style="height: 10vh;">
+                    <!-- Footer content is here -->
+
+                    <time>
+                        10-10-2022
+                    </time>
+
+                    <!-- End Footer content -->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

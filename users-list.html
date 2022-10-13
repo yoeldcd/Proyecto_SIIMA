@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        SIIMA Especialistas
+        SIIMA Usuarios
     </title>
 
     <!-- Bootstrap Binding
@@ -150,7 +150,7 @@
             <div class="row justify-content-center">
 
                 <div class="col-12 text-center fs-5 fw-bold">
-                    Gestion de Especialistas
+                    Gestion de Usuarios
                 </div>
 
                 <!--User analisis list-->
@@ -160,7 +160,6 @@
                         <thead>
                             <th scope="col"></th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Especialidad</th>
                             <th scope="col">Ultimo Acceso</th>
                             <th scope="col">Accion</th>
                         </thead>
@@ -168,23 +167,21 @@
                             <tr>
                                 <td class="col-1"><img class="img-rounded" src="img/perfil.png" width="40px"
                                         height="40px"></td>
-                                <td class="col-5 text-start">Yoel Davida Correa</td>
-                                <td class="col">...</td>
+                                <td class="col-7 text-start">Yoel Davida Correa</td>
                                 <td class="col">11/10/2022 10:46AM</td>
                                 <td class="col">
                                     <button class="btn btn-sm btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#workerDetailsDialog">DETALES</button>
+                                        data-bs-target="#userDetailsDialog">DETALES</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                
+
                 </div>
-                
-                <!--Worker actions-->
+
+                <!--User actions-->
                 <div class="col-11 col-md-8 mt-2 text-end">
-                    <button class="btn p-1 px-3 me-3 --button" data-bs-toggle="modal"
-                                        data-bs-target="#workerSiginDialog">
+                    <button class="btn p-1 px-3 me-3 --button" data-bs-toggle="modal" data-bs-target="#userSiginDialog">
                         <img src="img/add-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
                         NUEVO
                     </button>
@@ -192,31 +189,33 @@
 
             </div>
 
-            <!--Modal Worker Details Dialog-->
-            <div class="modal fade" tabindex="-1" aria-hidden="true" id="workerDetailsDialog">
+            <!--Modal Details Dialog-->
+            <div class="modal fade" tabindex="-1" aria-hidden="true" id="userDetailsDialog">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
 
                         <div class="modal-header text-center">
-                            <spam class="modal-title">Detalles de Especialista</spam>
+                            <spam class="modal-title">Detalles de Usuario</spam>
                         </div>
 
                         <!-- user description formulary-->
                         <div class="modal-body">
                             <!--Center column-->
                             <div class="row p-2 justify-content-center align-items-center g-2 text-start">
-
                                 <!--Profile User icon-->
                                 <spam class="col-12 text-center" href=".">
                                     <img class="img rounded-1 fs-6 bg-gray user-icon-large" alt="user logo"
                                         src="img/perfil.png" width="150" height="150">
                                     <br>
+                                    <img src="img/edit-logo.png" width="40" height="40" class="img border-dark bottom-0"
+                                        onclick="clickElement('userLogoFile')">
+                                    <input type="file" id="userLogoFile" class="visually-hidden-focusable">
 
                                 </spam>
 
                                 <!--Profile user name-->
                                 <span class="col-12 text-nowrap overflow-hidden text-center user-name-label">
-                                    YOELDCD
+                                    USERNAME IS HERE
                                 </span>
 
                                 <span class="col-6 text-nowrap overflow-hidden">
@@ -250,23 +249,12 @@
                                     23 Años
                                 </span>
 
-                                <!--Separation line-->
-                                <span class="col-12 border border-dark"></span>
-
                                 <spam class="col-6 text-nowrap overflow-hidden">
-                                    Especialidad:
+                                    Grupo sanguineo:
                                 </spam>
-                                <span class="col-6 text-nowrap overflow-hidden" id="workJob">
-                                    ...
+                                <span class="col-6 text-nowrap overflow-hidden blod-label" id="userBlodGroup">
+                                    AB+
                                 </span>
-
-                                <spam class="col-6 text-nowrap overflow-hidden">
-                                    Permisos:
-                                </spam>
-                                <span class="col-6 text-nowrap overflow-hidden" id="workJob">
-                                    a - r - w -d
-                                </span>
-
 
                                 <!--Separation line-->
                                 <span class="col-12 border border-dark"></span>
@@ -284,7 +272,6 @@
                                 <span class="col-6 text-nowrap overflow-hidden" id="userBlodGroup">
                                     <time>10/10/2022 <b>11:40PM</b></time>
                                 </span>
-
                             </div>
 
                             <!-- User Profile Options -->
@@ -293,7 +280,7 @@
                                     <img src="img/profile-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
                                     EVENTOS
                                 </a>
-                                <a href="edit-worker-profile.html" class="btn btn-sm --button m-2">
+                                <a href="edit-user-profile.html" class="btn btn-sm --button m-2">
                                     <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
                                     EDITAR
                                 </a>
@@ -309,22 +296,22 @@
 
                 </div>
 
-
-
-                <!--End of web contenet -->
-
             </div>
 
             <!--Modal Add Dialog-->
-            <div class="modal fade" tabindex="-1" aria-hidden="true" id="workerSiginDialog">
+            <div class="modal fade" tabindex="-1" aria-hidden="true" id="userSiginDialog">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
+
+                        <div class="modal-header text-center">
+                            <spam class="modal-title">Registar Usuario</spam>
+                        </div>
                         
-                        <!-- worker registration formulary-->
+                        <!-- user registratio formulary-->
                         <div class="modal-body">
-
+                            
                             <form action="user-profile.html" class="form rounded-3 data-form p-2 m-0">
-
+                                
                                 <!--First name input group-->
                                 <fieldset class="row p-1 g-1">
                                     <div class="col-12 text-start">
@@ -372,6 +359,41 @@
                                     </div>
                                 </fieldset>
 
+                                <!--User Blod Group -->
+                                <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
+                                    <div class="col-12 text-start">
+                                        <label class="form-label">Grupo sanguineo</label>
+                                    </div>
+
+                                    <div class="col form-check">
+                                        <label class="form-check-label" for="#blodTypeA"> A</label>
+                                        <input class="form-check-input" name="blodGroupLetter" id="blodTypeA"
+                                            type="checkbox" checked>
+                                    </div>
+                                    <div class="col form-check">
+                                        <label class="form-check-label" for="#blodTypeB"> B</label>
+                                        <input class="form-check-input" name="blodGroupLetter" id="blodTypeB"
+                                            type="checkbox">
+                                    </div>
+                                    <div class="col form-check">
+                                        <label class="form-check-label" for="#blodTypeO"> O</label>
+                                        <input class="form-check-input" name="blodGroupLetter" id="blodTypeO"
+                                            type="checkbox">
+                                    </div>
+
+                                    <div class="col">
+                                        <input class="form-ratio-input" name="blodGroupSignus" id="blodPositive"
+                                            type="radio" checked>
+                                        <label class="form-check-label fw-bold" for="#blodPositive">(+)</label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-ratio-input" name="blodGroupSignus" id="blodNegative"
+                                            type="radio" checked>
+                                        <label class="form-check-label fw-bold" for="#blodNegative">(-)</label>
+                                    </div>
+
+                                </fieldset>
+
                                 <!--CI number-->
                                 <fieldset class="row p-1 g-1">
                                     <div class="col-12 text-start">
@@ -399,86 +421,6 @@
                                             placeholder="#######" minlength="8" maxlength="8"
                                             onkeypress="return mathType(event ,'userPhone','number-only');">
                                     </div>
-
-                                </fieldset>
-
-                                <!--Worker Information-->
-                                <fieldset class="row p-2 m-2 mt-2 g-2 border border-secondary rounded-3">
-
-                                    <!--Form worker section title-->
-                                    <spam class="col-12 text-center fw-bold">
-                                        Especialidad:
-                                    </spam>
-
-                                    <!--Worker user role-->
-                                    <div class="col-12 m-1 text-start">
-                                        <label for="workerJob" class="form-label m-1">Puesto:</label>
-                                        <select name="workerJob" id="workerJob" class="form-select form-input">
-                                            <option selected>Enfermera</option>
-                                            <option>Tecnico de Laboratorio</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Worker User permissions -->
-                                    <div class="col-12 m-2 text-start">
-                                        Permisos:
-                                    </div>
-
-                                    <div class="col-12 col-md-6 text-start">
-                                        <label class="form-label m-1">
-                                            <input type="checkbox" id="userPermisionRead"
-                                                class="form-checkox me-2">Consultar
-                                            muesta
-                                        </label>
-                                    </div>
-
-                                    <div class="col-12 col-md-6 text-start">
-                                        <label class="form-label m-1">
-                                            <input type="checkbox" id="userPermisionAdd"
-                                                class="form-checkox me-2">Agregar
-                                            muesta
-                                        </label>
-                                    </div>
-
-                                    <div class="col-12 col-md-6 text-start">
-                                        <label class="form-label m-1">
-                                            <input type="checkbox" id="userPermisionEdit"
-                                                class="form-checkox me-2">Modificar
-                                            muesta
-                                        </label>
-                                    </div>
-
-                                    <div class="col-12 col-md-6 text-start">
-                                        <label class="form-label m-1">
-                                            <input type="checkbox" id="userPermisionDelet"
-                                                class="form-checkox me-2">Eliminar
-                                            muesta
-                                        </label>
-                                    </div>
-
-                                    <!-- Admin Password-->
-                                    <div class="col-12 col-md-6 text-start fw-bold">
-                                        <label class="form-label m-1">
-                                            <input type="checkbox" id="userPermisionRoot"
-                                                class="form-checkox me-2">Administrador
-                                        </label>
-                                    </div>
-
-                                    <fieldset class="col-12 form-group text-start mt-1">
-                                        <div class="input-group mb-3">
-                                            <input class="form-control form-input" name="adminPassword" type="password"
-                                                id="adminPassword" maxlength="30"
-                                                placeholder="Contraseña de Administrador" required>
-
-                                            <!--See password button-->
-                                            <span class="input-group-text"
-                                                onclick="switchPasswordVisibility('adminPassword','seeAdminPasswordImage')">
-                                                <img class="img-fluid" id="seeAdminPasswordImage"
-                                                    src="./img/eye-fill.svg">
-                                            </span>
-
-                                        </div>
-                                    </fieldset>
 
                                 </fieldset>
 
@@ -552,19 +494,17 @@
                                     <button class="btn float-self-center --button" type="submit">
                                         <img src="img/add-profile.svg" width="20" height="20"
                                             class="img-fluid mb-1 me-1">
-                                        REGISTAR
+                                        REGISTARSE
                                     </button>
                                 </div>
 
                             </form>
 
                         </div>
-
                     </div>
                 </div>
-
             </div>
-
+            
     </main>
 
     <!-- Web site Fixed bootom foterBar -->

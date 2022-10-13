@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        SIIMA Registro de Usuario
+        SIIMA Registro de Trabajador
     </title>
 
     <!-- Bootstrap Binding
@@ -95,7 +95,7 @@
     <!--Web site Content layout-->
     <main class="flex-shrink-0">
         <div class="container-fluid bg-gray p-0 content-layout" style="margin-bottom: 15vh;">
-            
+
             <!--Any web pages contents is here-->
 
             <div class="row w-100 h-50 m-0">
@@ -108,7 +108,7 @@
                         
                         <!-- Form Title Text -->
                         <spam class="fs-5 fw-bold text-uppercase text-bold mb-5">
-                            Registro:
+                            Editar Datos de Especialista:
                         </spam>
                         <br>
                         
@@ -141,7 +141,7 @@
                                     placeholder="Segundo Apellido">
                             </div>
                         </fieldset>
-
+                        
                         <!--User Genere-->
                         <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
                             <div class="col-12 text-start">
@@ -157,37 +157,6 @@
 
                             </div>
                         </fieldset>
-
-                        <!--User Blod Group -->
-                        <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
-                            <div class="col-12 text-start">
-                                <label class="form-label">Grupo sanguineo</label>
-                            </div>
-
-                            <div class="col form-check">
-                                <label class="form-check-label" for="#blodTypeA"> A</label>
-                                <input class="form-check-input" name="blodGroupLetter" id="blodTypeA" type="checkbox"
-                                    checked>
-                            </div>
-                            <div class="col form-check">
-                                <label class="form-check-label" for="#blodTypeB"> B</label>
-                                <input class="form-check-input" name="blodGroupLetter" id="blodTypeB" type="checkbox">
-                            </div>
-                            <div class="col form-check">
-                                <label class="form-check-label" for="#blodTypeO"> O</label>
-                                <input class="form-check-input" name="blodGroupLetter" id="blodTypeO" type="checkbox">
-                            </div>
-                            
-                            <div class="col">
-                                <input class="form-ratio-input" name="blodGroupSignus" id="blodPositive" type="radio" checked>
-                                <label class="form-check-label fw-bold" for="#blodPositive">(+)</label>
-                            </div>
-                            <div class="col">
-                                <input class="form-ratio-input" name="blodGroupSignus" id="blodNegative" type="radio" checked>
-                                <label class="form-check-label fw-bold" for="#blodNegative">(-)</label>
-                            </div>
-
-                        </fieldset>
                         
                         <!--CI number-->
                         <fieldset class="row p-1 g-1">
@@ -195,17 +164,16 @@
                                 <label class="form-label">Numero de CI:</label>
                                 <input class="form-control form-input" id="userCI" type="text"
                                     placeholder="No. de Carnet" required minlength="11" maxlength="11"
-                                    onkeypress="return mathType(event ,'userCI','number-only');"
-                                    >
+                                    onkeypress="return mathType(event ,'userCI','number-only');">
                             </div>
                         </fieldset>
-
+                        
                         <!--Phone number-->
                         <fieldset class="row p-1 g-1 justify-content-center">
                             <div class="col-12 text-start">
                                 <label class="form-label">Telefono:</label>
                             </div>
-
+                            
                             <div class="col-4 col-md-2 text-start">
                                 <span class="form-control form-input">
                                     +53
@@ -220,20 +188,95 @@
                         
                         </fieldset>
                         
+                        <!--Worker Information-->
+                        <fieldset class="row p-2 m-2 mt-2 g-2 border border-secondary rounded-3">
+                            
+                            <!--Form worker section title-->
+                            <spam class="col-12 text-center fw-bold">
+                                Especialidad:
+                            </spam>
+                            
+                            <!--Worker user role-->
+                            <div class="col-12 m-1 text-start">
+                                <label for="workerJob" class="form-label m-1">Puesto:</label>
+                                <select name="workerJob" id="workerJob" class="form-select form-input">
+                                    <option selected>Enfermera</option>
+                                    <option>Tecnico de Laboratorio</option>
+                                </select>
+                            </div>
+
+                            <!-- Worker User permissions -->
+                            <div class="col-12 m-2 text-start">
+                                Permisos:
+                            </div>
+
+                            <div class="col-12 col-md-6 text-start">
+                                <label class="form-label m-1">
+                                    <input type="checkbox" id="userPermisionRead" class="form-checkox me-2">Consultar
+                                    muesta
+                                </label>
+                            </div>
+                            
+                            <div class="col-12 col-md-6 text-start">
+                                <label class="form-label m-1">
+                                    <input type="checkbox" id="userPermisionAdd" class="form-checkox me-2">Agregar
+                                    muesta
+                                </label>
+                            </div>
+
+                            <div class="col-12 col-md-6 text-start">
+                                <label class="form-label m-1">
+                                    <input type="checkbox" id="userPermisionEdit" class="form-checkox me-2">Modificar
+                                    muesta
+                                </label>
+                            </div>
+                            
+                            <div class="col-12 col-md-6 text-start">
+                                <label class="form-label m-1">
+                                    <input type="checkbox" id="userPermisionDelet" class="form-checkox me-2">Eliminar
+                                    muesta
+                                </label>
+                            </div>
+
+                            <!-- Admin Password-->
+                            <div class="col-12 col-md-6 text-start fw-bold">
+                                <label class="form-label m-1">
+                                    <input type="checkbox" id="userPermisionRoot"
+                                        class="form-checkox me-2">Administrador
+                                </label>
+                            </div>
+                            
+                            <fieldset class="col-12 form-group text-start mt-1">
+                                <div class="input-group mb-3">
+                                    <input class="form-control form-input" name="adminPassword" type="password"
+                                        id="adminPassword" maxlength="30" placeholder="Contraseña de Administrador"
+                                        required>
+                                    
+                                    <!--See password button-->
+                                    <span class="input-group-text"
+                                        onclick="switchPasswordVisibility('adminPassword','seeAdminPasswordImage')">
+                                        <img class="img-fluid" id="seeAdminPasswordImage" src="./img/eye-fill.svg">
+                                    </span>
+                                
+                                </div>
+                            </fieldset>
+                        
+                        </fieldset>
+                        
                         <!-- Credentials -->
                         <fieldset class="row p-2 g-1">
                             <div class="col-12 p-2 text-start border border-secondary rounded-3">
                                 <label class="form-label w-100 text-center fw-bold">Credenciales:</label>
-
+                                
                                 <div class="row p-1">
 
                                     <!--User nickname-->
                                     <fieldset class="col-12 form-group text-start">
                                         <label class="form-label ms-1" for="#userName">Usuario:</label>
-                                        <input class="form-control form-input" id="userName" type="text"
-                                            maxlength="30" placeholder="Teclee un nombre de usuario">
+                                        <input class="form-control form-input" id="userName" type="text" maxlength="30"
+                                            placeholder="Teclee un nombre de usuario">
                                     </fieldset>
-
+                                    
                                     <!--Recuperation mail-->
                                     <fieldset class="col-12 form-group text-start mt-3">
                                         <label class="form-label ms-1" for="#userMail">Correo de Recuperacion:</label>
@@ -243,7 +286,7 @@
                                     
                                     <!--User password (click -> showPassword)-->
                                     <label class="form-label mt-3 ms-1" for="userPassword">Contraseña:</label>
-
+                                    
                                     <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
                                         <div class="input-group mb-3">
                                             <input class="form-control form-input" id="userPassword" type="password"
@@ -273,7 +316,7 @@
                                                 <img class="img-fluid" id="seeUserPassword2Image"
                                                     src="./img/eye-fill.svg">
                                             </span>
-
+                                        
                                         </div>
                                     </fieldset>
 
@@ -281,17 +324,18 @@
 
                             </div>
                         </fieldset>
-
+                        
                         <!--Submit buttom-->
                         <div class="form-group text-end me-1 me-md-2">
                             <button class="btn float-self-center --button" type="submit">
-                                REGISTARSE
+                                <img src="img/add-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                                REGISTAR
                             </button>
                         </div>
-
+                    
                     </form>
                 </div>
-
+                
                 <div class="col d-none d-sm-flex">
                 </div>
 
@@ -304,7 +348,7 @@
 
     <!-- Web site Fixed bootom foterBar -->
     <footer class="">
-        <div class="container-fluid fixed-bottom m-0" id="fixedBootomFooter">
+        <div class="container-fluid m-0" id="fixedBootomFooter">
             <div class="row h-100 justify-content-center align-items-center text-center">
                 <div class="col bg-light" style="height: 10vh;">
                     <!-- Footer content is here -->
