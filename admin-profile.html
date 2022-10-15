@@ -57,17 +57,19 @@
 
                     <!--Nav links-->
                     <div class="col-sm-12 col-md-5 order-md-3">
-                        <div class="row d-none d-sm-flex h-100 justify-content-md-end align-items-end fs-6"
+                        <div class="row d-none d-sm-flex h-100 justify-content-center justify-content-md-end align-items-end fs-6"
                             id="navbarLinks">
-                            <a class="col-3 nav-link navbar-link" href="/users-list.html">
+                            
+                            <a href="/users-list.html" class="col-3 nav-link navbar-link">
                                 Usuarios
                             </a>
-                            <a class="col-5 nav-link navbar-link" href="/workers-list.html">
+                            <a href="/workers-list.html" class="col-5 nav-link navbar-link">
                                 Especialistas
                             </a>
-                            <a class="col-3 nav-link navbar-link" href="/events-log.html">
+                            <a href="/events-log.html" class="col-3 nav-link navbar-link">
                                 Eventos
                             </a>
+
                         </div>
                     </div>
 
@@ -78,6 +80,7 @@
         <!-- Navigation Offcanvas Side Menu-->
         <div class="offcanvas offcanvas-start p-0 w-50" tabindex="-1" id="navOffcanvas"
             aria-labelledby="offcanvasLabel">
+
             <div class="offcanvas-header bg-success align-items-start" id="offcanvasHeader">
 
                 <!--User Profile data-->
@@ -94,6 +97,7 @@
                 </button>
 
             </div>
+
             <div class="offcanvas-body p-0 w-100 text-start fs-4" id="offcanvasLinks">
 
                 <div
@@ -113,18 +117,20 @@
 
 
                 <!--Offcnavas Links-->
-                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/user-list.html">
+                <a href="./users-list.html" class="col-12 nav-link offcanvas-link ps-3 fs-4">
                     Usuarios
                 </a>
-                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/workers-list.html">
+                <a href="./workers-list.html" class="col-12 nav-link offcanvas-link ps-3 fs-4">
                     Especialistas
                 </a>
-                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/events-log.html">
+                <a href="./events-log.html" class="col-12 nav-link offcanvas-link ps-3 fs-4">
                     Eventos
                 </a>
 
             </div>
+
         </div>
+
     </header>
 
     <!--Web site Content layout-->
@@ -134,9 +140,7 @@
             <!--Any web pages contents is here-->
 
             <div class="row">
-                <div class="row w-100 h-50 m-0">
-                    <div class="col d-none d-sm-flex">
-                    </div>
+                <div class="row justify-content-center w-100 h-50 m-0">
 
                     <!--Center column-->
                     <div class="col-12 col-sm-8 col-md-6 text-center border border-dark px-1">
@@ -147,10 +151,6 @@
                                 <img class="img rounded-1 fs-6 bg-gray user-icon-large" alt="user logo"
                                     src="img/perfil.png" width="150" height="150">
                                 <br>
-                                <img src="img/edit-logo.png" width="40" height="40" class="img border-dark bottom-0"
-                                    onclick="clickElement('userLogoFile')">
-                                <input type="file" id="userLogoFile" class="visually-hidden-focusable">
-
                             </spam>
 
                             <!--Profile user name-->
@@ -209,13 +209,15 @@
 
                             <!--Separation line-->
                             <span class="col-12 border border-dark"></span>
-                            
-                            <spam class="col-3 text-center">
-                                <a type="button" class="btn btn-sm --button m-2" href="edit-worker-profile.html">
-                                    <img src="img/edit-profile.svg" width="20" height="20"
-                                        class="img-fluid mb-1 me-1">
+
+                            <spam class="col-12 text-center">
+
+                                <!--Worker edit profile button -->
+                                <a class="btn btn-sm --button m-2" href="edit-worker-profile.html">
+                                    <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
                                     EDITAR
                                 </a>
+
                             </spam>
 
                         </div>
@@ -223,8 +225,6 @@
 
                     </div>
 
-                    <div class="col d-none d-sm-flex">
-                    </div>
                 </div>
             </div>
 
@@ -235,7 +235,7 @@
 
     <!-- Web site Fixed bootom foterBar -->
     <footer class="">
-        <div class="container-fluid fixed-bottom m-0" id="fixedBootomFooter">
+        <div class="container-fluid m-0" id="fixedBootomFooter">
             <div class="row h-100 justify-content-center align-items-center text-center">
                 <div class="col bg-light" style="height: 10vh;">
                     <!-- Footer content is here -->

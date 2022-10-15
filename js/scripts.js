@@ -6,7 +6,7 @@ function switchPasswordVisibility(inputid, targetid) {
 
     // change password visibility and button logo
     input.type = (input.type == 'password') ? 'text' : input.type = 'password';
-    btimg.src = (input.type == 'text') ? './img/eye-slash-fill.svg' : './img/eye-fill.svg';
+    btimg.src = (input.type == 'text') ? './img/hide-dark.svg' : './img/see-dark.svg';
 
 }
 

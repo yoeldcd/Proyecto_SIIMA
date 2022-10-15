@@ -20,6 +20,9 @@
     <!--Custom styles sheets-->
     <link rel="stylesheet" type="text/css" href="css/main-layouts-styles.css">
 
+    <!--Scripts-->
+    <script src="js/scripts.js"></script>
+
 </head>
 
 <body>
@@ -71,15 +74,16 @@
 
                     <!--Nav links-->
                     <div class="col-sm-12 col-md-5 order-md-3">
-                        <div class="row d-none d-sm-flex h-100 justify-content-md-end align-items-end fs-6"
+                        <div class="row d-none d-sm-flex h-100 justify-content-center justify-content-md-end align-items-end fs-6"
                             id="navbarLinks">
-                            <a class="col-3 nav-link navbar-link" href="/users-list.html">
+
+                            <a href="/users-list.html" class="col-3 nav-link navbar-link">
                                 Usuarios
                             </a>
-                            <a class="col-5 nav-link navbar-link" href="/workers-list.html">
+                            <a href="/workers-list.html" class="col-5 nav-link navbar-link">
                                 Especialistas
                             </a>
-                            <a class="col-3 nav-link navbar-link" href="/events-log.html">
+                            <a href="/events-log.html" class="col-3 nav-link navbar-link">
                                 Eventos
                             </a>
 
@@ -94,6 +98,7 @@
         <div class="offcanvas offcanvas-start p-0 w-50" tabindex="-1" id="navOffcanvas"
             aria-labelledby="offcanvasLabel">
             <div class="offcanvas-header bg-success align-items-start" id="offcanvasHeader">
+
                 <!--User Profile data-->
                 <h5 class="offcanvas-title text-start">
                     <a href="admin-profile.html">
@@ -127,13 +132,13 @@
 
 
                 <!--Offcnavas Links-->
-                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/user-list.html">
+                <a href="./users-list.html" class="col-12 nav-link offcanvas-link ps-3 fs-4">
                     Usuarios
                 </a>
-                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/workers-list.html">
+                <a href="./workers-list.html" class="col-12 nav-link offcanvas-link ps-3 fs-4">
                     Especialistas
                 </a>
-                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/events-log.html">
+                <a href="./events-log.html" class="col-12 nav-link offcanvas-link ps-3 fs-4">
                     Eventos
                 </a>
 
@@ -145,46 +150,55 @@
     <main class="flex-shrink-0" style="margin-bottom: 15vh;">
         <div class="container-fluid bg-gray content-layout">
 
-            <!--Any web pages contents is here-->
-
+            <!--Main Web Content is Here-->
             <div class="row justify-content-center">
 
+                <!-- List Section Title -->
                 <div class="col-12 text-center fs-5 fw-bold">
                     Gestion de Especialistas
                 </div>
 
-                <!--User analisis list-->
-                <div class="col-11 col-md-8 mt-2 border border-dark overflow-auto" style="height: 50vh;">
-
+                <!-- Registreds Workers List -->
+                <div class="col-11 col-md-8 mt-2 overflow-auto" style="height: 50vh;">
                     <table class="table">
-                        <thead>
-                            <th scope="col"></th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Especialidad</th>
-                            <th scope="col">Ultimo Acceso</th>
-                            <th scope="col">Accion</th>
+
+                        <thead class="border-bottom border-dark">
+                            <th colspan="2" scope="col" class="col-8 text-center">Nombre</th>
+                            <th scope="col" class="col text-center">Especialidad</th>
+                            <th scope="col" class="col text-center">Ultimo Acceso</th>
+                            <th scope="col" class="col-4 text-center">Accion</th>
                         </thead>
+
                         <tbody class="text-center">
-                            <tr>
+
+                            <!-- Registred Worker Data Entry -->
+                            <tr class="border-bottom border-dark">
                                 <td class="col-1"><img class="img-rounded" src="img/perfil.png" width="40px"
                                         height="40px"></td>
-                                <td class="col-5 text-start">Yoel Davida Correa</td>
-                                <td class="col">...</td>
-                                <td class="col">11/10/2022 10:46AM</td>
-                                <td class="col">
-                                    <button class="btn btn-sm btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#workerDetailsDialog">DETALES</button>
+                                <td class="col-8 text-start">Yoel Davida Correa</td>
+                                <td class="col text-center">...</td>
+                                <td class="col text-center">11/10/2022 10:46AM</td>
+                                <td class="col-4 text-center">
+                                    <button class="btn btn-sm btn-secondary text-nowrap" data-bs-toggle="modal"
+                                        data-bs-target="#workerDetailsDialog">
+                                        <img src="img/see-ligth.svg" width="20" height="20"
+                                            class="img-fluid mb-1 me-sm-1">
+                                        <span class="d-none d-md-inline">
+                                            DETALLES
+                                        </span>
+                                    </button>
                                 </td>
                             </tr>
+                        
                         </tbody>
+
                     </table>
-                
                 </div>
-                
-                <!--Worker actions-->
+
+                <!-- Worker List Action Buttons -->
                 <div class="col-11 col-md-8 mt-2 text-end">
                     <button class="btn p-1 px-3 me-3 --button" data-bs-toggle="modal"
-                                        data-bs-target="#workerSiginDialog">
+                        data-bs-target="#workerSiginDialog">
                         <img src="img/add-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
                         NUEVO
                     </button>
@@ -197,16 +211,19 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
 
+                        <!-- Dialog Title -->
                         <div class="modal-header text-center">
                             <spam class="modal-title">Detalles de Especialista</spam>
                         </div>
 
-                        <!-- user description formulary-->
+                        <!-- Dialog Content -->
                         <div class="modal-body">
-                            <!--Center column-->
-                            <div class="row p-2 justify-content-center align-items-center g-2 text-start">
 
-                                <!--Profile User icon-->
+                            <!-- Worker Description Section -->
+                            <div
+                                class="row p-2 justify-content-center align-items-center g-2 text-start rounded-3 data-form p-2 m-0">
+
+                                <!-- Worker profile UserIcon -->
                                 <spam class="col-12 text-center" href=".">
                                     <img class="img rounded-1 fs-6 bg-gray user-icon-large" alt="user logo"
                                         src="img/perfil.png" width="150" height="150">
@@ -214,11 +231,12 @@
 
                                 </spam>
 
-                                <!--Profile user name-->
+                                <!-- Worker profile Username -->
                                 <span class="col-12 text-nowrap overflow-hidden text-center user-name-label">
                                     YOELDCD
                                 </span>
 
+                                <!-- Worker profile Names -->
                                 <span class="col-6 text-nowrap overflow-hidden">
                                     Nombre:
                                 </span>
@@ -226,7 +244,7 @@
                                     Yoel David
                                 </span>
 
-
+                                <!-- Worker profile SurNames -->
                                 <span class="col-6 text-nowrap overflow-hidden">
                                     Apellidos
                                 </span>
@@ -234,7 +252,7 @@
                                     Correa Duke
                                 </spam>
 
-
+                                <!-- Worker profile Genere -->
                                 <spam class="col-6 text-nowrap overflow-hidden">
                                     Sexo:
                                 </spam>
@@ -242,7 +260,7 @@
                                     masculino
                                 </span>
 
-
+                                <!-- Worker profile Age -->
                                 <spam class="col-6 text-nowrap overflow-hidden">
                                     Edad:
                                 </spam>
@@ -250,9 +268,10 @@
                                     23 Años
                                 </span>
 
-                                <!--Separation line-->
+                                <!-- Separation line -->
                                 <span class="col-12 border border-dark"></span>
 
+                                <!-- Worker Profile Job -->
                                 <spam class="col-6 text-nowrap overflow-hidden">
                                     Especialidad:
                                 </spam>
@@ -260,6 +279,7 @@
                                     ...
                                 </span>
 
+                                <!-- Worker Profile Permisions Granted -->
                                 <spam class="col-6 text-nowrap overflow-hidden">
                                     Permisos:
                                 </spam>
@@ -267,10 +287,10 @@
                                     a - r - w -d
                                 </span>
 
-
                                 <!--Separation line-->
                                 <span class="col-12 border border-dark"></span>
 
+                                <!-- Worker Profile Last Access -->
                                 <spam class="col-6 text-nowrap overflow-hidden">
                                     Ultimo Acceso:
                                 </spam>
@@ -278,6 +298,7 @@
                                     <time>10/10/2022 <b>12:24PM</b></time>
                                 </span>
 
+                                <!-- Worker Profile Sigin Date -->
                                 <spam class="col-6 text-nowrap overflow-hidden">
                                     Fecha de Registro:
                                 </spam>
@@ -285,47 +306,69 @@
                                     <time>10/10/2022 <b>11:40PM</b></time>
                                 </span>
 
-                            </div>
+                                <!-- Worker profile Action Buttons -->
+                                <div class="col-12 text-center">
+                                    <div class="row justify-content-center">
 
-                            <!-- User Profile Options -->
-                            <div class="modal-footer">
-                                <a href="events-log.html" class="btn btn-sm --button m-2">
-                                    <img src="img/profile-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
-                                    EVENTOS
-                                </a>
-                                <a href="edit-worker-profile.html" class="btn btn-sm --button m-2">
-                                    <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
-                                    EDITAR
-                                </a>
-                                <button type="button" class="btn btn-sm btn-danger">
-                                    <img src="img/delete-profile.svg" width="20" height="20"
-                                        class="img-fluid mb-1 me-1">
-                                    SUPRIMIR
-                                </button>
+                                        <!--User Events Log Option-->
+                                        <a href="events-log.html" class="col-12 col-sm btn btn-sm --button m-2">
+                                            <img src="img/profile-log.svg" width="20" height="20"
+                                                class="img-fluid mb-1 me-1">
+                                            EVENTOS
+                                        </a>
+
+                                        <!-- User Edit Option-->
+                                        <a href="edit-worker-profile.html"
+                                            class="col-12 col-sm btn btn-sm --button m-2">
+                                            <img src="img/edit-profile.svg" width="20" height="20"
+                                                class="img-fluid mb-1 me-1">
+                                            EDITAR
+                                        </a>
+
+                                        <!-- User Supress Option -->
+                                        <a href="" class="col-12 col-sm btn btn-sm btn-danger m-2">
+                                            <img src="img/delete-profile.svg" width="20" height="20"
+                                                class="img-fluid mb-1 me-1">
+                                            SUPRIMIR
+                                        </a>
+
+                                        <!-- Dialog Close Option -->
+                                        <a class="col-12 btn btn-sm btn-secondary" data-bs-dismiss="modal"
+                                            data-bs-target="#userDetailsDialog">
+                                            <img src="img/delete-light.svg" width="20" height="20"
+                                                class="img-fluid mb-1 me-1">
+                                            CERRAR
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
                             </div>
 
                         </div>
+
                     </div>
-
                 </div>
-
-
-
-                <!--End of web contenet -->
-
             </div>
 
             <!--Modal Add Dialog-->
             <div class="modal fade" tabindex="-1" aria-hidden="true" id="workerSiginDialog">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                        
-                        <!-- worker registration formulary-->
+
+                        <!-- Dialog Title -->
+                        <div class="modal-header">
+                            Registrar Especialista
+                        </div>
+
+                        <!-- Dialog Content -->
                         <div class="modal-body">
 
+                            <!-- Worker registration formulary -->
                             <form action="user-profile.html" class="form rounded-3 data-form p-2 m-0">
 
-                                <!--First name input group-->
+                                <!-- Worker First Name inputs -->
                                 <fieldset class="row p-1 g-1">
                                     <div class="col-12 text-start">
                                         <label class="form-label">Nombres:</label>
@@ -340,7 +383,7 @@
                                     </div>
                                 </fieldset>
 
-                                <!--User Surnames Inputs-->
+                                <!-- Worker Surnames Inputs -->
                                 <fieldset class="row p-1 g-1">
                                     <div class="col-12 text-start">
                                         <label class="form-label">Apellidos:</label>
@@ -355,7 +398,7 @@
                                     </div>
                                 </fieldset>
 
-                                <!--User Genere-->
+                                <!-- Worker Genere -->
                                 <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
                                     <div class="col-12 text-start">
                                         <label class="form-label">Genero:</label>
@@ -372,7 +415,7 @@
                                     </div>
                                 </fieldset>
 
-                                <!--CI number-->
+                                <!-- Worker CI number -->
                                 <fieldset class="row p-1 g-1">
                                     <div class="col-12 text-start">
                                         <label class="form-label">Numero de CI:</label>
@@ -382,7 +425,7 @@
                                     </div>
                                 </fieldset>
 
-                                <!--Phone number-->
+                                <!-- Worker Phone number -->
                                 <fieldset class="row p-1 g-1 justify-content-center">
                                     <div class="col-12 text-start">
                                         <label class="form-label">Telefono:</label>
@@ -402,15 +445,15 @@
 
                                 </fieldset>
 
-                                <!--Worker Information-->
+                                <!-- Worker Information -->
                                 <fieldset class="row p-2 m-2 mt-2 g-2 border border-secondary rounded-3">
 
-                                    <!--Form worker section title-->
+                                    <!-- Worker Section Title -->
                                     <spam class="col-12 text-center fw-bold">
                                         Especialidad:
                                     </spam>
 
-                                    <!--Worker user role-->
+                                    <!-- Worker Profile Job-Role -->
                                     <div class="col-12 m-1 text-start">
                                         <label for="workerJob" class="form-label m-1">Puesto:</label>
                                         <select name="workerJob" id="workerJob" class="form-select form-input">
@@ -419,51 +462,56 @@
                                         </select>
                                     </div>
 
-                                    <!-- Worker User permissions -->
+                                    <!-- Worker Profile Permissions Granted -->
                                     <div class="col-12 m-2 text-start">
                                         Permisos:
+
+                                        <div class="row">
+                                            <div class="col-12 col-md-6 text-start">
+                                                <label class="form-label m-1">
+                                                    <input type="checkbox" id="userPermisionRead"
+                                                        class="form-checkox me-2">Consultar
+                                                    muesta
+                                                </label>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 text-start">
+                                                <label class="form-label m-1">
+                                                    <input type="checkbox" id="userPermisionAdd"
+                                                        class="form-checkox me-2">Agregar
+                                                    muesta
+                                                </label>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 text-start">
+                                                <label class="form-label m-1">
+                                                    <input type="checkbox" id="userPermisionEdit"
+                                                        class="form-checkox me-2">Modificar
+                                                    muesta
+                                                </label>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 text-start">
+                                                <label class="form-label m-1">
+                                                    <input type="checkbox" id="userPermisionDelet"
+                                                        class="form-checkox me-2">Eliminar
+                                                    muesta
+                                                </label>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 text-start fw-bold">
+                                                <label class="form-label m-1">
+                                                    <input type="checkbox" id="userPermisionRoot"
+                                                        class="form-checkox me-2">Administrador
+                                                </label>
+                                            </div>
+
+
+                                        </div>
+
                                     </div>
 
-                                    <div class="col-12 col-md-6 text-start">
-                                        <label class="form-label m-1">
-                                            <input type="checkbox" id="userPermisionRead"
-                                                class="form-checkox me-2">Consultar
-                                            muesta
-                                        </label>
-                                    </div>
-
-                                    <div class="col-12 col-md-6 text-start">
-                                        <label class="form-label m-1">
-                                            <input type="checkbox" id="userPermisionAdd"
-                                                class="form-checkox me-2">Agregar
-                                            muesta
-                                        </label>
-                                    </div>
-
-                                    <div class="col-12 col-md-6 text-start">
-                                        <label class="form-label m-1">
-                                            <input type="checkbox" id="userPermisionEdit"
-                                                class="form-checkox me-2">Modificar
-                                            muesta
-                                        </label>
-                                    </div>
-
-                                    <div class="col-12 col-md-6 text-start">
-                                        <label class="form-label m-1">
-                                            <input type="checkbox" id="userPermisionDelet"
-                                                class="form-checkox me-2">Eliminar
-                                            muesta
-                                        </label>
-                                    </div>
-
-                                    <!-- Admin Password-->
-                                    <div class="col-12 col-md-6 text-start fw-bold">
-                                        <label class="form-label m-1">
-                                            <input type="checkbox" id="userPermisionRoot"
-                                                class="form-checkox me-2">Administrador
-                                        </label>
-                                    </div>
-
+                                    <!-- Admin Password -->
                                     <fieldset class="col-12 form-group text-start mt-1">
                                         <div class="input-group mb-3">
                                             <input class="form-control form-input" name="adminPassword" type="password"
@@ -474,7 +522,7 @@
                                             <span class="input-group-text"
                                                 onclick="switchPasswordVisibility('adminPassword','seeAdminPasswordImage')">
                                                 <img class="img-fluid" id="seeAdminPasswordImage"
-                                                    src="./img/eye-fill.svg">
+                                                    src="./img/see-dark.svg">
                                             </span>
 
                                         </div>
@@ -482,11 +530,14 @@
 
                                 </fieldset>
 
-                                <!-- Credentials -->
+                                <!-- Worker Account Credentials -->
                                 <fieldset class="row p-2 g-1">
                                     <div class="col-12 p-2 text-start border border-secondary rounded-3">
+
+                                        <!-- Section Title -->
                                         <label class="form-label w-100 text-center fw-bold">Credenciales:</label>
 
+                                        <!-- Credential Fields -->
                                         <div class="row p-1">
 
                                             <!--User nickname-->
@@ -504,9 +555,9 @@
                                                     maxlength="30" placeholder="example@nauta.cu" required>
                                             </fieldset>
 
-                                            <!--User password (click -> showPassword)-->
                                             <label class="form-label mt-3 ms-1" for="userPassword">Contraseña:</label>
 
+                                            <!--User password (click -> showPassword)-->
                                             <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
                                                 <div class="input-group mb-3">
                                                     <input class="form-control form-input" id="userPassword"
@@ -518,7 +569,7 @@
                                                     <span class="input-group-text"
                                                         onclick="switchPasswordVisibility('userPassword','seeUserPasswordImage')">
                                                         <img class="img-fluid" id="seeUserPasswordImage"
-                                                            src="./img/eye-fill.svg">
+                                                            src="./img/see-dark.svg">
                                                     </span>
 
                                                 </div>
@@ -536,7 +587,7 @@
                                                     <span class="input-group-text"
                                                         onclick="switchPasswordVisibility('userPassword2','seeUserPassword2Image')">
                                                         <img class="img-fluid" id="seeUserPassword2Image"
-                                                            src="./img/eye-fill.svg">
+                                                            src="./img/see-dark.svg">
                                                     </span>
 
                                                 </div>
@@ -547,13 +598,24 @@
                                     </div>
                                 </fieldset>
 
-                                <!--Submit buttom-->
+                                <!-- Formulary Buttons -->
                                 <div class="form-group text-end me-1 me-md-2">
-                                    <button class="btn float-self-center --button" type="submit">
+
+                                    <!-- Dialog Close Option -->
+                                    <a class="btn btn-sm btn-secondary" data-bs-dismiss="modal"
+                                        data-bs-target="#workerSiginDialog">
+                                        <img src="img/delete-light.svg" width="20" height="20"
+                                            class="img-fluid mb-1 me-1 d-none d-sm-inline">
+                                        CANCELAR
+                                    </a>
+
+                                    <!-- User Sigin Button -->
+                                    <button class="btn btn-sm --button" type="submit">
                                         <img src="img/add-profile.svg" width="20" height="20"
                                             class="img-fluid mb-1 me-1">
                                         REGISTAR
                                     </button>
+
                                 </div>
 
                             </form>
@@ -562,8 +624,9 @@
 
                     </div>
                 </div>
-
             </div>
+
+            <!--End of web contenet -->
 
     </main>
 

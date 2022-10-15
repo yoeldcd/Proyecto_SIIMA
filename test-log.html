@@ -144,47 +144,50 @@
 
                     <table class="table">
                         <thead>
-                            <th scope="col"></th>
-                            <th scope="col">Tipo</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col" class="col text-center">Accion</th>
+                            <th scope="col" class="col-1 text-center"></th>
+                            <th scope="col" class="col text-center">Tipo</th>
+                            <th scope="col" class="col text-center">Fecha</th>
+                            <th scope="col" class="col text-center">Estado</th>
+                            <th scope="col" class="col-3 text-center">Accion</th>
                         </thead>
                         <tbody>
                             <tr class="examen">
-                                <td class="col"><input type="checkbox" class="form-ckeck"></td>
+                                <td class="col-1"><input type="checkbox" class="form-ckeck"></td>
                                 <td class="col">Orina</td>
                                 <td class="col"><time>11/10/22</time></td>
                                 <td class="col">Procesando</td>
-                                <td class="col"></td>
+                                <td class="col-3"></td>
                             </tr>
-
+                            
                             <tr class="examen">
-                                <td class="col"><input type="checkbox" class="form-ckeck"></td>
+                                <td class="col-1"><input type="checkbox" class="form-ckeck"></td>
                                 <td class="col">Orina</td>
                                 <td class="col"><time>11/10/22</time></td>
                                 <td class="col">Procesando</td>
-                                <td class="col"></td>
+                                <td class="col-3"></td>
                             </tr>
 
                             <tr class="examen">
-                                <td class="col"><input type="checkbox" class="form-ckeck"></td>
+                                <td class="col-1"><input type="checkbox" class="form-ckeck"></td>
                                 <td class="col">Sangre</td>
                                 <td class="col"><time>09/10/22</time></td>
                                 <td class="col">Procesando</td>
-                                <td class="col"></td>
+                                <td class="col-3"></td>
                             </tr>
 
                             <tr class="examen">
-                                <td class="col"><input type="checkbox" class="form-ckeck"></td>
+                                <td class="col-1"><input type="checkbox" class="form-ckeck"></td>
                                 <td class="col">Orina</td>
                                 <td class="col"><time>09/10/22</time></td>
                                 <td class="col text-green">Listo</td>
-                                <td class="col text-end">
-                                    <button class="btn border-dark text-nowrap">
-                                        <img src="img/eye-fill.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                                <td class="col-3 text-center">
+                                    
+                                    <!-- Test log see button-->
+                                    <button class="btn btn-sm btn-secondary">
+                                        <img src="img/see-ligth.svg" width="20" height="20" class="img-fluid mb-1 me-1">
                                         <span class="d-none d-sm-inline">VER</span>
                                     </button>
+                                    
                                 </td>
                             </tr>
                             
@@ -193,11 +196,14 @@
                                 <td class="col">Sangre</td>
                                 <td class="col"><time>08/10/22</time></td>
                                 <td class="col text-green">Listo</td>
-                                <td class="col text-end">
-                                    <button class="btn border-dark text-nowrap">
-                                        <img src="img/eye-fill.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                                <td class="col-3 text-center">
+                                    
+                                    <!-- Test log see button-->
+                                    <button class="btn btn-sm btn-secondary">
+                                        <img src="img/see-ligth.svg" width="20" height="20" class="img-fluid mb-1 me-1">
                                         <span class="d-none d-sm-inline">VER</span>
                                     </button>
+                                    
                                 </td>
                             </tr>
                             
@@ -205,13 +211,16 @@
                     </table>
 
                 </div>
-
-                <!--User analisis actions-->
+                
+                <!--User Test Logs Actions-->
                 <div class="col-11 col-md-8 mt-2 text-end">
-                    <button class="btn btn-danger p-1 px-3">
-                        <img src="img/delete-test-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                    
+                    <!-- Selected Logs supress -->
+                    <button class="btn btn-sm btn-danger p-1 px-3">
+                        <img src="img/delete-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
                         BORRAR
                     </button>
+
                 </div>
 
             </div>

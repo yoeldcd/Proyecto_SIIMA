@@ -9,16 +9,15 @@
         SIIMA Usuarios
     </title>
 
-    <!-- Bootstrap Binding
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-        -->
-
+    <!-- Bootstrap Binding -->
     <link rel="stylesheet" type="text/css" href="bootstrap-5.2.2-dist/css/bootstrap.min.css">
-    <script src="bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
 
     <!--Custom styles sheets-->
     <link rel="stylesheet" type="text/css" href="css/main-layouts-styles.css">
+
+    <!--Scripts-->
+    <script src="js/scripts.js"></script>
 
 </head>
 
@@ -26,7 +25,8 @@
 
     <!--Web site header-->
     <header>
-        <!-- Navigation Bar -->
+
+        <!-- Fixed Top Navigation Bar -->
         <nav class="navbar fixed-top-navbar fixed-top" id="navbar">
             <div class="container-fluid">
                 <div class="row w-100 h-25 h-md-100 m-0 text-center">
@@ -71,15 +71,16 @@
 
                     <!--Nav links-->
                     <div class="col-sm-12 col-md-5 order-md-3">
-                        <div class="row d-none d-sm-flex h-100 justify-content-md-end align-items-end fs-6"
+                        <div class="row d-none d-sm-flex h-100 justify-content-center justify-content-md-end align-items-end fs-6"
                             id="navbarLinks">
-                            <a class="col-3 nav-link navbar-link" href="/users-list.html">
+
+                            <a href="/users-list.html" class="col-3 nav-link navbar-link">
                                 Usuarios
                             </a>
-                            <a class="col-5 nav-link navbar-link" href="/workers-list.html">
+                            <a href="/workers-list.html" class="col-5 nav-link navbar-link">
                                 Especialistas
                             </a>
-                            <a class="col-3 nav-link navbar-link" href="/events-log.html">
+                            <a href="/events-log.html" class="col-3 nav-link navbar-link">
                                 Eventos
                             </a>
 
@@ -127,61 +128,74 @@
 
 
                 <!--Offcnavas Links-->
-                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/user-list.html">
+                <a href="./users-list.html" class="col-12 nav-link offcanvas-link ps-3 fs-4">
                     Usuarios
                 </a>
-                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/workers-list.html">
+                <a href="./workers-list.html" class="col-12 nav-link offcanvas-link ps-3 fs-4">
                     Especialistas
                 </a>
-                <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href="/events-log.html">
+                <a href="./events-log.html" class="col-12 nav-link offcanvas-link ps-3 fs-4">
                     Eventos
                 </a>
 
+
             </div>
         </div>
+
     </header>
 
     <!--Web site Content layout-->
     <main class="flex-shrink-0" style="margin-bottom: 15vh;">
         <div class="container-fluid bg-gray content-layout">
 
-            <!--Any web pages contents is here-->
-
+            <!-- Main Web Contents is here-->
             <div class="row justify-content-center">
 
+                <!-- List Section Title-->
                 <div class="col-12 text-center fs-5 fw-bold">
                     Gestion de Usuarios
                 </div>
-
-                <!--User analisis list-->
-                <div class="col-11 col-md-8 mt-2 border border-dark overflow-auto" style="height: 50vh;">
-
+                
+                <!-- Registreds Users List -->
+                <div class="col-11 col-md-8 mt-2 overflow-auto" style="height: 50vh;">
                     <table class="table">
-                        <thead>
-                            <th scope="col"></th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Ultimo Acceso</th>
-                            <th scope="col">Accion</th>
+                        
+                        <thead class="border-bottom border-dark">
+                            <th colspan="2" scope="col-8" class="col-6 text-center">Nombre</th>
+                            <th scope="col" class="col text-center">Ultimo Acceso</th>
+                            <th scope="col" class="col-4 text-center">Accion</th>
                         </thead>
+                        
                         <tbody class="text-center">
-                            <tr>
-                                <td class="col-1"><img class="img-rounded" src="img/perfil.png" width="40px"
-                                        height="40px"></td>
-                                <td class="col-7 text-start">Yoel Davida Correa</td>
-                                <td class="col">11/10/2022 10:46AM</td>
-                                <td class="col">
-                                    <button class="btn btn-sm btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#userDetailsDialog">DETALES</button>
+                            
+                            <!-- Registred User Data Entry -->
+                            <tr class="border-bottom border-dark">
+                                <td class="col-1 text-center">
+                                    <img class="img-rounded" src="img/perfil.png" width="40px" height="40px">
+                                </td>
+                                <td class="col-7">Yoel Davida Correa</td>
+                                <td class="col text-center">11/10/2022 10:46AM</td>
+                                <td class="col-4 text-center">
+                                    <button class="btn btn-sm btn-secondary text-nowrap" data-bs-toggle="modal"
+                                        data-bs-target="#userDetailsDialog">
+                                        <img src="img/see-ligth.svg" width="20" height="20"
+                                            class="img-fluid mb-1 me-sm-1">
+                                        <span class="d-none d-sm-inline">
+                                            DETALLES
+                                        </span>
+                                    </button>
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
 
+                        </tbody>
+
+                    </table>
                 </div>
 
-                <!--User actions-->
+                <!-- User actions-->
                 <div class="col-11 col-md-8 mt-2 text-end">
-                    <button class="btn p-1 px-3 me-3 --button" data-bs-toggle="modal" data-bs-target="#userSiginDialog">
+                    <button class="btn btn-sm --button p-1 px-3 me-3" data-bs-toggle="modal"
+                        data-bs-target="#userSiginDialog">
                         <img src="img/add-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
                         NUEVO
                     </button>
@@ -189,51 +203,52 @@
 
             </div>
 
-            <!--Modal Details Dialog-->
+            <!-- Modal User Details Dialog-->
             <div class="modal fade" tabindex="-1" aria-hidden="true" id="userDetailsDialog">
+
                 <div class="modal-dialog modal-dialog-centered">
+
                     <div class="modal-content">
 
-                        <div class="modal-header text-center">
+                        <!--Modal Dialog Title-->
+                        <div class="modal-header">
                             <spam class="modal-title">Detalles de Usuario</spam>
                         </div>
 
-                        <!-- user description formulary-->
+                        <!-- User Description Section -->
                         <div class="modal-body">
-                            <!--Center column-->
-                            <div class="row p-2 justify-content-center align-items-center g-2 text-start">
+
+                            <!-- User Description -->
+                            <div class="row justify-content-center p-3 g-2 text-start text-nowrap rounded-3 data-form">
+                                
                                 <!--Profile User icon-->
                                 <spam class="col-12 text-center" href=".">
                                     <img class="img rounded-1 fs-6 bg-gray user-icon-large" alt="user logo"
                                         src="img/perfil.png" width="150" height="150">
-                                    <br>
-                                    <img src="img/edit-logo.png" width="40" height="40" class="img border-dark bottom-0"
-                                        onclick="clickElement('userLogoFile')">
-                                    <input type="file" id="userLogoFile" class="visually-hidden-focusable">
-
                                 </spam>
-
-                                <!--Profile user name-->
+                                
+                                <!-- Profile Username-->
                                 <span class="col-12 text-nowrap overflow-hidden text-center user-name-label">
                                     USERNAME IS HERE
                                 </span>
-
+                                
+                                <!-- Profile Name -->
                                 <span class="col-6 text-nowrap overflow-hidden">
                                     Nombre:
                                 </span>
                                 <span class="col-6 text-nowrap overflow-hidden">
                                     Yoel David
                                 </span>
-
-
+                                
+                                <!-- Profile SurName -->
                                 <span class="col-6 text-nowrap overflow-hidden">
                                     Apellidos
                                 </span>
                                 <spam class="col-6 text-nowrap overflow-hidden" id="userSurNames">
                                     Correa Duke
                                 </spam>
-
-
+                                
+                                <!-- Profile Genere -->
                                 <spam class="col-6 text-nowrap overflow-hidden">
                                     Sexo:
                                 </spam>
@@ -241,7 +256,7 @@
                                     masculino
                                 </span>
 
-
+                                <!-- Profile Age -->
                                 <spam class="col-6 text-nowrap overflow-hidden">
                                     Edad:
                                 </spam>
@@ -249,6 +264,7 @@
                                     23 Años
                                 </span>
 
+                                <!-- Profile Blod Group -->
                                 <spam class="col-6 text-nowrap overflow-hidden">
                                     Grupo sanguineo:
                                 </spam>
@@ -256,9 +272,10 @@
                                     AB+
                                 </span>
 
-                                <!--Separation line-->
+                                <!-- Separation line-->
                                 <span class="col-12 border border-dark"></span>
 
+                                <!-- Profile Last Access -->
                                 <spam class="col-6 text-nowrap overflow-hidden">
                                     Ultimo Acceso:
                                 </spam>
@@ -266,52 +283,80 @@
                                     <time>10/10/2022 <b>12:24PM</b></time>
                                 </span>
 
+                                <!-- Profile Sigin Date -->
                                 <spam class="col-6 text-nowrap overflow-hidden">
                                     Fecha de Registro:
                                 </spam>
                                 <span class="col-6 text-nowrap overflow-hidden" id="userBlodGroup">
                                     <time>10/10/2022 <b>11:40PM</b></time>
                                 </span>
-                            </div>
 
-                            <!-- User Profile Options -->
-                            <div class="modal-footer">
-                                <a href="events-log.html" class="btn btn-sm --button m-2">
-                                    <img src="img/profile-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
-                                    EVENTOS
-                                </a>
-                                <a href="edit-user-profile.html" class="btn btn-sm --button m-2">
-                                    <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
-                                    EDITAR
-                                </a>
-                                <button type="button" class="btn btn-sm btn-danger">
-                                    <img src="img/delete-profile.svg" width="20" height="20"
-                                        class="img-fluid mb-1 me-1">
-                                    SUPRIMIR
-                                </button>
-                            </div>
+                                <!-- User Profile Action Buttons -->
+                                <div class="col-12 text-center">
+                                    <div class="row justify-content-center">
 
+                                        <!--User Events Log Option-->
+                                        <a href="events-log.html" class="col-12 col-sm btn btn-sm --button m-2">
+                                            <img src="img/profile-log.svg" width="20" height="20"
+                                                class="img-fluid mb-1 me-1">
+                                            EVENTOS
+                                        </a>
+
+                                        <!-- User Edit Option-->
+                                        <a href="edit-user-profile.html" class="col-12 col-sm btn btn-sm --button m-2">
+                                            <img src="img/edit-profile.svg" width="20" height="20"
+                                                class="img-fluid mb-1 me-1">
+                                            EDITAR
+                                        </a>
+                                        
+                                        <!-- User Supress Option -->
+                                        <a href="" class="col-12 col-sm btn btn-sm btn-danger m-2">
+                                            <img src="img/delete-profile.svg" width="20" height="20"
+                                                class="img-fluid mb-1 me-1">
+                                            SUPRIMIR
+                                        </a>
+                                        
+                                        <!-- Dialog Close Option -->
+                                        <a class="col-12 btn btn-sm btn-secondary" data-bs-dismiss="modal"
+                                            data-bs-target="#workerDetailsDialog">
+                                            <img src="img/delete-light.svg" width="20" height="20"
+                                                class="img-fluid mb-1 me-1">
+                                            CERRAR
+                                        </a>
+
+                                    </div>
+                                
+                                </div>
+
+                            </div>
+                        
+                        
                         </div>
+
                     </div>
+
 
                 </div>
 
             </div>
-
-            <!--Modal Add Dialog-->
+            
+            <!-- Modal Add User Dialog-->
             <div class="modal fade" tabindex="-1" aria-hidden="true" id="userSiginDialog">
+
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
 
+                        <!-- Modal Dialog Title-->
                         <div class="modal-header text-center">
                             <spam class="modal-title">Registar Usuario</spam>
                         </div>
-                        
-                        <!-- user registratio formulary-->
+
+                        <!-- Dialog Content -->
                         <div class="modal-body">
-                            
+
+                            <!-- User Registration Formulary-->
                             <form action="user-profile.html" class="form rounded-3 data-form p-2 m-0">
-                                
+
                                 <!--First name input group-->
                                 <fieldset class="row p-1 g-1">
                                     <div class="col-12 text-start">
@@ -424,10 +469,14 @@
 
                                 </fieldset>
 
-                                <!-- Credentials -->
+                                <!-- Credentials Section -->
                                 <fieldset class="row p-2 g-1">
                                     <div class="col-12 p-2 text-start border border-secondary rounded-3">
-                                        <label class="form-label w-100 text-center fw-bold">Credenciales:</label>
+
+                                        <!--Section Title-->
+                                        <label class="form-label w-100 text-center fw-bold">
+                                            Credenciales:
+                                        </label>
 
                                         <div class="row p-1">
 
@@ -460,7 +509,7 @@
                                                     <span class="input-group-text"
                                                         onclick="switchPasswordVisibility('userPassword','seeUserPasswordImage')">
                                                         <img class="img-fluid" id="seeUserPasswordImage"
-                                                            src="./img/eye-fill.svg">
+                                                            src="./img/see-dark.svg">
                                                     </span>
 
                                                 </div>
@@ -478,7 +527,7 @@
                                                     <span class="input-group-text"
                                                         onclick="switchPasswordVisibility('userPassword2','seeUserPassword2Image')">
                                                         <img class="img-fluid" id="seeUserPassword2Image"
-                                                            src="./img/eye-fill.svg">
+                                                            src="./img/see-dark.svg">
                                                     </span>
 
                                                 </div>
@@ -489,22 +538,35 @@
                                     </div>
                                 </fieldset>
 
-                                <!--Submit buttom-->
+                                <!-- Formulary Buttons -->
                                 <div class="form-group text-end me-1 me-md-2">
-                                    <button class="btn float-self-center --button" type="submit">
+
+                                    <!-- Dialog Close Option -->
+                                    <a class="btn btn-sm btn-secondary" data-bs-dismiss="modal"
+                                        data-bs-target="#userSiginDialog">
+                                        <img src="img/delete-light.svg" width="20" height="20"
+                                            class="img-fluid mb-1 me-1 d-none d-sm-inline">
+                                        CANCELAR
+                                    </a>
+
+                                    <!-- User Sigin Button -->
+                                    <button class="btn btn-sm --button" type="submit">
                                         <img src="img/add-profile.svg" width="20" height="20"
                                             class="img-fluid mb-1 me-1">
-                                        REGISTARSE
+                                        REGISTAR
                                     </button>
+
                                 </div>
 
                             </form>
 
                         </div>
+
                     </div>
                 </div>
+
             </div>
-            
+
     </main>
 
     <!-- Web site Fixed bootom foterBar -->

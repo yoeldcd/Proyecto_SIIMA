@@ -8,15 +8,14 @@
     <title>
         Welcom SIIMA
     </title>
-
+    
     <!-- Bootstrap Binding
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
         -->
-
     <link rel="stylesheet" type="text/css" href="bootstrap-5.2.2-dist/css/bootstrap.min.css">
     <script src="bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
-
+    
     <!--Custom styles sheets-->
     <link rel="stylesheet" type="text/css" href="css/main-layouts-styles.css">
 
@@ -145,118 +144,163 @@
 
                     <table class="table">
                         <thead>
-                            <th scope="col">Tipo</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col" class="col text-center">Accion</th>
+                            <th scope="col" class="col-4 text-center">Tipo</th>
+                            <th scope="col" class="col text-center">Fecha</th>
+                            <th scope="col" class="col text-center">Estado</th>
+                            <th scope="col" class="col-4 text-center">Accion</th>
                         </thead>
                         <tbody>
+
+                            <!--Test Work Row -->
                             <tr class="examen bg-red">
-                                <td class="col">Nefrologico</td>
-                                <td class="col"><time>11/10/22</time></td>
+                                <td class="col-4">Nefrologico</td>
+                                <td class="col">
+                                    <time>11/10/22</time>
+                                </td>
                                 <td class="col">Pendiente</td>
-                                <td class="col text-end bg-light">
+                                <td class="col-6 bg-light">
                                     
-                                    <button class="btn --button border-light">
-                                        <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
-                                        EDITAR
+                                    <!-- Tested Work edit button -->
+                                    <button class="btn btn-sm --button border-light">
+                                        <img src="img/edit-profile.svg" width="20" height="20"
+                                            class="img-fluid mb-1 me-1">
+                                        <span class="d-none d-lg-inline">
+                                            EDITAR
+                                        </span>
                                     </button>
+                                
                                 </td>
                             </tr>
                             
+                            <!-- Test Work Row -->
                             <tr class="examen bg-red">
-                                <td class="col">Microbilogico</td>
-                                <td class="col"><time>10/10/22</time></td>
-                                <td class="col">Pendiente</td>
-                                <td class="col text-end bg-light">
-                                    
-                                    <button class="btn --button border-light">
-                                        <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
-                                        EDITAR
-                                    </button>
+                                <td class="col-4">Microbilogico</td>
+                                <td class="col">
+                                    <time>10/10/22</time>
                                 </td>
-                            </tr>
-                            
-                            <tr class="examen bg-green">
-                                <td class="col">Sangre</td>
-                                <td class="col"><time>09/10/22</time></td>
-                                <td class="col">LISTO</td>
-                                <td class="col text-end bg-light">
-                                    
-                                    <button class="btn btn-danger border-light">
-                                        <img src="img/delete-test-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
-                                        NOTIFICAR
+                                <td class="col">Pendiente</td>
+                                <td class="col-6 bg-light">
+
+                                    <!-- Tested Work edit button -->
+                                    <button class="btn btn-sm --button border-light">
+                                        <img src="img/edit-profile.svg" width="20" height="20"
+                                            class="img-fluid mb-1 me-1">
+                                        <span class="d-none d-lg-inline">
+                                            EDITAR
+                                        </span>
                                     </button>
 
-                                    <button class="btn --button border-light">
-                                        <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
-                                        EDITAR
-                                    </button>
-                                    
                                 </td>
                             </tr>
-                            
+
                             <tr class="examen bg-green">
-                                <td class="col">Nefrologico</td>
-                                <td class="col"><time>08/10/22</time></td>
+                                <td class="col-4">Sangre</td>
+                                <td class="col">
+                                    <time>09/10/22</time>
+                                </td>
                                 <td class="col">LISTO</td>
-                                <td class="col text-end bg-light">
+                                <td class="col-6 bg-light">
                                     
-                                    <button class="btn btn-danger border-light">
-                                        <img src="img/delete-test-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
-                                        NOTIFICAR
+                                    <!-- Tested Work edit button -->
+                                    <button class="btn btn-sm --button border-light">
+                                        <img src="img/edit-profile.svg" width="20" height="20"
+                                            class="img-fluid mb-1 me-1">
+                                        <span class="d-none d-lg-inline">
+                                            EDITAR
+                                        </span>
                                     </button>
                                     
-                                    <button class="btn --button border-light">
-                                        <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
-                                        EDITAR
+                                    <!-- Tested Work Notify button -->
+                                    <button class="btn btn-sm btn-danger border-light">
+                                        <img src="img/delete-log.svg" width="20" height="20"
+                                            class="img-fluid mb-1 me-1">
+                                        <span class="d-none d-lg-inline">
+                                            NOTIFICAR
+                                        </span>
+                                    </button>
+
+                                </td>
+                            </tr>
+
+                            <tr class="examen bg-green">
+                                <td class="col-4">Nefrologico</td>
+                                <td class="col">
+                                    <time>08/10/22</time>
+                                </td>
+                                <td class="col">LISTO</td>
+                                <td class="col-6 bg-light">
+                                    
+                                    <!-- Tested Work edit button -->
+                                    <button class="btn btn-sm --button">
+                                        <img src="img/edit-profile.svg" width="20" height="20"
+                                            class="img-fluid mb-1 me-1">
+                                        <span class="d-none d-lg-inline">
+                                            EDITAR
+                                        </span>
                                     </button>
                                     
+                                    <!-- Tested Work Notify button -->
+                                    <button class="btn btn-sm btn-danger">
+                                        <img src="img/delete-log.svg" width="20" height="20"
+                                            class="img-fluid mb-1 me-1">
+                                        <span class="d-none d-lg-inline">
+                                            NOTIFICAR
+                                        </span>
+                                    </button>
+                                
                                 </td>
                             </tr>
                             
                             <tr class="examen bg-green">
-                                <td class="col">Microbilogico</td>
+                                <td class="col-4 ">Microbilogico</td>
                                 <td class="col"><time>07/10/22</time></td>
                                 <td class="col">LISTO</td>
-                                <td class="col text-end bg-light">
+                                <td class="col-6 bg-light">
                                     
-                                    <button class="btn btn-danger border-light">
-                                        <img src="img/delete-test-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
-                                        NOTIFICAR
-                                    </button>
-
-                                    <button class="btn --button border-light">
-                                        <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
-                                        EDITAR
+                                    <!-- Tested Work edit button -->
+                                    <button class="btn btn-sm --button border-light">
+                                        <img src="img/edit-profile.svg" width="20" height="20"
+                                            class="img-fluid mb-1 me-1">
+                                        <span class="d-none d-md-inline">
+                                            EDITAR
+                                        </span>
                                     </button>
                                     
+                                    <!-- Tested Work Notify button -->
+                                    <button class="btn btn-sm btn-danger border-light">
+                                        <img src="img/delete-log.svg" width="20" height="20"
+                                            class="img-fluid mb-1 me-1">
+                                        <span class="d-none d-md-inline">
+                                            NOTIFICAR
+                                        </span>
+                                    </button>
+                                
                                 </td>
                             </tr>
-                            
+                        
                         </tbody>
                     </table>
                 
                 </div>
-                
+
                 <!--User analisis actions-->
                 <div class="col-11 col-md-8 mt-2 text-end">
-                    <button class="btn p-1 px-3 me-3 --button" data-bs-toggle="modal"
+                    <button class="btn btn-sm --button p-1 px-3 me-3 " data-bs-toggle="modal"
                         data-bs-target="#addTestDialog">
                         <img src="img/add.svg" width="20" height="20" class="img-fluid mb-1 me-1">
                         NUEVO
-                        </button>
+                    </button>
                 </div>
 
                 <!--Modal Add Dialog-->
                 <div class="modal fade" tabindex="-1" aria-hidden="true" id="addTestDialog">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
-                            
+
                             <div class="modal-header text-center">
                                 <spam class="modal-title">Nuevo Analisis</spam>
                             </div>
-                            
+
                             <!--test description formulary-->
                             <div class="modal-body">
                                 <form class="form">
@@ -269,7 +313,7 @@
                                             <option>Sanguineo</option>
                                             <option>Virologico</option>
                                         </select>
-                                            
+
                                         <!--tested User CI number-->
                                         <fieldset class="row p-1 g-1">
                                             <div class="col-12 text-start">
@@ -279,7 +323,7 @@
                                                     onkeypress="return mathType(event ,'testCI','number-only');">
                                             </div>
                                         </fieldset>
-                                    
+
                                         <!-- Test ID User number-->
                                         <fieldset class="row p-1 g-1">
                                             <div class="col-12 text-start">
@@ -289,7 +333,7 @@
                                                     onkeypress="return mathType(event ,'testID','number-only');">
                                             </div>
                                         </fieldset>
-                                    
+
                                     </fieldset>
                                 </form>
                             </div>
