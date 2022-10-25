@@ -82,45 +82,28 @@
                 </div>
 
                 <!--Offcnavas Links-->
-                
+
             </div>
         </div>
     </header>
 
     <!--Web site Content layout-->
     <main class="flex-shrink-0">
+        
+        
+        <!--Main Web Content is here-->
         <div class="container-fluid bg-gray p-0 content-layout" style="margin-bottom: 15vh;">
-
-            <!--Any web pages contents is here-->
-
-            <div class="row w-100 h-50 m-0">
-                <div class="col d-none d-sm-flex">
-                </div>
-
-                <!--Center column-->
-                <div class="col-12 col-sm-8 col-md-6 text-center h-100">
+            <div class="row m-0 justify-content-center">
+                <div class="col-12 col-sm-8 col-md-6 text-center">
+                    
+                    <h5 class="text-uppercase">
+                        Editar Perfil:
+                    </h5>
+                    
+                    <!-- Worker Profile Edition Formulary -->
                     <form action="user-profile.html" class="form rounded-3 data-form p-2 m-0">
 
-                        <!-- Form Title Text -->
-                        <spam class="fs-5 fw-bold text-uppercase text-bold mb-5">
-                            Editar Perfil:
-                        </spam>
-                        <br>
-
-                        <!--Profile User icon-->
-                        <spam class="col-12 text-center fw-bold" href=".">
-                            <img class="img-fluid rounded-5 user-icon-large" alt="user logo" src="img/perfil.png"
-                                width="150" height="150">
-                            <br>
-                            
-                            <!--Worker Icon change section-->
-                            <img src="img/edit-logo.png" width="40" height="40" class="img border-dark bottom-0">
-                            <a class="--link" onclick="clickElement('userLogoFile')">CAMBIAR</a>
-                            <input type="file" id="userLogoFile" class="visually-hidden-focusable">
-
-                        </spam>
-
-                        <!--First name input group-->
+                        <!-- Worker First Name inputs -->
                         <fieldset class="row p-1 g-1">
                             <div class="col-12 text-start">
                                 <label class="form-label">Nombres:</label>
@@ -135,7 +118,7 @@
                             </div>
                         </fieldset>
 
-                        <!--User Surnames Inputs-->
+                        <!-- Worker Surnames Inputs -->
                         <fieldset class="row p-1 g-1">
                             <div class="col-12 text-start">
                                 <label class="form-label">Apellidos:</label>
@@ -150,7 +133,7 @@
                             </div>
                         </fieldset>
 
-                        <!--User Genere-->
+                        <!-- Worker Genere -->
                         <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
                             <div class="col-12 text-start">
                                 <label class="form-label">Genero:</label>
@@ -166,7 +149,7 @@
                             </div>
                         </fieldset>
 
-                        <!--CI number-->
+                        <!-- Worker CI number -->
                         <fieldset class="row p-1 g-1">
                             <div class="col-12 text-start">
                                 <label class="form-label">Numero de CI:</label>
@@ -176,7 +159,7 @@
                             </div>
                         </fieldset>
 
-                        <!--Phone number-->
+                        <!-- Worker Phone number -->
                         <fieldset class="row p-1 g-1 justify-content-center">
                             <div class="col-12 text-start">
                                 <label class="form-label">Telefono:</label>
@@ -196,15 +179,15 @@
 
                         </fieldset>
 
-                        <!--Worker Information-->
+                        <!-- Worker Information -->
                         <fieldset class="row p-2 m-2 mt-2 g-2 border border-secondary rounded-3">
 
-                            <!--Form worker section title-->
+                            <!-- Worker Section Title -->
                             <spam class="col-12 text-center fw-bold">
                                 Especialidad:
                             </spam>
 
-                            <!--Worker user role-->
+                            <!-- Worker Profile Job-Role -->
                             <div class="col-12 m-1 text-start">
                                 <label for="workerJob" class="form-label m-1">Puesto:</label>
                                 <select name="workerJob" id="workerJob" class="form-select form-input">
@@ -213,47 +196,56 @@
                                 </select>
                             </div>
 
-                            <!-- Worker User permissions -->
+                            <!-- Worker Profile Permissions Granted -->
                             <div class="col-12 m-2 text-start">
                                 Permisos:
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6 text-start">
+                                        <label class="form-label m-1">
+                                            <input type="checkbox" id="userPermisionRead"
+                                                class="form-checkox me-2">Consultar
+                                            muesta
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 col-md-6 text-start">
+                                        <label class="form-label m-1">
+                                            <input type="checkbox" id="userPermisionAdd"
+                                                class="form-checkox me-2">Agregar
+                                            muesta
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 col-md-6 text-start">
+                                        <label class="form-label m-1">
+                                            <input type="checkbox" id="userPermisionEdit"
+                                                class="form-checkox me-2">Modificar
+                                            muesta
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 col-md-6 text-start">
+                                        <label class="form-label m-1">
+                                            <input type="checkbox" id="userPermisionDelet"
+                                                class="form-checkox me-2">Eliminar
+                                            muesta
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 col-md-6 text-start fw-bold">
+                                        <label class="form-label m-1">
+                                            <input type="checkbox" id="userPermisionRoot"
+                                                class="form-checkox me-2">Administrador
+                                        </label>
+                                    </div>
+
+
+                                </div>
+
                             </div>
 
-                            <div class="col-12 col-md-6 text-start">
-                                <label class="form-label m-1">
-                                    <input type="checkbox" id="userPermisionRead" class="form-checkox me-2">Consultar
-                                    muesta
-                                </label>
-                            </div>
-
-                            <div class="col-12 col-md-6 text-start">
-                                <label class="form-label m-1">
-                                    <input type="checkbox" id="userPermisionAdd" class="form-checkox me-2">Agregar
-                                    muesta
-                                </label>
-                            </div>
-
-                            <div class="col-12 col-md-6 text-start">
-                                <label class="form-label m-1">
-                                    <input type="checkbox" id="userPermisionEdit" class="form-checkox me-2">Modificar
-                                    muesta
-                                </label>
-                            </div>
-
-                            <div class="col-12 col-md-6 text-start">
-                                <label class="form-label m-1">
-                                    <input type="checkbox" id="userPermisionDelet" class="form-checkox me-2">Eliminar
-                                    muesta
-                                </label>
-                            </div>
-
-                            <!-- Admin Password-->
-                            <div class="col-12 col-md-6 text-start fw-bold">
-                                <label class="form-label m-1">
-                                    <input type="checkbox" id="userPermisionRoot"
-                                        class="form-checkox me-2">Administrador
-                                </label>
-                            </div>
-
+                            <!-- Admin Password -->
                             <fieldset class="col-12 form-group text-start mt-1">
                                 <div class="input-group mb-3">
                                     <input class="form-control form-input" name="adminPassword" type="password"
@@ -263,7 +255,7 @@
                                     <!--See password button-->
                                     <span class="input-group-text"
                                         onclick="switchPasswordVisibility('adminPassword','seeAdminPasswordImage')">
-                                        <img class="img-fluid" id="seeAdminPasswordImage" src="./img/eye-fill.svg">
+                                        <img class="img-fluid" id="seeAdminPasswordImage" src="./img/see-dark.svg">
                                     </span>
 
                                 </div>
@@ -271,11 +263,14 @@
 
                         </fieldset>
 
-                        <!-- Credentials -->
+                        <!-- Worker Account Credentials -->
                         <fieldset class="row p-2 g-1">
                             <div class="col-12 p-2 text-start border border-secondary rounded-3">
+
+                                <!-- Section Title -->
                                 <label class="form-label w-100 text-center fw-bold">Credenciales:</label>
 
+                                <!-- Credential Fields -->
                                 <div class="row p-1">
 
                                     <!--User nickname-->
@@ -287,14 +282,15 @@
 
                                     <!--Recuperation mail-->
                                     <fieldset class="col-12 form-group text-start mt-3">
-                                        <label class="form-label ms-1" for="#userMail">Correo de Recuperacion:</label>
+                                        <label class="form-label ms-1" for="#userMail">Correo de
+                                            Recuperacion:</label>
                                         <input class="form-control form-input" name="userMail" type="email"
                                             maxlength="30" placeholder="example@nauta.cu" required>
                                     </fieldset>
 
-                                    <!--User password (click -> showPassword)-->
                                     <label class="form-label mt-3 ms-1" for="userPassword">Contraseña:</label>
 
+                                    <!--User password (click -> showPassword)-->
                                     <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
                                         <div class="input-group mb-3">
                                             <input class="form-control form-input" id="userPassword" type="password"
@@ -305,7 +301,7 @@
                                             <span class="input-group-text"
                                                 onclick="switchPasswordVisibility('userPassword','seeUserPasswordImage')">
                                                 <img class="img-fluid" id="seeUserPasswordImage"
-                                                    src="./img/eye-fill.svg">
+                                                    src="./img/see-dark.svg">
                                             </span>
 
                                         </div>
@@ -322,7 +318,7 @@
                                             <span class="input-group-text"
                                                 onclick="switchPasswordVisibility('userPassword2','seeUserPassword2Image')">
                                                 <img class="img-fluid" id="seeUserPassword2Image"
-                                                    src="./img/eye-fill.svg">
+                                                    src="./img/see-dark.svg">
                                             </span>
 
                                         </div>
@@ -333,31 +329,34 @@
                             </div>
                         </fieldset>
 
-                        <!--Submit buttom-->
-                        <div class="form-group text-end me-1 me-md-2">
-                            <button type="submit" class="btn --button me-2" type="submit">
-                                <img src="img/save.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                        <!-- Formulary Buttons -->
+                        <fieldset class="row form-group text-end justify-content-center p-2 g-1">
+                            
+                            <!-- Save Profile Option -->
+                            <button class="btn btn-sm --button col-12 col-sm mx-2 text-nowrap" type="submit">
+                                <img src="img/save.svg" width="20" height="20" 
+                                class="img-fluid mb-1 me-1">
                                 GUARDAR
                             </button>
-
-                            <button class="btn btn-danger" type="submit">
-                                <img src="img/delete-test-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                            
+                            <!-- Dialog Close Option -->
+                            <a class="btn btn-sm col btn-danger col-12 col-sm mx-2 text-nowrap" data-bs-dismiss="modal"
+                                data-bs-target="#workerSiginDialog">
+                                <img src="img/delete-light.svg" width="20" height="20"
+                                    class="img-fluid mb-1 me-1">
                                 DESCARTAR
-                            </button>
-
-                        </div>
+                            </a>
+                            
+                        </fieldset>
 
                     </form>
+                
                 </div>
-
-                <div class="col d-none d-sm-flex">
-                </div>
-
             </div>
-
-            <!--End of web contenet -->
-
         </div>
+    
+        <!--End of web contenet -->
+
     </main>
 
     <!-- Web site Fixed bootom foterBar -->

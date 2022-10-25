@@ -15,12 +15,13 @@
         -->
     <script src="bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="bootstrap-5.2.2-dist/css/bootstrap.min.css">
-    
+
     <!--Custom styles sheets-->
     <link rel="stylesheet" type="text/css" href="css/main-layouts-styles.css">
-    
+
+    <!--Scripts-->
     <script src="js/scripts.js"></script>
-    
+
 </head>
 
 <body>
@@ -50,326 +51,341 @@
                         <div class="row d-none d-sm-flex h-100 justify-content-md-end align-items-end fs-6"
                             id="navbarLinks">
 
-                        
+
                         </div>
                     </div>
-                
+
                 </div>
             </div>
         </nav>
-        
+
         <!-- Navigation Offcanvas Side Menu-->
         <div class="offcanvas offcanvas-start p-0 w-50" tabindex="-1" id="navOffcanvas"
             aria-labelledby="offcanvasLabel">
             <div class="offcanvas-header bg-success align-items-start" id="offcanvasHeader">
-                
+
                 <!--User Profile data-->
                 <h5 class="offcanvas-title text-start">
                     <!--No user logo -->
                     <spam style="display: inline-block; min-width: 80px; min-height: 80px;">
                     </spam>
                 </h5>
-                
+
                 <!--Offcanvas Close button -->
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
                     id="offcanvasCloseButton">
                 </button>
-                
+
             </div>
             <div class="offcanvas-body p-0 w-100 text-start fs-4" id="offcanvasLinks">
-                
+
                 <div
                     class="col-12 row justify-content-between text-ligth m-0 fs-6 text-nowrap overflow-hidden user-name">
                 </div>
-                
+
                 <!--Offcnavas Links-->
-                
+
             </div>
         </div>
     </header>
-    
+
     <!--Web site Content layout-->
     <main class="flex-shrink-0">
+        
+        <!--Main Web Content is here-->
         <div class="container-fluid bg-gray p-0 content-layout" style="margin-bottom: 15vh;">
-
-            <!--Any web pages contents is here-->
-            
             <div class="row w-100 h-50 m-0 justify-content-center">
-                
-                <!--Center column-->
                 <div class="col-12 col-sm-8 col-md-6 col-lg-4 text-center h-100">
+
+                    <!-- Sesion Login Formulary -->
                     <form action="admin-profile.html" class="form rounded-3 data-form p-2 m-0">
-                        
+
                         <!-- Form Title Text -->
                         <spam class="fs-5 text-uppercase text-bold mb-5">
                             Autenticar:
                         </spam>
                         <br>
                         
-                        <!--User name-->
+                        <!-- Sesion User name-->
                         <fieldset class="form-group text-start">
-                            <label class="form-label" for="userName">Usuario:</label>
+                            <label class="form-label" for="#sesionUserName">Usuario:</label>
                             <div class="input-group mb-3">
-                                <input class="form-control form-input" name="userName" id="userName" type="text" maxlength="30"
+                                <input class="form-control form-input" id="sesionUserName" type="text" maxlength="30"
                                     placeholder="Teclee su usuario" required>
                                 <span class="input-group-text">@</span>
                             </div>
                         </fieldset>
                         
-                        <!--User password (click -> showPassword)-->
+                        <!-- Sesion User password (click -> showPassword)-->
                         <fieldset class="form-group text-start mt-1">
-                            <label class="form-label" for="userPasswor">Contraseña:</label>
+                            <label class="form-label" for="#sesionUserPassword">Contraseña:</label>
                             <div class="input-group mb-3">
-                                <input class="form-control form-input" name="userPassword" id="userPassword" type="password"
-                                    id="userPassword" maxlength="30" placeholder="Teclee su cotraseña" required>
-                                
-                                <span class="input-group-text" onclick="switchPasswordVisibility('userPassword','seeUserPasswordImage');">
-                                    <img class="img-fluid" id="seeUserPasswordImage" src="./img/eye-fill.svg">
+                                <input class="form-control form-input" id="sesionUserPassword" type="password"
+                                    maxlength="256" placeholder="Teclee su cotraseña" required>
+
+                                <span class="input-group-text"
+                                    onclick="switchPasswordVisibility('sesionUserPassword','seeSesionUserPasswordImage');">
+                                    <img class="img-fluid" id="seeSesionUserPasswordImage" src="./img/see-dark.svg">
                                 </span>
-                            
+
                             </div>
                         </fieldset>
                         
-                        <!--Sigin anchor link-->
-                        <a class="form-group --text-small --link" data-bs-toggle="modal" data-bs-target="#userSiginDialog">
+                        <!-- Sigin anchor link-->
+                        <a class="form-group --text-small --link" data-bs-toggle="modal"
+                            data-bs-target="#userSiginDialog">
                             Registrarse
                         </a>
                         
-                        <!--Submit buttom-->
+                        <!-- Login Buttom-->
                         <div class="form-group text-end me-1 me-md-2">
                             <button class="btn float-self-center --button" type="submit">
                                 ENTRAR
                             </button>
                         </div>
-                    
+
                     </form>
+                
                 </div>
-                            
             </div>
-            
-            <!--Modal Add Dialog-->
-            <div class="modal fade" tabindex="-1" aria-hidden="true" id="userSiginDialog">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
+        </div>
+        
+        <!-- Modal SiginUser Dialog-->
+        <div class="modal fade" tabindex="-1" aria-hidden="true" id="userSiginDialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    
+                    <!-- Modal Dialog Title-->
+                    <div class="modal-header text-center">
+                        <spam class="modal-title">Registrarse en SIIMA:</spam>
+                    </div>
+                    
+                    <!-- Dialog Content -->
+                    <div class="modal-body">
+                        
+                        <!-- User Registration Formulary-->
+                        <form action="user-profile.html" class="form rounded-3 data-form p-2 m-0">
 
-                        <div class="modal-header text-center">
-                            <spam class="modal-title">Registar Usuario</spam>
-                        </div>
+                            <!--First name input group-->
+                            <fieldset class="row p-1 g-1">
+                                <div class="col-12 text-start">
+                                    <label class="form-label">Nombres:</label>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input class="form-control form-input" id="firstName" type="text" maxlength="30"
+                                        placeholder="Primer Nombre" required>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input class="form-control form-input" id="secondName" type="text" maxlength="30"
+                                        placeholder="Segundo Nombre">
+                                </div>
+                            </fieldset>
 
-                        <!-- user registratio formulary-->
-                        <div class="modal-body">
+                            <!--User Surnames Inputs-->
+                            <fieldset class="row p-1 g-1">
+                                <div class="col-12 text-start">
+                                    <label class="form-label">Apellidos:</label>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input class="form-control form-input" id="firstSurName" type="text" maxlength="30"
+                                        placeholder="Primer Apellido" required>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input class="form-control form-input" id="secondSurName" type="text" maxlength="30"
+                                        placeholder="Segundo Apellido">
+                                </div>
+                            </fieldset>
 
-                            <form action="user-profile.html" class="form rounded-3 data-form p-2 m-0">
+                            <!--User Genere-->
+                            <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
+                                <div class="col-12 text-start">
+                                    <label class="form-label">Genero:</label>
+                                </div>
+                                <div class="col-6 form-check">
+                                    <input class="form-radio-input me-3" name="genere" id="male" type="radio" checked>
+                                    <label class="form-check-label" for="#male"> Hombre</label>
+                                </div>
+                                <div class="col-6 form-check">
+                                    <input class="form-radio-input me-3" name="genere" id="female" type="radio">
+                                    <label class="form-check-label" for="#female"> Mujer</label>
 
-                                <!--First name input group-->
-                                <fieldset class="row p-1 g-1">
-                                    <div class="col-12 text-start">
-                                        <label class="form-label">Nombres:</label>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <input class="form-control form-input" id="firstName" type="text" maxlength="30"
-                                            placeholder="Primer Nombre" required>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <input class="form-control form-input" id="secondName" type="text"
-                                            maxlength="30" placeholder="Segundo Nombre">
-                                    </div>
-                                </fieldset>
+                                </div>
+                            </fieldset>
 
-                                <!--User Surnames Inputs-->
-                                <fieldset class="row p-1 g-1">
-                                    <div class="col-12 text-start">
-                                        <label class="form-label">Apellidos:</label>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <input class="form-control form-input" id="firstSurName" type="text"
-                                            maxlength="30" placeholder="Primer Apellido" required>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <input class="form-control form-input" id="secondSurName" type="text"
-                                            maxlength="30" placeholder="Segundo Apellido">
-                                    </div>
-                                </fieldset>
-
-                                <!--User Genere-->
-                                <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
-                                    <div class="col-12 text-start">
-                                        <label class="form-label">Genero:</label>
-                                    </div>
-                                    <div class="col-6 form-check">
-                                        <input class="form-radio-input me-3" name="genere" id="male" type="radio"
-                                            checked>
-                                        <label class="form-check-label" for="#male"> Hombre</label>
-                                    </div>
-                                    <div class="col-6 form-check">
-                                        <input class="form-radio-input me-3" name="genere" id="female" type="radio">
-                                        <label class="form-check-label" for="#female"> Mujer</label>
-
-                                    </div>
-                                </fieldset>
-
-                                <!--User Blod Group -->
-                                <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
-                                    <div class="col-12 text-start">
-                                        <label class="form-label">Grupo sanguineo</label>
-                                    </div>
-
-                                    <div class="col form-check">
-                                        <label class="form-check-label" for="#blodTypeA"> A</label>
-                                        <input class="form-check-input" name="blodGroupLetter" id="blodTypeA"
-                                            type="checkbox" checked>
-                                    </div>
-                                    <div class="col form-check">
-                                        <label class="form-check-label" for="#blodTypeB"> B</label>
-                                        <input class="form-check-input" name="blodGroupLetter" id="blodTypeB"
-                                            type="checkbox">
-                                    </div>
-                                    <div class="col form-check">
-                                        <label class="form-check-label" for="#blodTypeO"> O</label>
-                                        <input class="form-check-input" name="blodGroupLetter" id="blodTypeO"
-                                            type="checkbox">
-                                    </div>
-
-                                    <div class="col">
-                                        <input class="form-ratio-input" name="blodGroupSignus" id="blodPositive"
-                                            type="radio" checked>
-                                        <label class="form-check-label fw-bold" for="#blodPositive">(+)</label>
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-ratio-input" name="blodGroupSignus" id="blodNegative"
-                                            type="radio" checked>
-                                        <label class="form-check-label fw-bold" for="#blodNegative">(-)</label>
-                                    </div>
-
-                                </fieldset>
-
-                                <!--CI number-->
-                                <fieldset class="row p-1 g-1">
-                                    <div class="col-12 text-start">
-                                        <label class="form-label">Numero de CI:</label>
-                                        <input class="form-control form-input" id="userCI" type="text"
-                                            placeholder="No. de Carnet" required minlength="11" maxlength="11"
-                                            onkeypress="return mathType(event ,'userCI','number-only');">
-                                    </div>
-                                </fieldset>
-
-                                <!--Phone number-->
-                                <fieldset class="row p-1 g-1 justify-content-center">
-                                    <div class="col-12 text-start">
-                                        <label class="form-label">Telefono:</label>
-                                    </div>
-
-                                    <div class="col-4 col-md-2 text-start">
-                                        <span class="form-control form-input">
-                                            +53
-                                        </span>
-                                    </div>
-
-                                    <div class="col">
-                                        <input class="form-control form-input" id="userPhone" type="text"
-                                            placeholder="#######" minlength="8" maxlength="8"
-                                            onkeypress="return mathType(event ,'userPhone','number-only');">
-                                    </div>
-
-                                </fieldset>
-
-                                <!-- Credentials -->
-                                <fieldset class="row p-2 g-1">
-                                    <div class="col-12 p-2 text-start border border-secondary rounded-3">
-                                        <label class="form-label w-100 text-center fw-bold">Credenciales:</label>
-
-                                        <div class="row p-1">
-
-                                            <!--User nickname-->
-                                            <fieldset class="col-12 form-group text-start">
-                                                <label class="form-label ms-1" for="#userName">Usuario:</label>
-                                                <input class="form-control form-input" id="userName" type="text"
-                                                    maxlength="30" placeholder="Teclee un nombre de usuario">
-                                            </fieldset>
-
-                                            <!--Recuperation mail-->
-                                            <fieldset class="col-12 form-group text-start mt-3">
-                                                <label class="form-label ms-1" for="#userMail">Correo de
-                                                    Recuperacion:</label>
-                                                <input class="form-control form-input" name="userMail" type="email"
-                                                    maxlength="30" placeholder="example@nauta.cu" required>
-                                            </fieldset>
-
-                                            <!--User password (click -> showPassword)-->
-                                            <label class="form-label mt-3 ms-1" for="userPassword">Contraseña:</label>
-
-                                            <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
-                                                <div class="input-group mb-3">
-                                                    <input class="form-control form-input" id="userPassword"
-                                                        type="password" maxlength="30"
-                                                        placeholder="Teclee su c0ntr4s3ñ4"
-                                                        onkeyup="mathInputs('userPassword','userPassword2')">
-
-                                                    <!--See password button-->
-                                                    <span class="input-group-text"
-                                                        onclick="switchPasswordVisibility('userPassword','seeUserPasswordImage')">
-                                                        <img class="img-fluid" id="seeUserPasswordImage"
-                                                            src="./img/eye-fill.svg">
-                                                    </span>
-
-                                                </div>
-                                            </fieldset>
-
-                                            <!--User password verify (click -> showPassword)-->
-                                            <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
-                                                <div class="input-group mb-3">
-                                                    <input class="form-control form-input" id="userPassword2"
-                                                        type="password" maxlength="30"
-                                                        placeholder="Repita su c0ntr4s3ñ4"
-                                                        onkeyup="mathInputs('userPassword','userPassword2')">
-
-                                                    <!--See password button-->
-                                                    <span class="input-group-text"
-                                                        onclick="switchPasswordVisibility('userPassword2','seeUserPassword2Image')">
-                                                        <img class="img-fluid" id="seeUserPassword2Image"
-                                                            src="./img/eye-fill.svg">
-                                                    </span>
-
-                                                </div>
-                                            </fieldset>
-
-                                        </div>
-
-                                    </div>
-                                </fieldset>
-
-                                <!--Submit buttom-->
-                                <div class="form-group text-end me-1 me-md-2">
-                                    <button class="btn float-self-center --button" type="submit">
-                                        <img src="img/add-profile.svg" width="20" height="20"
-                                            class="img-fluid mb-1 me-1">
-                                        REGISTARSE
-                                    </button>
+                            <!--User Blod Group -->
+                            <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
+                                <div class="col-12 text-start">
+                                    <label class="form-label">Grupo sanguineo</label>
                                 </div>
 
-                            </form>
+                                <div class="col form-check">
+                                    <label class="form-check-label" for="#blodTypeA"> A</label>
+                                    <input class="form-check-input" name="blodGroupLetter" id="blodTypeA"
+                                        type="checkbox" checked>
+                                </div>
+                                <div class="col form-check">
+                                    <label class="form-check-label" for="#blodTypeB"> B</label>
+                                    <input class="form-check-input" name="blodGroupLetter" id="blodTypeB"
+                                        type="checkbox">
+                                </div>
+                                <div class="col form-check">
+                                    <label class="form-check-label" for="#blodTypeO"> O</label>
+                                    <input class="form-check-input" name="blodGroupLetter" id="blodTypeO"
+                                        type="checkbox">
+                                </div>
 
-                        </div>
+                                <div class="col">
+                                    <input class="form-ratio-input" name="blodGroupSignus" id="blodPositive"
+                                        type="radio" checked>
+                                    <label class="form-check-label fw-bold" for="#blodPositive">(+)</label>
+                                </div>
+                                <div class="col">
+                                    <input class="form-ratio-input" name="blodGroupSignus" id="blodNegative"
+                                        type="radio" checked>
+                                    <label class="form-check-label fw-bold" for="#blodNegative">(-)</label>
+                                </div>
+
+                            </fieldset>
+
+                            <!--CI number-->
+                            <fieldset class="row p-1 g-1">
+                                <div class="col-12 text-start">
+                                    <label class="form-label">Numero de CI:</label>
+                                    <input class="form-control form-input" id="userCI" type="text"
+                                        placeholder="No. de Carnet" required minlength="11" maxlength="11"
+                                        onkeypress="return mathType(event ,'userCI','number-only');">
+                                </div>
+                            </fieldset>
+
+                            <!--Phone number-->
+                            <fieldset class="row p-1 g-1 justify-content-center">
+                                <div class="col-12 text-start">
+                                    <label class="form-label">Telefono:</label>
+                                </div>
+
+                                <div class="col-4 col-md-2 text-start">
+                                    <span class="form-control form-input">
+                                        +53
+                                    </span>
+                                </div>
+
+                                <div class="col">
+                                    <input class="form-control form-input" id="userPhone" type="text"
+                                        placeholder="#######" minlength="8" maxlength="8"
+                                        onkeypress="return mathType(event ,'userPhone','number-only');">
+                                </div>
+
+                            </fieldset>
+
+                            <!-- Credentials Section -->
+                            <fieldset class="row p-2 g-1">
+                                <div class="col-12 p-2 text-start border border-secondary rounded-3">
+
+                                    <!--Section Title-->
+                                    <label class="form-label w-100 text-center fw-bold">
+                                        Credenciales:
+                                    </label>
+
+                                    <div class="row p-1">
+
+                                        <!--User nickname-->
+                                        <fieldset class="col-12 form-group text-start">
+                                            <label class="form-label ms-1" for="#userName">Usuario:</label>
+                                            <input class="form-control form-input" id="userName" type="text"
+                                                maxlength="30" placeholder="Teclee un nombre de usuario">
+                                        </fieldset>
+
+                                        <!--Recuperation mail-->
+                                        <fieldset class="col-12 form-group text-start mt-3">
+                                            <label class="form-label ms-1" for="#userMail">Correo de
+                                                Recuperacion:</label>
+                                            <input class="form-control form-input" name="userMail" type="email"
+                                                maxlength="30" placeholder="example@nauta.cu" required>
+                                        </fieldset>
+
+                                        <!--User password (click -> showPassword)-->
+                                        <label class="form-label mt-3 ms-1" for="userPassword">Contraseña:</label>
+
+                                        <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
+                                            <div class="input-group mb-3">
+                                                <input class="form-control form-input" id="userPassword" type="password"
+                                                    maxlength="30" placeholder="Teclee su c0ntr4s3ñ4"
+                                                    onkeyup="mathInputs('userPassword','userPassword2')">
+
+                                                <!--See password button-->
+                                                <span class="input-group-text"
+                                                    onclick="switchPasswordVisibility('userPassword','seeUserPasswordImage')">
+                                                    <img class="img-fluid" id="seeUserPasswordImage"
+                                                        src="./img/see-dark.svg">
+                                                </span>
+
+                                            </div>
+                                        </fieldset>
+
+                                        <!--User password verify (click -> showPassword)-->
+                                        <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
+                                            <div class="input-group mb-3">
+                                                <input class="form-control form-input" id="userPassword2"
+                                                    type="password" maxlength="30" placeholder="Repita su c0ntr4s3ñ4"
+                                                    onkeyup="mathInputs('userPassword','userPassword2')">
+
+                                                <!--See password button-->
+                                                <span class="input-group-text"
+                                                    onclick="switchPasswordVisibility('userPassword2','seeUserPassword2Image')">
+                                                    <img class="img-fluid" id="seeUserPassword2Image"
+                                                        src="./img/see-dark.svg">
+                                                </span>
+
+                                            </div>
+                                        </fieldset>
+
+                                    </div>
+
+                                </div>
+                            </fieldset>
+
+                            <!-- Formulary Buttons -->
+                            <div class="form-group text-end me-1 me-md-2">
+
+                                <!-- Dialog Close Option -->
+                                <a class="btn btn-sm btn-secondary" data-bs-dismiss="modal"
+                                    data-bs-target="#userSiginDialog">
+                                    <img src="img/delete-light.svg" width="20" height="20"
+                                        class="img-fluid mb-1 me-1 d-none d-sm-inline">
+                                    CANCELAR
+                                </a>
+
+                                <!-- User Sigin Button -->
+                                <button class="btn btn-sm --button" type="submit">
+                                    <img src="img/add-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                                    REGISTAR
+                                </button>
+
+                            </div>
+
+                        </form>
+
                     </div>
+
                 </div>
             </div>
-                
-            <!--End of web contenet -->
-        
         </div>
+        
+        <!--End of web contenet -->
+
     </main>
-    
+
     <!-- Web site Fixed bootom foterBar -->
     <footer class="">
         <div class="container-fluid fixed-bottom m-0" id="fixedBootomFooter">
             <div class="row h-100 justify-content-center align-items-center text-center">
                 <div class="col bg-light" style="height: 10vh;">
                     <!-- Footer content is here -->
-                    
+
                     <time>
                         10-10-2022
                     </time>
-                    
+
                     <!-- End Footer content -->
                 </div>
             </div>
