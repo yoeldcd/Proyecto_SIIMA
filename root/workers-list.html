@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="css/main-layouts-styles.css">
 
     <!--Scripts-->
+    <script src="jquery-3.6.1-min/jquery-3.6.1.min.js"></script>
     <script src="js/scripts.js"></script>
 
 </head>
@@ -551,8 +552,9 @@
                                             <fieldset class="col-12 form-group text-start mt-3">
                                                 <label class="form-label ms-1" for="#userMail">Correo de
                                                     Recuperacion:</label>
-                                                <input class="form-control form-input" name="userMail" type="email"
-                                                    maxlength="30" placeholder="example@nauta.cu" required>
+                                                <input class="form-control form-input" id="userMail" type="email"
+                                                    maxlength="30" placeholder="example@nauta.cu" required
+                                                    onkeyup="verifyEmail('userMail');">
                                             </fieldset>
 
                                             <label class="form-label mt-3 ms-1" for="userPassword">Contraseña:</label>

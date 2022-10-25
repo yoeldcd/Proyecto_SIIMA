@@ -205,7 +205,7 @@
 /*Define custom inputs colors*/
 .form-input {
     outline: none;
-    border: solid 2px var(--tehem-enphasis-background-color);
+    border: solid 2px var(--theme-enphasis-background-color);
     border-bottom: solid 2px var(--theme-primary-color);
 }
 
