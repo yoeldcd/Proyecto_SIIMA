@@ -6,13 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        SIIMA Usuarios
+        SIIMA Especialistas
     </title>
 
-    <!-- Bootstrap Binding -->
-    <link rel="stylesheet" type="text/css" href="bootstrap-5.2.2-dist/css/bootstrap.min.css">
-    <script src="bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Binding
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        -->
 
+    <link rel="stylesheet" type="text/css" href="bootstrap-5.2.2-dist/css/bootstrap.min.css">
+    <script src="bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+    
     <!--Custom styles sheets-->
     <link rel="stylesheet" type="text/css" href="css/main-layouts-styles.css">
 
@@ -26,8 +30,7 @@
 
     <!--Web site header-->
     <header>
-
-        <!-- Fixed Top Navigation Bar -->
+        <!-- Navigation Bar -->
         <nav class="navbar fixed-top-navbar fixed-top" id="navbar">
             <div class="container-fluid">
                 <div class="row w-100 h-25 h-md-100 m-0 text-center">
@@ -96,6 +99,7 @@
         <div class="offcanvas offcanvas-start p-0 w-50" tabindex="-1" id="navOffcanvas"
             aria-labelledby="offcanvasLabel">
             <div class="offcanvas-header bg-success align-items-start" id="offcanvasHeader">
+
                 <!--User Profile data-->
                 <h5 class="offcanvas-title text-start">
                     <a href="admin-profile.html">
@@ -139,117 +143,117 @@
                     Eventos
                 </a>
 
-
             </div>
         </div>
-
     </header>
 
     <!--Web site Content layout-->
     <main class="flex-shrink-0" style="margin-bottom: 15vh;">
         <div class="container-fluid bg-gray content-layout">
 
-            <!-- Main Web Contents is here-->
+            <!--Main Web Content is Here-->
             <div class="row justify-content-center">
 
-                <!-- List Section Title-->
+                <!-- List Section Title -->
                 <div class="col-12 text-center fs-5 fw-bold">
-                    Gestion de Usuarios
+                    Gestion de Especialistas
                 </div>
-                
-                <!-- Registreds Users List -->
+
+                <!-- Registreds Workers List -->
                 <div class="col-11 col-md-8 mt-2 overflow-auto" style="height: 50vh;">
                     <table class="table">
-                        
+
                         <thead class="border-bottom border-dark">
-                            <th colspan="2" scope="col-8" class="col-6 text-center">Nombre</th>
+                            <th colspan="2" scope="col" class="col-8 text-center">Nombre</th>
+                            <th scope="col" class="col text-center">Especialidad</th>
                             <th scope="col" class="col text-center">Ultimo Acceso</th>
                             <th scope="col" class="col-4 text-center">Accion</th>
                         </thead>
-                        
+
                         <tbody class="text-center">
-                            
-                            <!-- Registred User Data Entry -->
+
+                            <!-- Registred Worker Data Entry -->
                             <tr class="border-bottom border-dark">
-                                <td class="col-1 text-center">
-                                    <img class="img-rounded" src="img/perfil.png" width="40px" height="40px">
-                                </td>
-                                <td class="col-7">Yoel Davida Correa</td>
+                                <td class="col-1"><img class="img-rounded" src="img/perfil.png" width="40px"
+                                        height="40px"></td>
+                                <td class="col-8 text-start">Yoel Davida Correa</td>
+                                <td class="col text-center">...</td>
                                 <td class="col text-center">11/10/2022 10:46AM</td>
                                 <td class="col-4 text-center">
                                     <button class="btn btn-sm btn-secondary text-nowrap" data-bs-toggle="modal"
-                                        data-bs-target="#userDetailsDialog">
+                                        data-bs-target="#workerDetailsDialog">
                                         <img src="img/see-ligth.svg" width="20" height="20"
                                             class="img-fluid mb-1 me-sm-1">
-                                        <span class="d-none d-sm-inline">
+                                        <span class="d-none d-md-inline">
                                             DETALLES
                                         </span>
                                     </button>
                                 </td>
                             </tr>
-
+                        
                         </tbody>
 
                     </table>
                 </div>
 
-                <!-- User actions-->
+                <!-- Worker List Action Buttons -->
                 <div class="col-11 col-md-8 mt-2 text-end">
-                    <button class="btn btn-sm --button p-1 px-3 me-3" data-bs-toggle="modal"
-                        data-bs-target="#userSiginDialog">
+                    <button class="btn p-1 px-3 me-3 --button" data-bs-toggle="modal"
+                        data-bs-target="#workerSiginDialog">
                         <img src="img/add-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
                         NUEVO
                     </button>
                 </div>
 
             </div>
-
-            <!-- Modal User Details Dialog-->
-            <div class="modal fade" tabindex="-1" aria-hidden="true" id="userDetailsDialog">
-
+            
+            <!--Modal Worker Details Dialog-->
+            <div class="modal fade" tabindex="-1" aria-hidden="true" id="workerDetailsDialog">
                 <div class="modal-dialog modal-dialog-centered">
-
                     <div class="modal-content">
 
-                        <!--Modal Dialog Title-->
-                        <div class="modal-header">
-                            <spam class="modal-title">Detalles de Usuario</spam>
+                        <!-- Dialog Title -->
+                        <div class="modal-header text-center">
+                            <spam class="modal-title">Detalles de Especialista</spam>
                         </div>
 
-                        <!-- User Description Section -->
+                        <!-- Dialog Content -->
                         <div class="modal-body">
 
-                            <!-- User Description -->
-                            <div class="row justify-content-center p-3 g-2 text-start text-nowrap rounded-3 data-form">
-                                
-                                <!--Profile User icon-->
+                            <!-- Worker Description Section -->
+                            <div
+                                class="row p-2 justify-content-center align-items-center g-2 text-start rounded-3 data-form p-2 m-0">
+
+                                <!-- Worker profile UserIcon -->
                                 <spam class="col-12 text-center" href=".">
                                     <img class="img rounded-1 fs-6 bg-gray user-icon-large" alt="user logo"
                                         src="img/perfil.png" width="150" height="150">
+                                    <br>
+
                                 </spam>
-                                
-                                <!-- Profile Username-->
+
+                                <!-- Worker profile Username -->
                                 <span class="col-12 text-nowrap overflow-hidden text-center user-name-label">
-                                    USERNAME IS HERE
+                                    YOELDCD
                                 </span>
-                                
-                                <!-- Profile Name -->
+
+                                <!-- Worker profile Names -->
                                 <span class="col-6 text-nowrap overflow-hidden">
                                     Nombre:
                                 </span>
                                 <span class="col-6 text-nowrap overflow-hidden">
                                     Yoel David
                                 </span>
-                                
-                                <!-- Profile SurName -->
+
+                                <!-- Worker profile SurNames -->
                                 <span class="col-6 text-nowrap overflow-hidden">
                                     Apellidos
                                 </span>
                                 <spam class="col-6 text-nowrap overflow-hidden" id="userSurNames">
                                     Correa Duke
                                 </spam>
-                                
-                                <!-- Profile Genere -->
+
+                                <!-- Worker profile Genere -->
                                 <spam class="col-6 text-nowrap overflow-hidden">
                                     Sexo:
                                 </spam>
@@ -257,7 +261,7 @@
                                     masculino
                                 </span>
 
-                                <!-- Profile Age -->
+                                <!-- Worker profile Age -->
                                 <spam class="col-6 text-nowrap overflow-hidden">
                                     Edad:
                                 </spam>
@@ -265,18 +269,29 @@
                                     23 Años
                                 </span>
 
-                                <!-- Profile Blod Group -->
-                                <spam class="col-6 text-nowrap overflow-hidden">
-                                    Grupo sanguineo:
-                                </spam>
-                                <span class="col-6 text-nowrap overflow-hidden blod-label" id="userBlodGroup">
-                                    AB+
-                                </span>
-
-                                <!-- Separation line-->
+                                <!-- Separation line -->
                                 <span class="col-12 border border-dark"></span>
 
-                                <!-- Profile Last Access -->
+                                <!-- Worker Profile Job -->
+                                <spam class="col-6 text-nowrap overflow-hidden">
+                                    Especialidad:
+                                </spam>
+                                <span class="col-6 text-nowrap overflow-hidden" id="workJob">
+                                    ...
+                                </span>
+
+                                <!-- Worker Profile Permisions Granted -->
+                                <spam class="col-6 text-nowrap overflow-hidden">
+                                    Permisos:
+                                </spam>
+                                <span class="col-6 text-nowrap overflow-hidden" id="workJob">
+                                    a - r - w -d
+                                </span>
+
+                                <!--Separation line-->
+                                <span class="col-12 border border-dark"></span>
+
+                                <!-- Worker Profile Last Access -->
                                 <spam class="col-6 text-nowrap overflow-hidden">
                                     Ultimo Acceso:
                                 </spam>
@@ -284,7 +299,7 @@
                                     <time>10/10/2022 <b>12:24PM</b></time>
                                 </span>
 
-                                <!-- Profile Sigin Date -->
+                                <!-- Worker Profile Sigin Date -->
                                 <spam class="col-6 text-nowrap overflow-hidden">
                                     Fecha de Registro:
                                 </spam>
@@ -292,7 +307,7 @@
                                     <time>10/10/2022 <b>11:40PM</b></time>
                                 </span>
 
-                                <!-- User Profile Action Buttons -->
+                                <!-- Worker profile Action Buttons -->
                                 <div class="col-12 text-center">
                                     <div class="row justify-content-center">
 
@@ -304,61 +319,57 @@
                                         </a>
 
                                         <!-- User Edit Option-->
-                                        <a href="edit-user-profile.html" class="col-12 col-sm btn btn-sm --button m-2">
+                                        <a href="edit-worker-profile.html"
+                                            class="col-12 col-sm btn btn-sm --button m-2">
                                             <img src="img/edit-profile.svg" width="20" height="20"
                                                 class="img-fluid mb-1 me-1">
                                             EDITAR
                                         </a>
-                                        
+
                                         <!-- User Supress Option -->
                                         <a href="" class="col-12 col-sm btn btn-sm btn-danger m-2">
                                             <img src="img/delete-profile.svg" width="20" height="20"
                                                 class="img-fluid mb-1 me-1">
                                             SUPRIMIR
                                         </a>
-                                        
+
                                         <!-- Dialog Close Option -->
                                         <a class="col-12 btn btn-sm btn-secondary" data-bs-dismiss="modal"
-                                            data-bs-target="#workerDetailsDialog">
+                                            data-bs-target="#userDetailsDialog">
                                             <img src="img/delete-light.svg" width="20" height="20"
                                                 class="img-fluid mb-1 me-1">
                                             CERRAR
                                         </a>
 
                                     </div>
-                                
+
                                 </div>
 
                             </div>
-                        
-                        
+
                         </div>
 
                     </div>
-
-
                 </div>
-
             </div>
-            
-            <!-- Modal Add User Dialog-->
-            <div class="modal fade" tabindex="-1" aria-hidden="true" id="userSiginDialog">
 
+            <!--Modal Add Dialog-->
+            <div class="modal fade" tabindex="-1" aria-hidden="true" id="workerSiginDialog">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
 
-                        <!-- Modal Dialog Title-->
-                        <div class="modal-header text-center">
-                            <spam class="modal-title">Registar Usuario</spam>
+                        <!-- Dialog Title -->
+                        <div class="modal-header">
+                            Registrar Especialista
                         </div>
 
                         <!-- Dialog Content -->
                         <div class="modal-body">
 
-                            <!-- User Registration Formulary-->
+                            <!-- Worker registration formulary -->
                             <form action="user-profile.html" class="form rounded-3 data-form p-2 m-0">
 
-                                <!--First name input group-->
+                                <!-- Worker First Name inputs -->
                                 <fieldset class="row p-1 g-1">
                                     <div class="col-12 text-start">
                                         <label class="form-label">Nombres:</label>
@@ -373,7 +384,7 @@
                                     </div>
                                 </fieldset>
 
-                                <!--User Surnames Inputs-->
+                                <!-- Worker Surnames Inputs -->
                                 <fieldset class="row p-1 g-1">
                                     <div class="col-12 text-start">
                                         <label class="form-label">Apellidos:</label>
@@ -388,7 +399,7 @@
                                     </div>
                                 </fieldset>
 
-                                <!--User Genere-->
+                                <!-- Worker Genere -->
                                 <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
                                     <div class="col-12 text-start">
                                         <label class="form-label">Genero:</label>
@@ -405,42 +416,7 @@
                                     </div>
                                 </fieldset>
 
-                                <!--User Blod Group -->
-                                <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
-                                    <div class="col-12 text-start">
-                                        <label class="form-label">Grupo sanguineo</label>
-                                    </div>
-
-                                    <div class="col form-check">
-                                        <label class="form-check-label" for="#blodTypeA"> A</label>
-                                        <input class="form-check-input" name="blodGroupLetter" id="blodTypeA"
-                                            type="checkbox" checked>
-                                    </div>
-                                    <div class="col form-check">
-                                        <label class="form-check-label" for="#blodTypeB"> B</label>
-                                        <input class="form-check-input" name="blodGroupLetter" id="blodTypeB"
-                                            type="checkbox">
-                                    </div>
-                                    <div class="col form-check">
-                                        <label class="form-check-label" for="#blodTypeO"> O</label>
-                                        <input class="form-check-input" name="blodGroupLetter" id="blodTypeO"
-                                            type="checkbox">
-                                    </div>
-
-                                    <div class="col">
-                                        <input class="form-ratio-input" name="blodGroupSignus" id="blodPositive"
-                                            type="radio" checked>
-                                        <label class="form-check-label fw-bold" for="#blodPositive">(+)</label>
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-ratio-input" name="blodGroupSignus" id="blodNegative"
-                                            type="radio" checked>
-                                        <label class="form-check-label fw-bold" for="#blodNegative">(-)</label>
-                                    </div>
-
-                                </fieldset>
-
-                                <!--CI number-->
+                                <!-- Worker CI number -->
                                 <fieldset class="row p-1 g-1">
                                     <div class="col-12 text-start">
                                         <label class="form-label">Numero de CI:</label>
@@ -450,7 +426,7 @@
                                     </div>
                                 </fieldset>
 
-                                <!--Phone number-->
+                                <!-- Worker Phone number -->
                                 <fieldset class="row p-1 g-1 justify-content-center">
                                     <div class="col-12 text-start">
                                         <label class="form-label">Telefono:</label>
@@ -470,15 +446,99 @@
 
                                 </fieldset>
 
-                                <!-- Credentials Section -->
+                                <!-- Worker Information -->
+                                <fieldset class="row p-2 m-2 mt-2 g-2 border border-secondary rounded-3">
+
+                                    <!-- Worker Section Title -->
+                                    <spam class="col-12 text-center fw-bold">
+                                        Especialidad:
+                                    </spam>
+
+                                    <!-- Worker Profile Job-Role -->
+                                    <div class="col-12 m-1 text-start">
+                                        <label for="workerJob" class="form-label m-1">Puesto:</label>
+                                        <select name="workerJob" id="workerJob" class="form-select form-input">
+                                            <option selected>Enfermera</option>
+                                            <option>Tecnico de Laboratorio</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Worker Profile Permissions Granted -->
+                                    <div class="col-12 m-2 text-start">
+                                        Permisos:
+
+                                        <div class="row">
+                                            <div class="col-12 col-md-6 text-start">
+                                                <label class="form-label m-1">
+                                                    <input type="checkbox" id="userPermisionRead"
+                                                        class="form-checkox me-2">Consultar
+                                                    muesta
+                                                </label>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 text-start">
+                                                <label class="form-label m-1">
+                                                    <input type="checkbox" id="userPermisionAdd"
+                                                        class="form-checkox me-2">Agregar
+                                                    muesta
+                                                </label>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 text-start">
+                                                <label class="form-label m-1">
+                                                    <input type="checkbox" id="userPermisionEdit"
+                                                        class="form-checkox me-2">Modificar
+                                                    muesta
+                                                </label>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 text-start">
+                                                <label class="form-label m-1">
+                                                    <input type="checkbox" id="userPermisionDelet"
+                                                        class="form-checkox me-2">Eliminar
+                                                    muesta
+                                                </label>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 text-start fw-bold">
+                                                <label class="form-label m-1">
+                                                    <input type="checkbox" id="userPermisionRoot"
+                                                        class="form-checkox me-2">Administrador
+                                                </label>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Admin Password -->
+                                    <fieldset class="col-12 form-group text-start mt-1">
+                                        <div class="input-group mb-3">
+                                            <input class="form-control form-input" name="adminPassword" type="password"
+                                                id="adminPassword" maxlength="30"
+                                                placeholder="Contraseña de Administrador" required>
+
+                                            <!--See password button-->
+                                            <span class="input-group-text"
+                                                onclick="switchPasswordVisibility('adminPassword','seeAdminPasswordImage')">
+                                                <img class="img-fluid" id="seeAdminPasswordImage"
+                                                    src="./img/see-dark.svg">
+                                            </span>
+
+                                        </div>
+                                    </fieldset>
+
+                                </fieldset>
+
+                                <!-- Worker Account Credentials -->
                                 <fieldset class="row p-2 g-1">
                                     <div class="col-12 p-2 text-start border border-secondary rounded-3">
 
-                                        <!--Section Title-->
-                                        <label class="form-label w-100 text-center fw-bold">
-                                            Credenciales:
-                                        </label>
+                                        <!-- Section Title -->
+                                        <label class="form-label w-100 text-center fw-bold">Credenciales:</label>
 
+                                        <!-- Credential Fields -->
                                         <div class="row p-1">
 
                                             <!--User nickname-->
@@ -492,13 +552,14 @@
                                             <fieldset class="col-12 form-group text-start mt-3">
                                                 <label class="form-label ms-1" for="#userMail">Correo de
                                                     Recuperacion:</label>
-                                                <input class="form-control form-input" name="userMail" type="email"
-                                                    maxlength="30" placeholder="example@nauta.cu" required>
+                                                <input class="form-control form-input" id="userMail" type="email"
+                                                    maxlength="30" placeholder="example@nauta.cu" required
+                                                    onkeyup="verifyEmail('userMail');">
                                             </fieldset>
 
-                                            <!--User password (click -> showPassword)-->
                                             <label class="form-label mt-3 ms-1" for="userPassword">Contraseña:</label>
 
+                                            <!--User password (click -> showPassword)-->
                                             <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
                                                 <div class="input-group mb-3">
                                                     <input class="form-control form-input" id="userPassword"
@@ -544,7 +605,7 @@
 
                                     <!-- Dialog Close Option -->
                                     <a class="btn btn-sm btn-secondary" data-bs-dismiss="modal"
-                                        data-bs-target="#userSiginDialog">
+                                        data-bs-target="#workerSiginDialog">
                                         <img src="img/delete-light.svg" width="20" height="20"
                                             class="img-fluid mb-1 me-1 d-none d-sm-inline">
                                         CANCELAR
@@ -565,8 +626,9 @@
 
                     </div>
                 </div>
-
             </div>
+            
+            <!--End of web contenet -->
 
     </main>
 

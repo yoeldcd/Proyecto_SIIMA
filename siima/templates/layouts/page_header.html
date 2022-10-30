@@ -1,0 +1,106 @@
+<!--Web site header-->
+<header>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar fixed-top-navbar fixed-top" id="navbar">
+        <div class="container-fluid">
+            <div class="row w-100 h-25 h-md-100 m-0 text-center">
+
+                <!--Nav banner-->
+                <div class="col-12 col-sm-8 col-md-4 order-md-1">
+                    <img src="img/minsap.png" class="img-fluid" id="web-logo">
+                </div>
+
+                <!--Nav user profile area-->
+                <div class="col-4 col-md-2 order-md-4">
+                    <div class="row d-none d-sm-flex h-100 justify-content-end align-items-end text-center p-0">
+
+                        <!--Profile User icon-->
+                        <a class="col-11 p-0" href="user-profile.html">
+                            <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo" src="img/perfil.png"
+                                width="50" height="50">
+                        </a>
+
+                        <!--Profile User name-->
+                        <div
+                            class="col-8 p-0 me-1 fs-6 text-end text-md-center text-nowrap overflow-hidden text-decoration-underline only-text">
+                            USERNAME HERE
+                        </div>
+
+                        <!--Profile Exit button-->
+                        <div class="col-2 p-0">
+                            <a href="login.html" class="p-0 border-none">
+                                <img class="img-fluid" src="img/exit-dark.png" width="25" height="25">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Nav blank Space-->
+                <div class="col-sm-12 col-md-1 order-md-2 text-start">
+                    <a class="btn d-inline d-sm-none p-0" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#navOffcanvas" aria-controls="navOffcanvas" id="offcanvasOpenButton">
+                        <span class="container-fluid navbar-toggler-icon"></span>
+                    </a>
+                </div>
+
+                <!--Nav links-->
+                <div class="col-sm-12 col-md-5 order-md-3">
+                    <div class="row d-none d-sm-flex h-100 justify-content-md-end align-items-end fs-6"
+                        id="navbarLinks">
+                        <a class="col-2 col-md nav-link navbar-link" href=".">Link 1</a>
+                        <a class="col-2 col-md nav-link navbar-link" href=".">Link 2</a>
+                        <a class="col-2 col-md nav-link navbar-link" href=".">Link 3</a>
+                        <a class="col-2 col-md nav-link navbar-link" href=".">Link 4</a>
+                        <a class="col-2 col-md nav-link navbar-link" href=".">Link 5</a>
+                        <a class="col-2 col-md nav-link navbar-link" href=".">Link 279</a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Navigation Offcanvas Side Menu-->
+    <div class="offcanvas offcanvas-start p-0 w-50" tabindex="-1" id="navOffcanvas" aria-labelledby="offcanvasLabel">
+        <div class="offcanvas-header bg-success align-items-start" id="offcanvasHeader">
+            <!--User Profile data-->
+            <h5 class="offcanvas-title text-start">
+                <a href="user-profile.html">
+                    <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo" src="img/perfil.png" width="80"
+                        height="80">
+                </a>
+            </h5>
+
+            <!--Offcanvas Close button -->
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+                id="offcanvasCloseButton">
+            </button>
+
+        </div>
+        <div class="offcanvas-body p-0 w-100 text-start fs-4" id="offcanvasLinks">
+
+            <div class="col-12 row justify-content-between text-ligth m-0 fs-6 text-nowrap overflow-hidden user-name">
+
+                <!--Profile user name-->
+                <span class="col-8 text-nowrap overflow-hidden ps-3 user-name">
+                    USERNAME IS HERE
+                </span>
+
+                <!--Profile Exit button-->
+                <a href="login.html" class="col-2 border-none p-0 text-end me-2">
+                    <img class="img-fluid" src="img/exit-ligth.png" width="30" height="30">
+                </a>
+
+            </div>
+
+
+            <!--Offcnavas Links-->
+            <a class="col-12 nav-link offcanvas-link ps-3 fs-4" href=".">
+                Link 1
+            </a>
+
+        </div>
+    </div>
+</header>

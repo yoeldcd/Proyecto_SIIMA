@@ -17,28 +17,30 @@ from cmath import log
 from django.contrib import admin
 from django.urls import path
 
-from siima.endpoint.views import login
+from siima.endpoint import tools
+from siima.endpoint.views import login, user_profile, worker_profile, admin_profile
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    # Coomn role pages
     path('login/', login.get),
     
-    # User pages
-    path('user-profile/', index.user_profile),
-    path('edit-user-profile/', index.edit_user_profile),
-    path('test-log/', index.test_log),
+    # User role pages
+    path('user_profile/', user_profile.get),
+    #path('edit-user-profile/', index.edit_user_profile),
+    #path('test-log/', index.test_log),
     
-    # Admin pages
-    path('admin-profile/', index.admin_profile),
-    path('users-list/', index.users_list),
-    path('workers-list/', index.workers_list),
-    path('events-log/', index.events_log),
+    # Admin role pages
+    path('admin_profile/', admin_profile.get),
+    #path('users-list/', index.users_list),
+    #path('workers-list/', index.workers_list),
+    #path('events-log/', index.events_log),
     
-    # Worker pages
-    path('worker-profile/', index.worker_profile),
-    path('edit-worker-profile/', index.edit_worker_profile),
-    path('test-edition/', index.test_edition),
+    # Worker role pages
+    path('worker_profile/', worker_profile.get),
+    #path('edit-worker-profile/', index.edit_worker_profile),
+    #path('test-edition/', index.test_edition),
     
-    # Others
-    path('', index.load_url)
 ]

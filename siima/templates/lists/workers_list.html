@@ -1,0 +1,52 @@
+<!-- Main Web Content is Here-->
+<div class="row justify-content-center">
+    
+    <!-- List Section Title -->
+    <div class="col-12 text-center fs-5 fw-bold">
+        Gestion de Especialistas
+    </div>
+
+    <!-- Registreds Workers List -->
+    <div class="col-11 col-md-8 mt-2 overflow-auto" style="height: 50vh;">
+        <table class="table">
+
+            <thead class="border-bottom border-dark">
+                <th colspan="2" scope="col" class="col-8 text-center">Nombre</th>
+                <th scope="col" class="col text-center">Especialidad</th>
+                <th scope="col" class="col text-center">Ultimo Acceso</th>
+                <th scope="col" class="col-4 text-center">Accion</th>
+            </thead>
+
+            <tbody class="text-center">
+
+                <!-- Registred Worker Data Entry -->
+                <tr class="border-bottom border-dark">
+                    <td class="col-1"><img class="img-rounded" src="img/perfil.png" width="40px" height="40px"></td>
+                    <td class="col-8 text-start">Yoel Davida Correa</td>
+                    <td class="col text-center">...</td>
+                    <td class="col text-center">11/10/2022 10:46AM</td>
+                    <td class="col-4 text-center">
+                        <button class="btn btn-sm btn-secondary text-nowrap" data-bs-toggle="modal"
+                            data-bs-target="#workerDetailsDialog">
+                            <img src="img/see-ligth.svg" width="20" height="20" class="img-fluid mb-1 me-sm-1">
+                            <span class="d-none d-md-inline">
+                                DETALLES
+                            </span>
+                        </button>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+
+    <!-- Worker List Action Buttons -->
+    <div class="col-11 col-md-8 mt-2 text-end">
+        <button class="btn p-1 px-3 me-3 --button" data-bs-toggle="modal" data-bs-target="#workerSiginDialog">
+            <img src="img/add-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+            NUEVO
+        </button>
+    </div>
+
+</div>
