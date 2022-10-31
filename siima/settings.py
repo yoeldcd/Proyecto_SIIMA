@@ -51,10 +51,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'siima.urls'
 
+#configure my custom templates directorys
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            str(BASE_DIR/'siima/templates/')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

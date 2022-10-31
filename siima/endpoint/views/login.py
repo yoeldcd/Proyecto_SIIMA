@@ -2,16 +2,26 @@
 from datetime import datetime
 from siima.endpoint import tools
 from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render
 
 end = 0
-html_template_url = 'siima/templates/main_layout.html'
+html_template_url = 'login.html'
 
 # page GET method invoked
 def get(request : HttpRequest):
     
     context = {
-        'current_date': datetime.now            
+        'current_date': datetime.now,
+        'profile_page_url':'/profile/&user=\'userID\'',
+        'user':{
+            'nickname': 'NO NAME',
+            'picture_url': 'img/profile.png'
+        },         
+        'links':(
+            {'href': '/profile', 'text': 'profile'},
+            {'href': '/tests', 'text': 'test'},
+        )
     }
     
-    return HttpResponse(tools.render_template(html_template_url, context))
+    return HttpResponse(render(request, html_template_url, context))
 end

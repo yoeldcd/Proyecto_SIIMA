@@ -1,0 +1,210 @@
+<!--Any web pages contents is here-->
+<div class="row justify-content-center">
+
+    <div class="col-12 text-center fs-5 fw-bold">
+        Gestion de Tareas
+    </div>
+    
+    <!-- User analisis editable list -->
+    <div class="col-11 col-md-8 mt-2 border border-dark overflow-auto" style="height: 50vh;">
+
+        <table class="table">
+            <thead>
+                <th scope="col" class="col-4 text-center">Tipo</th>
+                <th scope="col" class="col text-center">Fecha</th>
+                <th scope="col" class="col text-center">Estado</th>
+                <th scope="col" class="col-4 text-center">Accion</th>
+            </thead>
+            <tbody>
+
+                <!--Test Work Row -->
+                <tr class="examen bg-red">
+                    <td class="col-4">Nefrologico</td>
+                    <td class="col">
+                        <time>11/10/22</time>
+                    </td>
+                    <td class="col">Pendiente</td>
+                    <td class="col-6 bg-light">
+
+                        <!-- Tested Work edit button -->
+                        <button class="btn btn-sm --button border-light">
+                            <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                            <span class="d-none d-lg-inline">
+                                EDITAR
+                            </span>
+                        </button>
+
+                    </td>
+                </tr>
+
+                <!-- Test Work Row -->
+                <tr class="examen bg-red">
+                    <td class="col-4">Microbilogico</td>
+                    <td class="col">
+                        <time>10/10/22</time>
+                    </td>
+                    <td class="col">Pendiente</td>
+                    <td class="col-6 bg-light">
+
+                        <!-- Tested Work edit button -->
+                        <button class="btn btn-sm --button border-light">
+                            <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                            <span class="d-none d-lg-inline">
+                                EDITAR
+                            </span>
+                        </button>
+
+                    </td>
+                </tr>
+
+                <tr class="examen bg-green">
+                    <td class="col-4">Sangre</td>
+                    <td class="col">
+                        <time>09/10/22</time>
+                    </td>
+                    <td class="col">LISTO</td>
+                    <td class="col-6 bg-light">
+
+                        <!-- Tested Work edit button -->
+                        <button class="btn btn-sm --button border-light">
+                            <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                            <span class="d-none d-lg-inline">
+                                EDITAR
+                            </span>
+                        </button>
+
+                        <!-- Tested Work Notify button -->
+                        <button class="btn btn-sm btn-danger border-light">
+                            <img src="img/delete-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                            <span class="d-none d-lg-inline">
+                                NOTIFICAR
+                            </span>
+                        </button>
+
+                    </td>
+                </tr>
+
+                <tr class="examen bg-green">
+                    <td class="col-4">Nefrologico</td>
+                    <td class="col">
+                        <time>08/10/22</time>
+                    </td>
+                    <td class="col">LISTO</td>
+                    <td class="col-6 bg-light">
+
+                        <!-- Tested Work edit button -->
+                        <button class="btn btn-sm --button">
+                            <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                            <span class="d-none d-lg-inline">
+                                EDITAR
+                            </span>
+                        </button>
+
+                        <!-- Tested Work Notify button -->
+                        <button class="btn btn-sm btn-danger">
+                            <img src="img/delete-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                            <span class="d-none d-lg-inline">
+                                NOTIFICAR
+                            </span>
+                        </button>
+
+                    </td>
+                </tr>
+
+                <tr class="examen bg-green">
+                    <td class="col-4 ">Microbilogico</td>
+                    <td class="col"><time>07/10/22</time></td>
+                    <td class="col">LISTO</td>
+                    <td class="col-6 bg-light">
+
+                        <!-- Tested Work edit button -->
+                        <button class="btn btn-sm --button border-light">
+                            <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                            <span class="d-none d-md-inline">
+                                EDITAR
+                            </span>
+                        </button>
+
+                        <!-- Tested Work Notify button -->
+                        <button class="btn btn-sm btn-danger border-light">
+                            <img src="img/delete-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                            <span class="d-none d-md-inline">
+                                NOTIFICAR
+                            </span>
+                        </button>
+
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <!--User analisis actions-->
+    <div class="col-11 col-md-8 mt-2 text-end">
+        <button class="btn btn-sm --button p-1 px-3 me-3 " data-bs-toggle="modal" data-bs-target="#addTestDialog">
+            <img src="img/add.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+            NUEVO
+        </button>
+    </div>
+
+    <!--Modal Add Dialog-->
+    <div class="modal fade" tabindex="-1" aria-hidden="true" id="addTestDialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header text-center">
+                    <spam class="modal-title">Nuevo Analisis</spam>
+                </div>
+
+                <!--test description formulary-->
+                <div class="modal-body">
+                    <form class="form">
+                        <fieldset class="col-12 form-group m-2 text-start">
+
+                            <!-- test user role-->
+                            <label for="#testType" class="form-label m-1">Tipo:</label>
+                            <select id="testType" class="form-select form-input">
+                                <option selected>Nefrologico</option>
+                                <option>Sanguineo</option>
+                                <option>Virologico</option>
+                            </select>
+
+                            <!--tested User CI number-->
+                            <fieldset class="row p-1 g-1">
+                                <div class="col-12 text-start">
+                                    <label class="form-label">CI de paciente:</label>
+                                    <input class="form-control form-input" id="testCI" type="text"
+                                        placeholder="No. de Carnet" required minlength="11" maxlength="11"
+                                        onkeypress="return mathType(event ,'testCI','number-only');">
+                                </div>
+                            </fieldset>
+
+                            <!-- Test ID User number-->
+                            <fieldset class="row p-1 g-1">
+                                <div class="col-12 text-start">
+                                    <label class="form-label">ID de muestra:</label>
+                                    <input class="form-control form-input" id="testID" type="text"
+                                        placeholder="No. de ID" required minlength="11" maxlength="11"
+                                        onkeypress="return mathType(event ,'testID','number-only');">
+                                </div>
+                            </fieldset>
+
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn --button">
+                        <img src="img/add.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                        AGREGAR
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

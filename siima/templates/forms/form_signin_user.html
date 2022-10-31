@@ -1,170 +1,201 @@
+{% load static %}
+
+<!--    Template context values
+    user {
+        
+        nickname
+        picture_url
+        name
+        name2
+        surname
+        surname2
+        genere
+        ci
+        phone
+        email
+        blod_group
+    }
+
+-->
+
 <!-- User Registration Formulary-->
 <form action="/user_profile.html" class="form rounded-3 data-form p-2 m-0">
-    
+
     <!--First name input group-->
     <fieldset class="row p-1 g-1">
         <div class="col-12 text-start">
             <label class="form-label">Nombres:</label>
         </div>
         <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="firstName" type="text" maxlength="30" placeholder="Primer Nombre"
-                required>
+            <input class="form-control form-input" id="user_name" type="text" maxlength="30" placeholder="Primer Nombre"
+                required value="{{ user.name }}">
         </div>
         <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="secondName" type="text" maxlength="30"
-                placeholder="Segundo Nombre">
+            <input class="form-control form-input" id="user_name2" type="text" maxlength="30"
+                placeholder="Segundo Nombre" value="{{ user.name2 }}">
         </div>
     </fieldset>
-    
+
     <!--User Surnames Inputs-->
     <fieldset class="row p-1 g-1">
         <div class="col-12 text-start">
             <label class="form-label">Apellidos:</label>
         </div>
         <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="firstSurName" type="text" maxlength="30"
-                placeholder="Primer Apellido" required>
+            <input class="form-control form-input" id="user_surname" type="text" maxlength="30"
+                placeholder="Primer Apellido" required value="{{ user.surname }}">
         </div>
         <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="secondSurName" type="text" maxlength="30"
-                placeholder="Segundo Apellido">
+            <input class="form-control form-input" id="user_surname2" type="text" maxlength="30"
+                placeholder="Segundo Apellido" value="{{ user.surname2 }}">
         </div>
     </fieldset>
-    
+
     <!--User Genere-->
     <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
         <div class="col-12 text-start">
             <label class="form-label">Genero:</label>
         </div>
         <div class="col-6 form-check">
-            <input class="form-radio-input me-3" name="genere" id="male" type="radio" checked>
+            <input class="form-radio-input me-3" name="user_genere" id="user_genere_male" type="radio"
+            {% if user.genere == "m" %} checked {% endif %}>
             <label class="form-check-label" for="#male"> Hombre</label>
         </div>
         <div class="col-6 form-check">
-            <input class="form-radio-input me-3" name="genere" id="female" type="radio">
+            <input class="form-radio-input me-3" name="user_genere" id="user_genere_female" 
+            type="radio" {% if user.genere == "f" %} checked {% endif %}>
             <label class="form-check-label" for="#female"> Mujer</label>
-        
         </div>
     </fieldset>
-
-    <!--User Blod Group -->
+    
+    <!-- User Blod Group -->
     <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
         <div class="col-12 text-start">
             <label class="form-label">Grupo sanguineo</label>
         </div>
         
         <div class="col form-check">
-            <label class="form-check-label" for="#blodTypeA"> A</label>
-            <input class="form-check-input" name="blodGroupLetter" id="blodTypeA" type="checkbox" checked>
+            <label class="form-check-label"> A</label>
+            <input class="form-check-input" name="user_blod_group_letter" id="user_blod_group_letter_a" type="checkbox"
+            {% if user.blod_group.letter == 'a' %} checked {% endif %}
+            >
         </div>
         <div class="col form-check">
-            <label class="form-check-label" for="#blodTypeB"> B</label>
-            <input class="form-check-input" name="blodGroupLetter" id="blodTypeB" type="checkbox">
+            <label class="form-check-label"> B</label>
+            <input class="form-check-input" name="user_blod_group_letter" id="user_blod_group_letter_b" type="checkbox"
+            {% if user.blod_group.letter == 'b' %} checked {% endif %}>
         </div>
         <div class="col form-check">
-            <label class="form-check-label" for="#blodTypeO"> O</label>
-            <input class="form-check-input" name="blodGroupLetter" id="blodTypeO" type="checkbox">
+            <label class="form-check-label"> O</label>
+            <input class="form-check-input" name="user_blod_group_letter" id="user_blod_group_letter_o" type="checkbox"
+            {% if user.blod_group.letter == 'o' %} checked {% endif %}>
         </div>
-        
+
         <div class="col">
-            <input class="form-ratio-input" name="blodGroupSignus" id="blodPositive" type="radio" checked>
-            <label class="form-check-label fw-bold" for="#blodPositive">(+)</label>
+            <input class="form-ratio-input" name="user_blod_group_signus" id="user_blod_group_signus_positive" type="radio" 
+            {% if user.blod_group.signum == '+' %} checked {% endif %}>
+            <label class="form-check-label fw-bold">(+)</label>
         </div>
         <div class="col">
-            <input class="form-ratio-input" name="blodGroupSignus" id="blodNegative" type="radio" checked>
-            <label class="form-check-label fw-bold" for="#blodNegative">(-)</label>
+            <input class="form-ratio-input" name="user_blod_group_signus" id="user_blod_group_signus_negative" type="radio"
+            {% if user.blod_group.letter == '-' %} checked {% endif %}>
+            <label class="form-check-label fw-bold">(-)</label>
         </div>
-    
+
     </fieldset>
-    
+
     <!--CI number-->
     <fieldset class="row p-1 g-1">
         <div class="col-12 text-start">
             <label class="form-label">Numero de CI:</label>
-            <input class="form-control form-input" id="userCI" type="text" placeholder="No. de Carnet" required
+            <input class="form-control form-input" id="user_ci" type="text" placeholder="No. de Carnet" 
+                required value="{{ user.ci }}"
                 minlength="11" maxlength="11" onkeypress="return mathType(event ,'userCI','number-only');">
         </div>
     </fieldset>
-    
+
     <!--Phone number-->
     <fieldset class="row p-1 g-1 justify-content-center">
         <div class="col-12 text-start">
             <label class="form-label">Telefono:</label>
         </div>
-        
+
         <div class="col-4 col-md-2 text-start">
             <span class="form-control form-input">
                 +53
             </span>
         </div>
-        
+
         <div class="col">
-            <input class="form-control form-input" id="userPhone" type="text" placeholder="#######" minlength="8"
-                maxlength="8" onkeypress="return mathType(event ,'userPhone','number-only');">
+            <input class="form-control form-input" id="user_phone" type="text" placeholder="#######" minlength="8"
+                maxlength="8" onkeypress="return mathType(event ,'user_phone','number-only');"
+                value="{{ user.phone }}">
         </div>
-    
+
     </fieldset>
-    
+
     <!-- Credentials Section -->
     <fieldset class="row p-2 g-1">
         <div class="col-12 p-2 text-start border border-secondary rounded-3">
-            
+
             <!--Section Title-->
             <label class="form-label w-100 text-center fw-bold">
                 Credenciales:
             </label>
-            
+
             <div class="row p-1">
 
                 <!--User nickname-->
                 <fieldset class="col-12 form-group text-start">
-                    <label class="form-label ms-1" for="#userName">Usuario:</label>
-                    <input class="form-control form-input" id="userName" type="text" maxlength="30"
-                        placeholder="Teclee un nombre de usuario">
+                    <label class="form-label ms-1">Usuario:</label>
+                    <input class="form-control form-input" id="user_nickname" type="text" maxlength="30"
+                        placeholder="Teclee un nombre de usuario"
+                        value="{{ user.nickname }}">
                 </fieldset>
-                
+
                 <!--Recuperation mail-->
                 <fieldset class="col-12 form-group text-start mt-3">
                     <label class="form-label ms-1" for="#userMail">Correo de
                         Recuperacion:</label>
-                    <input class="form-control form-input" id="userMail" type="email" maxlength="30"
-                        placeholder="example@nauta.cu" required onkeyup="verifyEmail('userMail');">
+                    <input class="form-control form-input" id="user_email" type="email" maxlength="30"
+                        placeholder="example@nauta.cu" required value="{{ user.email }}"
+                        onkeyup="verifyEmail('user_email');">
                 </fieldset>
-                
+
                 <!--User password (click -> showPassword)-->
                 <label class="form-label mt-3 ms-1" for="userPassword">Contrase&ntilde;a:</label>
-                
+
                 <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
                     <div class="input-group mb-3">
-                        <input class="form-control form-input" id="userPassword" type="password" maxlength="30"
+                        <input class="form-control form-input" id="user_password" type="password" maxlength="30"
                             placeholder="Teclee su c0ntr4s3&ntilde;4"
-                            onkeyup="mathInputs('userPassword','userPassword2')">
+                            onkeyup="mathInputs('user_password','user_password2')">
                         
                         <!--See password button-->
                         <span class="input-group-text"
-                            onclick="switchPasswordVisibility('userPassword','seeUserPasswordImage')">
+                            onclick="switchPasswordVisibility('user_password','seeUserPasswordImage')">
                             <img class="img-fluid" id="seeUserPasswordImage" src="{% static 'img/see-dark.svg' %}">
                         </span>
-                    
-                    </div>
-                </fieldset>
-                
-                <!--User password verify (click -> showPassword)-->
-                <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
-                    <div class="input-group mb-3">
-                        <input class="form-control form-input" id="userPassword2" type="password" maxlength="30"
-                            placeholder="Repita su c0ntr4s3&ntilde;4"
-                            onkeyup="mathInputs('userPassword','userPassword2')">
-                        
-                        <!--See password button-->
-                        <span class="input-group-text"
-                            onclick="switchPasswordVisibility('userPassword2','seeUserPassword2Image')">
-                            <img class="img-fluid" id="seeUserPassword2Image" src="{% static 'img/see-dark.svg' %}">
-                        </span>
-                    
+
                     </div>
                 </fieldset>
 
+                <!--User password verify (click -> showPassword)-->
+                <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
+                    <div class="input-group mb-3">
+                        <input class="form-control form-input" id="user_password2" type="password" maxlength="30"
+                            placeholder="Repita su c0ntr4s3&ntilde;4"
+                            onkeyup="mathInputs('user_password','user_password2')">
+
+                        <!--See password button-->
+                        <span class="input-group-text"
+                            onclick="switchPasswordVisibility('user_password2','seeUserPassword2Image')">
+                            <img class="img-fluid" id="seeUserPassword2Image" src="{% static 'img/see-dark.svg' %}">
+                        </span>
+
+                    </div>
+                </fieldset>
+            
             </div>
 
         </div>
@@ -176,13 +207,14 @@
         <!-- Dialog Close Option -->
         <a class="btn btn-sm btn-secondary" data-bs-dismiss="modal" data-bs-target="#userSiginDialog">
             <img src="{% static 'img/delete-light.svg' %}" width="20" height="20"
-                class="img-fluid mb-1 me-1 d-none d-sm-inline">
+                class="img-fluid mb-1 me-1 d-sm-inline">
             CANCELAR
         </a>
-
+        
         <!-- User Sigin Button -->
         <button class="btn btn-sm --button" type="submit">
-            <img src="{% static 'img/add-profile.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
+            <img src="{% static 'img/add-profile.svg' %}" width="20" height="20"
+            class="img-fluid mb-1 me-1">
             REGISTAR
         </button>
     

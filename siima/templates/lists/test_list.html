@@ -1,0 +1,92 @@
+<!--Any web pages contents is here-->
+<div class="row justify-content-center">
+
+    <div class="col-12 text-center fs-5 fw-bold">
+        Registro de Examenes
+    </div>
+
+    <!-- User analisis list-->
+    <div class="col-11 col-md-8 mt-2 border border-dark overflow-auto" style="height: 50vh;">
+
+        <table class="table">
+            <thead>
+                <th scope="col" class="col-1 text-center"></th>
+                <th scope="col" class="col text-center">Tipo</th>
+                <th scope="col" class="col text-center">Fecha</th>
+                <th scope="col" class="col text-center">Estado</th>
+                <th scope="col" class="col-3 text-center">Accion</th>
+            </thead>
+            <tbody>
+                <tr class="examen">
+                    <td class="col-1"><input type="checkbox" class="form-ckeck"></td>
+                    <td class="col">Orina</td>
+                    <td class="col"><time>11/10/22</time></td>
+                    <td class="col">Procesando</td>
+                    <td class="col-3"></td>
+                </tr>
+
+                <tr class="examen">
+                    <td class="col-1"><input type="checkbox" class="form-ckeck"></td>
+                    <td class="col">Orina</td>
+                    <td class="col"><time>11/10/22</time></td>
+                    <td class="col">Procesando</td>
+                    <td class="col-3"></td>
+                </tr>
+
+                <tr class="examen">
+                    <td class="col-1"><input type="checkbox" class="form-ckeck"></td>
+                    <td class="col">Sangre</td>
+                    <td class="col"><time>09/10/22</time></td>
+                    <td class="col">Procesando</td>
+                    <td class="col-3"></td>
+                </tr>
+
+                <tr class="examen">
+                    <td class="col-1"><input type="checkbox" class="form-ckeck"></td>
+                    <td class="col">Orina</td>
+                    <td class="col"><time>09/10/22</time></td>
+                    <td class="col text-green">Listo</td>
+                    <td class="col-3 text-center">
+
+                        <!-- Test log see button-->
+                        <button class="btn btn-sm btn-secondary">
+                            <img src="img/see-ligth.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                            <span class="d-none d-sm-inline">VER</span>
+                        </button>
+
+                    </td>
+                </tr>
+
+                <tr class="examen">
+                    <td class="col"><input type="checkbox" class="form-ckeck"></td>
+                    <td class="col">Sangre</td>
+                    <td class="col"><time>08/10/22</time></td>
+                    <td class="col text-green">Listo</td>
+                    <td class="col-3 text-center">
+
+                        <!-- Test log see button-->
+                        <button class="btn btn-sm btn-secondary">
+                            <img src="img/see-ligth.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                            <span class="d-none d-sm-inline">VER</span>
+                        </button>
+
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <!--User Test Logs Actions-->
+    <div class="col-11 col-md-8 mt-2 text-end">
+
+        <!-- Selected Logs supress -->
+        <button class="btn btn-sm btn-danger p-1 px-3">
+            <img src="img/delete-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+            BORRAR
+        </button>
+
+    </div>
+
+</div>

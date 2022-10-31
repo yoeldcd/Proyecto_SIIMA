@@ -1,3 +1,4 @@
+{% load static %}
 <!--Main Web Content is here-->
 <div class="container-fluid bg-gray p-0 content-layout" style="margin-bottom: 15vh;">
     <div class="row w-100 h-50 m-0 justify-content-center">
@@ -14,9 +15,9 @@
 
                 <!-- Sesion User name-->
                 <fieldset class="form-group text-start">
-                    <label class="form-label" for="#sesionUserName">Usuario:</label>
+                    <label class="form-label">Usuario:</label>
                     <div class="input-group mb-3">
-                        <input class="form-control form-input" id="sesionUserName" type="text" maxlength="30"
+                        <input class="form-control form-input" id="sesion_user_nickame" type="text" maxlength="30"
                             placeholder="Teclee su usuario" required>
                         <span class="input-group-text">@</span>
                     </div>
@@ -24,13 +25,13 @@
 
                 <!-- Sesion User password (click -> showPassword)-->
                 <fieldset class="form-group text-start mt-1">
-                    <label class="form-label" for="#sesionUserPassword">Contrase&ntilde;a:</label>
+                    <label class="form-label">Contrase&ntilde;a:</label>
                     <div class="input-group mb-3">
-                        <input class="form-control form-input" id="sesionUserPassword" type="password" maxlength="256"
+                        <input class="form-control form-input" id="sesion_user_password" type="password" maxlength="256"
                             placeholder="Teclee su cotrase&ntilde;a" required>
 
                         <span class="input-group-text"
-                            onclick="switchPasswordVisibility('sesionUserPassword','seeSesionUserPasswordImage');">
+                            onclick="switchPasswordVisibility('sesion_user_password','seeSesionUserPasswordImage');">
                             <img class="img-fluid" id="seeSesionUserPasswordImage"
                                 src="{% static 'img/see-dark.svg' %}">
                         </span>

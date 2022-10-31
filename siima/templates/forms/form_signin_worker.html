@@ -1,33 +1,56 @@
+{% load static %}
+
+<!-- Template context values
+    
+    worker => user {
+        
+        nickname
+        picture_url
+        name
+        name2
+        surname
+        surname2
+        genere
+        ci
+        phone
+        role
+        permisions { read, add, delete, edit, root }
+        email
+        
+    }
+
+-->
+
 <!-- Worker registration formulary -->
 <form action="user-profile.html" class="form rounded-3 data-form p-2 m-0">
     
-    <!-- Worker First Name inputs -->
+    <!-- Worker First Names inputs -->
     <fieldset class="row p-1 g-1">
         <div class="col-12 text-start">
             <label class="form-label">Nombres:</label>
         </div>
         <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="firstName" type="text" maxlength="30" placeholder="Primer Nombre"
-                required>
+            <input class="form-control form-input" id="worker_name" type="text" maxlength="30"
+                placeholder="Primer Nombre" required value="{{ worker.name }}">
         </div>
         <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="secondName" type="text" maxlength="30"
-                placeholder="Segundo Nombre">
+            <input class="form-control form-input" id="worker_name2" type="text" maxlength="30"
+                placeholder="Segundo Nombre" value="{{ worker.name2 }}">
         </div>
     </fieldset>
-    
-    <!-- Worker Surnames Inputs -->
+
+    <!-- Worker Sur Names Inputs -->
     <fieldset class="row p-1 g-1">
         <div class="col-12 text-start">
             <label class="form-label">Apellidos:</label>
         </div>
         <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="firstSurName" type="text" maxlength="30"
-                placeholder="Primer Apellido" required>
+            <input class="form-control form-input" id="worker_surname" type="text" maxlength="30"
+                placeholder="Primer Apellido" required value="{{ worker.surname }}">
         </div>
         <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="secondSurName" type="text" maxlength="30"
-                placeholder="Segundo Apellido">
+            <input class="form-control form-input" id="worker_surname2" type="text" maxlength="30"
+                placeholder="Segundo Apellido" value="{{ worker.surname2 }}">
         </div>
     </fieldset>
 
@@ -37,11 +60,13 @@
             <label class="form-label">Genero:</label>
         </div>
         <div class="col-6 form-check">
-            <input class="form-radio-input me-3" name="genere" id="male" type="radio" checked>
+            <input class="form-radio-input me-3" name="worker_genere" id="worker_genere_male" type="radio" {% if
+                worker.genere=='m' %} checked {% endif %}>
             <label class="form-check-label" for="#male"> Hombre</label>
         </div>
         <div class="col-6 form-check">
-            <input class="form-radio-input me-3" name="genere" id="female" type="radio">
+            <input class="form-radio-input me-3" name="worker_genere" id="worker_genere_female" type="radio" {% if
+                worker.genere=='f' %} checked {% endif %}>
             <label class="form-check-label" for="#female"> Mujer</label>
 
         </div>
@@ -51,8 +76,9 @@
     <fieldset class="row p-1 g-1">
         <div class="col-12 text-start">
             <label class="form-label">Numero de CI:</label>
-            <input class="form-control form-input" id="userCI" type="text" placeholder="No. de Carnet" required
-                minlength="11" maxlength="11" onkeypress="return mathType(event ,'userCI','number-only');">
+            <input class="form-control form-input" id="worker_ci" type="text" placeholder="No. de Carnet" required
+                minlength="11" maxlength="11" onkeypress="return mathType(event ,'userCI','number-only');"
+                value="{worker.ci}">
         </div>
     </fieldset>
 
@@ -69,8 +95,8 @@
         </div>
 
         <div class="col">
-            <input class="form-control form-input" id="userPhone" type="text" placeholder="#######" minlength="8"
-                maxlength="8" onkeypress="return mathType(event ,'userPhone','number-only');">
+            <input class="form-control form-input" id="worker_phone" type="text" placeholder="#######" minlength="8"
+                maxlength="8" onkeypress="return mathType(event ,'worker_phone','number-only');" value="{worker.phone}">
         </div>
 
     </fieldset>
@@ -83,12 +109,14 @@
             Especialidad:
         </spam>
 
-        <!-- Worker Profile Job-Role -->
+        <!-- **Worker Profile Job-Role -->
         <div class="col-12 m-1 text-start">
-            <label for="workerJob" class="form-label m-1">Puesto:</label>
-            <select name="workerJob" id="workerJob" class="form-select form-input">
+            <label class="form-label m-1">Puesto:</label>
+            <select name="workerJob" id="worker_role" class="form-select form-input">
+
                 <option selected>Enfermera</option>
                 <option>Tecnico de Laboratorio</option>
+
             </select>
         </div>
 
@@ -99,53 +127,73 @@
             <div class="row">
                 <div class="col-12 col-md-6 text-start">
                     <label class="form-label m-1">
-                        <input type="checkbox" id="userPermisionRead" class="form-checkox me-2">Consultar
+                        <input type="checkbox" id="worker_permision_read" class="form-checkox me-2"
+                        {% if worker.permissions.add == True %}
+                        checked
+                        {% endif %}
+                        >Consultar
                         muesta
                     </label>
                 </div>
 
                 <div class="col-12 col-md-6 text-start">
                     <label class="form-label m-1">
-                        <input type="checkbox" id="userPermisionAdd" class="form-checkox me-2">Agregar
+                        <input type="checkbox" id="worker_permision_add" class="form-checkox me-2"
+                        {% if worker.permissions.add == True %}
+                        checked
+                        {% endif %}
+                        >Agregar
                         muesta
                     </label>
                 </div>
 
                 <div class="col-12 col-md-6 text-start">
                     <label class="form-label m-1">
-                        <input type="checkbox" id="userPermisionEdit" class="form-checkox me-2">Modificar
+                        <input type="checkbox" id="worker_permision_edit" class="form-checkox me-2"
+                        {% if worker.permissions.edit == True %}
+                        checked
+                        {% endif %}
+                        >Modificar
                         muesta
                     </label>
                 </div>
 
                 <div class="col-12 col-md-6 text-start">
                     <label class="form-label m-1">
-                        <input type="checkbox" id="userPermisionDelet" class="form-checkox me-2">Eliminar
+                        <input type="checkbox" id="worker_permision_delete" class="form-checkox me-2"
+                        {% if worker.permissions.delete == True %}
+                        checked
+                        {% endif %}
+                        >Eliminar
                         muesta
                     </label>
                 </div>
-
+                
                 <div class="col-12 col-md-6 text-start fw-bold">
                     <label class="form-label m-1">
-                        <input type="checkbox" id="userPermisionRoot" class="form-checkox me-2">Administrador
+                        <input type="checkbox" id="worker_permision_root" class="form-checkox me-2" 
+                        {% if worker.permissions.root == True %}
+                        checked
+                        {% endif %}
+                        >Administrador
                     </label>
                 </div>
 
 
             </div>
-
+        
         </div>
 
         <!-- Admin Password -->
         <fieldset class="col-12 form-group text-start mt-1">
             <div class="input-group mb-3">
-                <input class="form-control form-input" name="adminPassword" type="password" id="adminPassword"
-                    maxlength="30" placeholder="Contraseña de Administrador" required>
-
+                <input class="form-control form-input" id="admin_password" type="password" maxlength="30"
+                    placeholder="Contraseña de Administrador" required>
+                
                 <!--See password button-->
                 <span class="input-group-text"
-                    onclick="switchPasswordVisibility('adminPassword','seeAdminPasswordImage')">
-                    <img class="img-fluid" id="seeAdminPasswordImage" src="./img/see-dark.svg">
+                    onclick="switchPasswordVisibility('admin_password','seeAdminPasswordImage')">
+                    <img class="img-fluid" id="seeAdminPasswordImage" src="{% static '/img/see-dark.svg' %}">
                 </span>
 
             </div>
@@ -165,46 +213,50 @@
 
                 <!--User nickname-->
                 <fieldset class="col-12 form-group text-start">
-                    <label class="form-label ms-1" for="#userName">Usuario:</label>
-                    <input class="form-control form-input" id="userName" type="text" maxlength="30"
-                        placeholder="Teclee un nombre de usuario">
+                    <label class="form-label ms-1">Usuario:</label>
+                    <input class="form-control form-input" id="worker_nickname" type="text" maxlength="30"
+                        placeholder="Teclee un nombre de usuario"
+                        value="{% worker.nickname %}">
                 </fieldset>
 
                 <!--Recuperation mail-->
                 <fieldset class="col-12 form-group text-start mt-3">
-                    <label class="form-label ms-1" for="#userMail">Correo de
+                    <label class="form-label ms-1">Correo de
                         Recuperacion:</label>
-                    <input class="form-control form-input" id="userMail" type="email" maxlength="30"
-                        placeholder="example@nauta.cu" required onkeyup="verifyEmail('userMail');">
+                    <input class="form-control form-input" id="worker_email" type="email" maxlength="30"
+                        placeholder="example@nauta.cu" required onkeyup="verifyEmail('worker_email');"
+                        value="{% worker.email %}">
                 </fieldset>
-
-                <label class="form-label mt-3 ms-1" for="userPassword">Contraseña:</label>
-
+                
+                <label class="form-label mt-3 ms-1">Contrase&ntilde;a:</label>
+                
                 <!--User password (click -> showPassword)-->
                 <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
                     <div class="input-group mb-3">
-                        <input class="form-control form-input" id="userPassword" type="password" maxlength="30"
-                            placeholder="Teclee su c0ntr4s3ñ4" onkeyup="mathInputs('userPassword','userPassword2')">
-
+                        <input class="form-control form-input" id="worker_password" type="password" maxlength="30"
+                            placeholder="Teclee su c0ntr4s3&ntilde;4"
+                            onkeyup="mathInputs('userPassword','worker_password2')">
+                        
                         <!--See password button-->
                         <span class="input-group-text"
-                            onclick="switchPasswordVisibility('userPassword','seeUserPasswordImage')">
-                            <img class="img-fluid" id="seeUserPasswordImage" src="{% static img/see-dark.svg %}">
+                            onclick="switchPasswordVisibility('worker_password','seeUserPasswordImage')">
+                            <img class="img-fluid" id="seeUserPasswordImage" src="{% static '/img/see-dark.svg' %}">
                         </span>
-                    
+
                     </div>
                 </fieldset>
 
                 <!--User password verify (click -> showPassword)-->
                 <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
                     <div class="input-group mb-3">
-                        <input class="form-control form-input" id="userPassword2" type="password" maxlength="30"
-                            placeholder="Repita su c0ntr4s3ñ4" onkeyup="mathInputs('userPassword','userPassword2')">
+                        <input class="form-control form-input" id="worker_password2" type="password" maxlength="30"
+                            placeholder="Repita su c0ntr4s3&ntilde;4"
+                            onkeyup="mathInputs('worker_password','worker_password2')">
 
                         <!--See password button-->
                         <span class="input-group-text"
-                            onclick="switchPasswordVisibility('userPassword2','seeUserPassword2Image')">
-                            <img class="img-fluid" id="seeUserPassword2Image" src="{% static img/see-dark.svg %}">
+                            onclick="switchPasswordVisibility('worker_password','seeUserPassword2Image')">
+                            <img class="img-fluid" id="seeUserPassword2Image" src="{% static '/img/see-dark.svg' %}">
                         </span>
 
                     </div>
@@ -215,18 +267,19 @@
         </div>
     </fieldset>
 
-    <!-- Formulary Buttons -->
+    <!-- Formulary Action Buttons -->
     <div class="form-group text-end me-1 me-md-2">
 
         <!-- Dialog Close Option -->
         <a class="btn btn-sm btn-secondary" data-bs-dismiss="modal" data-bs-target="#workerSiginDialog">
-            <img src="{% static 'img/delete-light.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1 d-none d-sm-inline">
+            <img src="{% static 'img/delete-light.svg' %}" width="20" height="20"
+                class="img-fluid mb-1 me-1 d-none d-sm-inline">
             CANCELAR
         </a>
-        
-        <!-- User Sigin Button -->
+
+        <!-- User Signin Button -->
         <button class="btn btn-sm --button" type="submit">
-            <img src="(% static 'img/add-profile.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
+            <img src="{% static 'img/add-profile.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
             REGISTAR
         </button>
 

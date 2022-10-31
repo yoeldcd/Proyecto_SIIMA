@@ -1,0 +1,28 @@
+<!-- Modal Add test Dialog-->
+<div class="modal fade" tabindex="-1" aria-hidden="true" id="addTestDialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            
+            <div class="modal-header text-center">
+                <spam class="modal-title">Nuevo Analisis</spam>
+            </div>
+
+            <!--test description formulary-->
+            <div class="modal-body">
+                
+                {% block test_addition_formulary %}
+                {% endblock %}
+                
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn --button">
+                    <img src="img/add.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                    AGREGAR
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
