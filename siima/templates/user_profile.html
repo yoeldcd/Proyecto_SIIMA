@@ -1,0 +1,26 @@
+{% extends "layouts/main_layout.html" %}
+
+{% block title %}
+USER: {{ user.nickname }}
+{% endblock %}
+
+{% block page_header %}
+{% include "layouts/page_header.html" %}
+{% endblock %}
+
+{% block page_content %}
+
+<!--Main Web Content is here-->
+<div class="container-fluid bg-gray p-0 content-layout" style="margin-bottom: 15vh;">
+    <div class="row w-100 h-50 m-0 justify-content-center">
+        {% include 'forms/form_user_details.html' %}
+    </div>
+</div>
+
+{% include 'modals/modal_signin_user.html' %}
+
+{% endblock %}
+
+{% block page_footer %}
+{% include "layouts/page_footer.html" %}
+{% endblock %}

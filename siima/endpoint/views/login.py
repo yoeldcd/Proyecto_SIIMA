@@ -1,8 +1,7 @@
 
-from datetime import datetime
-from siima.endpoint import tools
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+from datetime import datetime
 
 end = 0
 html_template_url = 'login.html'

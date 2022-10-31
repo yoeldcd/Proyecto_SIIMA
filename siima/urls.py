@@ -28,7 +28,7 @@ urlpatterns = [
     path('login/', login.get),
     
     # User role pages
-    path('user_profile/', user_profile.get),
+    path('profile/', user_profile.get),
     #path('edit-user-profile/', index.edit_user_profile),
     #path('test-log/', index.test_log),
     
