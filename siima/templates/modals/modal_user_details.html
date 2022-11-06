@@ -1,6 +1,8 @@
+{% load static %}
+
 <!-- Modal User Details Dialog-->
 <div class="modal fade" tabindex="-1" aria-hidden="true" id="userDetailsDialog">
-
+    
     <div class="modal-dialog modal-dialog-centered">
 
         <div class="modal-content">
@@ -9,15 +11,23 @@
             <div class="modal-header">
                 <spam class="modal-title">Detalles de Usuario</spam>
             </div>
-            
+
             <!-- User Description Section -->
             <div class="modal-body">
-                
+
                 {% block form_user_details %}
                 {% endblock %}
-            
+
             </div>
 
+            <div class="modal-footer">
+                <!-- Dialog Close Option -->
+                <a class="col-12 btn btn-sm btn-secondary" data-bs-dismiss="modal"
+                    data-bs-target="#workerDetailsDialog">
+                    <img src="img/delete-light.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+                    CERRAR
+                </a>
+            </div>
         </div>
 
 

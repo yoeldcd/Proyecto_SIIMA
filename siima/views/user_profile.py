@@ -1,14 +1,14 @@
+
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from datetime import datetime
 
-end = 0
 html_template_url = 'user_profile.html'
 
 # page GET method invoked
 def get(request : HttpRequest):
     
-    user = {
+    user_profile = {
         'nickname': 'ADMIN',
         'picture_url': '/img/profile.png',
         'first_names': 'Yoel David',
@@ -19,9 +19,12 @@ def get(request : HttpRequest):
     
     context = {
         'current_date': datetime.now,
-        'profile_page_url':'/profile/&user=\'userID\'',
-        'user' : user,
+        'profile_url': '/profile/user/',
+        'user' : user_profile,
+        'links':(
+            {'href': '/tests/', 'text': 'analisis'},
+        )
     }
     
     return HttpResponse(render(request, html_template_url, context))
-end
+    

@@ -17,8 +17,7 @@ from cmath import log
 from django.contrib import admin
 from django.urls import path
 
-from siima.endpoint import tools
-from siima.endpoint.views import login, user_profile, worker_profile, admin_profile
+from siima.views import login, user_profile, worker_profile, admin_profile
 
 
 urlpatterns = [
@@ -28,18 +27,18 @@ urlpatterns = [
     path('login/', login.get),
     
     # User role pages
-    path('profile/', user_profile.get),
+    path('profile/user/', user_profile.get),
     #path('edit-user-profile/', index.edit_user_profile),
     #path('test-log/', index.test_log),
     
     # Admin role pages
-    path('admin_profile/', admin_profile.get),
+    path('profile/admin/', admin_profile.get),
     #path('users-list/', index.users_list),
     #path('workers-list/', index.workers_list),
     #path('events-log/', index.events_log),
     
     # Worker role pages
-    path('worker_profile/', worker_profile.get),
+    path('profile/worker/', worker_profile.get),
     #path('edit-worker-profile/', index.edit_worker_profile),
     #path('test-edition/', index.test_edition),
     

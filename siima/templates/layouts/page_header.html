@@ -9,49 +9,76 @@
             <div class="row w-100 h-25 h-md-100 m-0 text-center">
 
                 <!--Nav banner-->
-                <div class="col-12 col-sm-8 col-md-4 order-md-1">
-                    <img src="{% static 'img/minsap.png' %}" class="img-fluid" id="web-logo">
+                <div class="col-12 col-sm-5">
+                    <img src="{% static 'img/minsap.png' %}" class="img img-fluid m-0" id="web-logo">
                 </div>
-
-                <!--Nav user profile area-->
-                <div class="col-4 col-md-2 order-md-4">
-                    <div class="row d-none d-sm-flex h-100 justify-content-end align-items-end text-center p-0">
-
-                        <!--Profile User icon-->
-                        <a class="col-11 p-0" href="{{ profile_page_url }}">
-                            <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo"
-                                src="{% static user.picture_url %}" width="50" height="50">
-                        </a>
-
-                        <!--Profile User name-->
-                        <div
-                            class="col-8 p-0 me-1 fs-6 text-end text-md-center text-nowrap overflow-hidden text-decoration-underline only-text">
-                            {{ user.nickname }}
-                        </div>
-
-                        <!--Profile Exit button-->
-                        <div class="col-2 p-0">
-                            <a href="/login" class="p-0 border-none">
-                                <img class="img-fluid" src="{% static 'img/exit-dark.png' %}" width="25" height="25">
-                            </a>
-                        </div>
-
-                    </div>
-                </div>
-
+                
                 <!--Nav blank Space-->
-                <div class="col-sm-12 col-md-1 order-md-2 text-start">
+                <div class="col text-start">
                     <a class="btn d-inline d-sm-none p-0" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#navOffcanvas" aria-controls="navOffcanvas" id="offcanvasOpenButton">
                         <span class="container-fluid navbar-toggler-icon"></span>
                     </a>
                 </div>
-
+                
+                <!--Nav user profile area-->
+                <div class="col-4 col-md-3 d-none d-sm-flex">
+                    <div class="row h-100 justify-content-between align-items-end container-fluid">
+                        
+                        {% if user != None %}
+                        <!-- Show profile options if is user logged -->
+                
+                        <!--Profile User icon-->
+                        <a class="col-10" href="{{ profile_url }}">
+                            <img class="img img-rounded rounded-5 fs-6 bg-gray user-icon" alt="user logo"
+                                src="{% static user.picture_url %}" width="50" height="50">
+                        </a>
+                        
+                        <!--Profile User name-->
+                        <div class="col-10 p-0 text-center text-nowrap overflow-hidden text-decoration-underline only-text">
+                            {{ user.nickname }}
+                        </div>
+                        
+                        <!--Profile Exit button-->
+                        <div class="col p-0">
+                            <a href="/login">
+                                <img class="img-fluid --button-ligth" src="{% static 'img/exit-dark.png' %}" width="25" height="25">
+                            </a>
+                        </div>
+                        
+                        {% else %}
+                        <!-- Show login options if user is not logged -->
+                
+                        <!--Generic Profile User icon-->
+                        <a class="col-10 p-0" href="/login">
+                            <img class="img img-rounded rounded-5 fs-6 bg-gray user-icon" alt="user logo"
+                                src="{% static '/img/profile.png' %}" width="50" height="50">
+                        </a>
+                        
+                        <!--Login message-->
+                        <div
+                            class="col-10 p-0 me-1 fs-6 text-center text-nowrap overflow-hidden text-decoration-underline only-text">
+                            AUTENTICAR
+                        </div>
+                        
+                        <!--Profile Exit button-->
+                        <div class="col p-0">
+                            <a href="/login">
+                                <img class="img-fluid --button-ligth" src="{% static 'img/key-dark.svg' %}" width="25" height="25">
+                            </a>
+                        </div>
+                        
+                        {% endif %}
+                    
+                    </div>
+                </div>
+                
+                
                 <!--Nav links-->
-                <div class="col-sm-12 col-md-5 order-md-3">
+                <div class="col-sm-12 col-md-5">
                     <div class="row d-none d-sm-flex h-100 justify-content-center justify-content-md-end align-items-end fs-6"
                         id="navbarLinks">
-                        
+
                         <!-- Rendering navbar links -->
                         {% if links|length > 0 %}
                         {% for link in links %}
@@ -74,10 +101,25 @@
 
             <!--User Profile picture -->
             <h5 class="offcanvas-title text-start">
-                <a href="{{ profile_page_url }}">
-                    <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo"
+                
+                {% if user != None %}
+                <!-- Show profile icon if is user logged -->
+                
+                <a href="{{ profile_url }}">
+                    <img class="img img-rounded fs-6 bg-gray user-icon" alt="user logo"
                         src="{% static user.picture_url %}" width="80" height="80">
                 </a>
+                
+                {% else %}
+                <!-- Show generic profile icon if is'not user logged -->
+                
+                <a href="/login/">
+                    <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo" 
+                    src="{% static '/img/profile.png' %}"
+                    width="80" height="80">
+                </a>
+                {% endif %}
+
             </h5>
 
             <!--Offcanvas Close button -->
@@ -87,22 +129,38 @@
 
         </div>
         <div class="offcanvas-body p-0 w-100 text-start fs-4" id="offcanvasLinks">
-            
+
             <!--Profile description and actions -->
             <div class="col-12 row justify-content-between text-ligth m-0 fs-6 text-nowrap overflow-hidden user-name">
-                
+
+                <!-- only show profile options if is user logged -->
+                {% if user != None %}
+
                 <!--Profile user name-->
                 <span class="col-8 text-nowrap overflow-hidden ps-3 user-name">
                     {{ user.nickname }}
                 </span>
-                
+
                 <!--Profile Exit button-->
                 <a href="/login" class="col-2 border-none p-0 text-end me-2">
                     <img class="img-fluid" src="{% static 'img/exit-ligth.png' %}" width="30" height="30">
                 </a>
-            
+
+                {% else %}
+
+                <span class="col-8 text-nowrap overflow-hidden ps-3 user-name">
+                    DEBE AUTENTICAR
+                </span>
+
+                <!--Profile Exit button-->
+                <a href="/login/" class="col-2 border-none p-0 text-end me-2">
+                    <img class="img-fluid" src="{% static 'img/key-ligth.svg' %}" width="30" height="30">
+                </a>
+
+                {% endif %}
+
             </div>
-            
+
             <!-- Rendering offcanvas links -->
             {% if links|length > 0 %}
             {% for link in links %}
@@ -111,7 +169,7 @@
             </a>
             {% endfor %}
             {% endif %}
-            
+
         </div>
     </div>
 

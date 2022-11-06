@@ -3,19 +3,17 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from datetime import datetime
 
-end = 0
 html_template_url = 'login.html'
 
 # page GET method invoked
 def get(request : HttpRequest):
     
+    user_profile = None
+    
     context = {
         'current_date': datetime.now,
-        'profile_page_url':'/profile/&user=\'userID\'',
-        'user':{
-            'nickname': 'NO NAME',
-            'picture_url': 'img/profile.png'
-        },         
+        'profile_url': '/profile/user/',
+        'user': user_profile,         
         'links':(
             {'href': '/profile', 'text': 'profile'},
             {'href': '/tests', 'text': 'test'},
@@ -23,4 +21,3 @@ def get(request : HttpRequest):
     }
     
     return HttpResponse(render(request, html_template_url, context))
-end

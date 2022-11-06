@@ -29,14 +29,14 @@
 }
 
 #web-logo {
-    max-height: 12vh;
+    max-height: 11vh;
 }
 
 .fixed-top-navbar {
     min-height: 10vh;
     background-color: var(--theme-background-color);
     color: var(--theme-secondary-color);
-
+    
     border-bottom: solid 2px var(--theme-primary-color);
 }
 
@@ -161,12 +161,13 @@
 }
 
 /*Defining Content layout style*/
-.content-layout {
-    margin-top: 15vh;
+.main-content-layout {
+    margin-top: 25vh;
+    margin-bottom: 10vh;
     background-color: var(--theme-background-color);
 }
 
-#fixedBootomFooter {
+#bootom_footer {
     border: none;
     border-top: solid 2px var(--theme-primary-color);
 }
@@ -192,6 +193,19 @@
 }
 
 /*Define custom buttoms color*/
+.--button-ligth {
+    background-color: var(--theme-background-color);
+    border: solid var(--theme-primary-color) 2px;
+    padding: 5%;
+    border-radius: 50%;
+}
+
+.--button-ligth:hover {
+    border: solid var(--theme-enphasis-color) 2px;
+    padding: 5%;
+    border-radius: 50%;
+}
+
 .--button {
     background-color: var(--theme-primary-color);
     color: var(--theme-ligth-text-color);
