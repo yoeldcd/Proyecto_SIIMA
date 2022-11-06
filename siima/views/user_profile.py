@@ -9,10 +9,13 @@ html_template_url = 'user_profile.html'
 def get(request : HttpRequest):
     
     user_profile = {
-        'nickname': 'ADMIN',
-        'picture_url': '/img/profile.png',
-        'first_names': 'Yoel David',
-        'sur_names': 'Correa Duke',
+        'id': 'hash256',
+        'nickname': 'user6267',
+        'picture_url': '/img/user6267.jpg',
+        'name': 'Yoel',
+        'name2': 'David',
+        'surname': 'Correa',
+        'surname2': 'Duke',
         'age': 23,
         'genere': 'male'
     }

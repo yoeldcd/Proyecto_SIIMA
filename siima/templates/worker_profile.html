@@ -1,23 +1,23 @@
 {% extends "layouts/main_layout.html" %}
 
 {% block title %}
-SIIMA Login
+USER: {{ user.nickname }}
 {% endblock %}
 
 {% block page_header %}
 {% include "layouts/page_header.html" %}
 {% endblock %}
 
-<!--Main Web Content is here-->
 {% block page_content %}
 
+<!--Main Web Content is here-->
 <div class="row w-100 h-50 m-0 justify-content-center">
-    <div class="col col-sm-8 col-md-4 mx-2">
-    {% include 'forms/form_sesion_login.html' %}
+    <div class="col col-sm-8 mx-2">
+        {% include 'forms/form_worker_details.html' %}
     </div>
 </div>
 
-{% include 'modals/modal_signin_user.html' %}
+{% include 'modals/modal_signin_worker.html' %}
 
 {% endblock %}
 <!--End of page content-->

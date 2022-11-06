@@ -17,14 +17,19 @@ from cmath import log
 from django.contrib import admin
 from django.urls import path
 
-from siima.views import login, user_profile, worker_profile, admin_profile
-
+from siima.views import login
+from siima.views import sesion
+from siima.views import user_profile
+from siima.views import worker_profile
+from siima.views import admin_profile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     
     # Coomn role pages
+    path('', login.get),
     path('login/', login.get),
+    path('login/start/<str:id>/', login.start),
     
     # User role pages
     path('profile/user/', user_profile.get),

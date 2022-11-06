@@ -1,25 +1,46 @@
 {% load static %}
 
-<!--    Template context values
-    user {
-        
-        nickname
-        picture_url
-        name
-        name2
-        surname
-        surname2
-        genere
-        ci
-        phone
-        email
-        blod_group
+<!--    Template render context values
+    
+    Description coneventions: key : data_type
+                              type -> extended_type  
+    
+    {   current_date : datetime,
+        profile_url : str,
+        user : user {
+            user.nickname : str
+            user.picture_url : str
+            user.name : str
+            user.name2 : str
+            user.surname : str
+            user.surname2 : str
+            user.genere : str        //avaliable 'male' | 'female'
+            user.ci : str
+            user.phone : str
+            user.email : str
+            user.blod_group : [      // avaliables ['A','B','O', '+ | -']
+                value :: str,
+                ...
+            ]
+            user.last_access_date : datetime
+            user.registration_date : datetime
+            
+        },
+        links : [ 
+            link {
+                link.href : str,
+                link.text : str
+            },
+            {...}
+        ]
+    
     }
-
+    
 -->
 
+
 <!-- User Registration Formulary-->
-<form action="/user_profile.html" class="form rounded-3 data-form p-2 m-0">
+<form action="/login/start/" class="form rounded-3 data-form p-2 m-0">
 
     <!--First name input group-->
     <fieldset class="row p-1 g-1">

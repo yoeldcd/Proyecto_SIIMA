@@ -1,27 +1,36 @@
-
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from datetime import datetime
 
-end = 0
-root = 'siima/root/'
-html_template_url = root + 'admin_profile.html'
+html_template_url = 'worker_profile.html'
 
 # page GET method invoked
 def get(request : HttpRequest):
     
-    user = {
-        'nickname': 'ADMIN',
-        'picture_url': '/img/profile-log.png',
-        'first_names': 'Yoel David',
-        'sur_names': 'Correa Duke',
+    worker_profile = {
+        'id': 'hash256',
+        'nickname': 'root_user6267',
+        'picture_url': '/img/user6267.jpg',
+        'name': 'Yoel',
+        'name2': 'David',
+        'surname': 'Correa',
+        'surname2': 'Duke',
         'age': 23,
-        'genere': 'male'
+        'genere': 'male',
+        'role': 'admin',
+        'permissions': ['r','e','a','d','s']
     }
     
     context = {
-        'user' : user
+        'current_date': datetime.now,
+        'profile_url': '/profile/admin/',
+        'user' : worker_profile,
+        'worker' : worker_profile,
+        'links':(
+            {'href': '/users/', 'text': 'usuarios'},
+            {'href': '/events/', 'text': 'eventos'}
+        )
     }
     
-    return HttpResponse(tools.render_template(html_template_url, context))
-end
+    return HttpResponse(render(request, html_template_url, context))
+    

@@ -1,11 +1,56 @@
 {% load static %}
 
+<!--    Template render context values
+    
+    Description coneventions: key : data_type
+                              type -> extended_type  
+    
+    {   current_date : datetime,
+        profile_url : str,
+        worker : worker -> user {
+            user.nickname : str
+            user.picture_url : str
+            user.name : str
+            user.name2 : str
+            user.surname : str
+            user.surname2 : str
+            user.genere : str        //avaliables 'male' | 'female'
+            user.ci : str
+            user.phone : str
+            user.email : str
+            user.blod_group : [      // avaliables ['A','B','O', '+ | -']
+                value :: str,
+                ...
+            ]
+            user.last_access_date : datetime
+            user.registration_date : datetime
+            
+            worker.role : str          // avaliables (roles.info)    
+            worker.permissions : [     // avaliables ['r','a','e', 'd', 's']
+                value :: str, 
+                ...,
+            ],
+            
+        },
+        links : [ 
+            link {
+                link.href : str,
+                link.text : str
+            },
+            {...}
+        ]
+    
+    }
+    
+-->
+
 <!-- Worker Description Section -->
 <div class="row p-2 justify-content-center align-items-center g-2 text-start rounded-3 data-form p-2 m-0">
     
     <!-- Worker profile UserIcon -->
     <spam class="col-12 text-center" href=".">
-        <img class="img rounded-1 fs-6 bg-gray user-icon-large" alt="user logo" src="img/perfil.png" width="150"
+        <img class="img rounded-1 fs-6 bg-gray user-icon-large" alt="user logo" 
+        src="{% static worker.picture_url %}" width="150"
             height="150">
         <br>
 
@@ -13,7 +58,7 @@
 
     <!-- Worker profile Username -->
     <span class="col-12 text-nowrap overflow-hidden text-center user-name-label">
-        YOELDCD
+        {{ worker.nickname }}
     </span>
 
     <!-- Worker profile Names -->
@@ -21,15 +66,15 @@
         Nombre:
     </span>
     <span class="col-6 text-nowrap overflow-hidden">
-        Yoel David
+        {{ worker.name }} {{ user.name2 }}
     </span>
-
+    
     <!-- Worker profile SurNames -->
     <span class="col-6 text-nowrap overflow-hidden">
         Apellidos
     </span>
     <spam class="col-6 text-nowrap overflow-hidden" id="userSurNames">
-        Correa Duke
+        {{ worker.surname }} {{ user.surname2 }}
     </spam>
 
     <!-- Worker profile Genere -->
@@ -37,15 +82,15 @@
         Sexo:
     </spam>
     <span class="col-6 text-nowrap overflow-hidden" id="userGenere">
-        masculino
+        {{ worker.genere }}
     </span>
-
+    
     <!-- Worker profile Age -->
     <spam class="col-6 text-nowrap overflow-hidden">
         Edad:
     </spam>
     <span class="col-6 text-nowrap overflow-hidden" id="userAge">
-        23 Años
+        {{ worker.age }} Años
     </span>
 
     <!-- Separation line -->
@@ -56,7 +101,7 @@
         Especialidad:
     </spam>
     <span class="col-6 text-nowrap overflow-hidden" id="workJob">
-        ...
+        {{ worker.role }}
     </span>
 
     <!-- Worker Profile Permisions Granted -->
@@ -64,7 +109,7 @@
         Permisos:
     </spam>
     <span class="col-6 text-nowrap overflow-hidden" id="workJob">
-        a - r - w -d
+        {{ worker.permissions|join:" - " }}
     </span>
 
     <!--Separation line-->
@@ -75,43 +120,37 @@
         Ultimo Acceso:
     </spam>
     <span class="col-6 text-nowrap overflow-hidden" id="userBlodGroup">
-        <time>10/10/2022 <b>12:24PM</b></time>
+        <time>{{ worker.last_access_date }}</b></time>
     </span>
-
+    
     <!-- Worker Profile Sigin Date -->
     <spam class="col-6 text-nowrap overflow-hidden">
         Fecha de Registro:
     </spam>
     <span class="col-6 text-nowrap overflow-hidden" id="userBlodGroup">
-        <time>10/10/2022 <b>11:40PM</b></time>
+        <time>{{ worker.registration_date }}</time>
     </span>
 
     <!-- Worker profile Action Buttons -->
     <div class="col-12 text-center">
         <div class="row justify-content-center">
 
-            <!--User Events Log Option-->
-            <a href="events-log.html" class="col-12 col-sm btn btn-sm --button m-2">
-                <img src="img/profile-log.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+            <!--Worker Events Log Option-->
+            <a href="/profile/events/{{ user.id }}" class="col-12 col-sm btn btn-sm --button m-2">
+                <img src="{% static 'img/profile-log.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
                 EVENTOS
             </a>
 
-            <!-- User Edit Option-->
-            <a href="edit-worker-profile.html" class="col-12 col-sm btn btn-sm --button m-2">
-                <img src="img/edit-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+            <!-- Worker Edit Option-->
+            <a href="/profile/edit/{{ user.id }}" class="col-12 col-sm btn btn-sm --button m-2">
+                <img src="{% static 'img/edit-profile.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
                 EDITAR
             </a>
 
-            <!-- User Supress Option -->
-            <a href="" class="col-12 col-sm btn btn-sm btn-danger m-2">
-                <img src="img/delete-profile.svg" width="20" height="20" class="img-fluid mb-1 me-1">
+            <!-- Worker Supress Option -->
+            <a href="/profile/supress/{{ user.id }}" class="col-12 col-sm btn btn-sm btn-danger m-2">
+                <img src="{% static 'img/delete-profile.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
                 SUPRIMIR
-            </a>
-
-            <!-- Dialog Close Option -->
-            <a class="col-12 btn btn-sm btn-secondary" data-bs-dismiss="modal" data-bs-target="#userDetailsDialog">
-                <img src="img/delete-light.svg" width="20" height="20" class="img-fluid mb-1 me-1">
-                CERRAR
             </a>
         
         </div>
