@@ -1,50 +1,31 @@
-"""siima URL Configuration
+"""siima URL Configuration"""
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
+from datetime import *
 from cmath import log
 from django.contrib import admin
 from django.urls import path
 
-from siima.views import login
-from siima.views import sesion
-from siima.views import user_profile
-from siima.views import worker_profile
-from siima.views import admin_profile
+from backend.views import *
+from backend.models import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     
     # Coomn role pages
-    path('', login.get),
-    path('login/', login.get),
-    path('login/start/<str:id>/', login.start),
+    path('', LoginView.as_view()),
+    path('login/', LoginView.as_view()),
     
     # User role pages
-    path('profile/user/', user_profile.get),
-    #path('edit-user-profile/', index.edit_user_profile),
-    #path('test-log/', index.test_log),
+    path('profile/user/<int:id>', PatientProfileView.as_view()),
     
     # Admin role pages
-    path('profile/admin/', admin_profile.get),
-    #path('users-list/', index.users_list),
-    #path('workers-list/', index.workers_list),
-    #path('events-log/', index.events_log),
+    path('profile/admin/<int:id>', AdminProfileView.as_view()),
     
     # Worker role pages
-    path('profile/worker/', worker_profile.get),
-    #path('edit-worker-profile/', index.edit_worker_profile),
-    #path('test-edition/', index.test_edition),
+    path('profile/worker/<int:id>', WorkerProfileView.as_view()),
+
     
 ]
+
+test = Test(None, patientCI = '99040710729', testID = '4', result = 'resultato', begin_date = date(2022,12,1), resolution_date = date(2022,12,2))
+test.save()

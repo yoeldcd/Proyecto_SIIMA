@@ -18,10 +18,7 @@ def get(request : HttpRequest):
         'current_date': datetime.now,
         'profile_url': '/profile/user/',
         'user': user_profile,         
-        'links':(
-            {'href': '/profile', 'text': 'profile'},
-            {'href': '/tests', 'text': 'test'},
-        )
+        'links':()
     }
     
     return HttpResponse(render(request, html_template_url, context))
