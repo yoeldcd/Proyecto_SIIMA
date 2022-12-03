@@ -1,9 +1,9 @@
 {% load static %}
     
     <!-- Sesion Login Formulary -->
-    <form method="POST" class="form rounded-3 data-form p-2 m-0" action="/start_sesion/">
+    <form action="{% url 'auth' %}" method="POST" class="form rounded-3 data-form p-2 m-0">
         {% csrf_token %}
-
+        
         <!-- Form Title Text -->
         <spam class="fs-5 text-uppercase text-bold mb-5">
             Autenticar:
