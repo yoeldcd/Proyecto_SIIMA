@@ -3,29 +3,27 @@
 from datetime import *
 from cmath import log
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 from django.urls import path
 
 from backend.views import *
-from backend.models import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.sites.site.urls),
     
-    # Coomn role pages
+    # Authentication page
     path('', LoginView.as_view()),
     path('login/', LoginView.as_view()),
+    path('start_sesion/', Login.as_view()),
     
     # User role pages
-    path('profile/user/<int:id>', PatientProfileView.as_view()),
+    path('patient/<int:id>', login_required(PatientProfileView.as_view())),
     
     # Admin role pages
-    path('profile/admin/<int:id>', AdminProfileView.as_view()),
+    path('admin/<int:id>', login_required(AdminProfileView.as_view())),
     
     # Worker role pages
-    path('profile/worker/<int:id>', WorkerProfileView.as_view()),
-
+    path('worker/<int:id>', login_required(WorkerProfileView.as_view())),
     
 ]
-
-test = Test(None, patientCI = '99040710729', testID = '4', result = 'resultato', begin_date = date(2022,12,1), resolution_date = date(2022,12,2))
-test.save()
