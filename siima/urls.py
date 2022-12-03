@@ -16,12 +16,19 @@ urlpatterns = [
     path('', LoginView.as_view()),
     path('login/', LoginView.as_view(), name='login'),
     path('auth/', AuthView.as_view(), name='auth'),
-    path('logout/', AuthView.as_view(), name='logout'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     
     # User role pages
-    path('patient/<int:id>', login_required(PatientProfileView.as_view())),
+    path('patient/sigin/', SiginView.as_view(), name='sigin_patient'),
+    path('patient/<int:user_id>', login_required(PatientProfileView.as_view()), name='patient'),
+    path('results/', login_required(PatientProfileView.as_view()), name='results'),
     
     # Worker role pages
-    path('worker/<int:id>', login_required(WorkerProfileView.as_view())),
+    path('worker/<int:user_id>/', login_required(WorkerProfileView.as_view()), name='worker'),
+    path('tests/', login_required(WorkerProfileView.as_view()), name='tests'),
+    path('patients/', login_required(WorkerProfileView.as_view()), name='patients'),
+    path('workers/', login_required(WorkerProfileView.as_view()), name='workers'),
+    path('events/', login_required(WorkerProfileView.as_view()), name='events'),
     
+
 ]

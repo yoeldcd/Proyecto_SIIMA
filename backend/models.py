@@ -9,7 +9,8 @@ class SystemUser(User):
     ci = CharField(max_length=11)
     phone = CharField(max_length=10)
     age = IntegerField()
-    iconpath = CharField(max_length=128, default='img/icons/user.png')
+    sex = CharField(max_length=1, default='M')
+    icon_path = CharField(max_length=128, default='img/profiles/default_profile.png')
     
 class SystemUserManager:    
     
@@ -23,7 +24,7 @@ class Worker(SystemUser):
     
     
 class WorkerManager:
-
+    
     # check if an instance of user is a Worker
     def is_worker_user(user : User) -> bool :
         

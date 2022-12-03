@@ -1,71 +1,34 @@
 {% load static %}
 
-<!--    Template render context values
-    
-    Description coneventions: key : data_type
-                              type -> extended_type  
-    
-    {   current_date : datetime,
-        profile_url : str,
-        user : user {
-            user.nickname : str
-            user.picture_url : str
-            user.name : str
-            user.name2 : str
-            user.surname : str
-            user.surname2 : str
-            user.genere : str        //avaliables 'male' | 'female'
-            user.ci : str
-            user.phone : str
-            user.email : str
-            user.blod_group : [      // avaliables ['A','B','O', '+ | -']
-                value :: str,
-                ...
-            ]
-            user.last_access_date : datetime
-            user.registration_date : datetime
-            
-        },
-        links : [ 
-            link {
-                link.href : str,
-                link.text : str
-            },
-            {...}
-        ]
-    
-    }
-    
--->
 
 <!-- User Description -->
 <div class="row justify-content-center p-3 g-2 text-start text-nowrap rounded-3 data-form">
     
     <!--Profile User icon-->
     <spam class="col-12 text-center" href=".">
-        <img class="img fs-6 bg-gray user-icon-large" alt="user logo" src="{% static user.picture_url %}" width="150"
+        <img class="img fs-6 bg-gray user-icon-large" alt="user logo" src="{{ profile_icon }}" width="150"
             height="150">
     </spam>
-
+    
     <!-- Profile Username-->
     <span class="col-12 text-nowrap overflow-hidden text-center user-name-label">
-        {{ user.nickname }}
+        {{ patient.username }}
     </span>
-
+    
     <!-- Profile Name -->
     <span class="col-6 text-nowrap overflow-hidden">
         Nombre:
     </span>
     <span class="col-6 text-nowrap overflow-hidden">
-        {{ user.name }} {{ user.name2 }}
+        {{ patient.first_name }}
     </span>
-
+    
     <!-- Profile SurName -->
     <span class="col-6 text-nowrap overflow-hidden">
         Apellidos
     </span>
     <spam class="col-6 text-nowrap overflow-hidden" id="userSurNames">
-        {{ user.surname }} {{ user.surname2 }}
+        {{ patient.last_name }}
     </spam>
 
     <!-- Profile Genere -->
@@ -73,7 +36,7 @@
         Sexo:
     </spam>
     <span class="col-6 text-nowrap overflow-hidden" id="userGenere">
-        {{ user.genere }}
+        {{ patient.sex }}
     </span>
 
     <!-- Profile Age -->
@@ -81,7 +44,7 @@
         Edad:
     </spam>
     <span class="col-6 text-nowrap overflow-hidden" id="userAge">
-        {{ user.age }} Años
+        {{ patient.age }} Años
     </span>
 
     <!-- Profile Blod Group -->
@@ -89,7 +52,7 @@
         Grupo sanguineo:
     </spam>
     <span class="col-6 text-nowrap overflow-hidden blod-label" id="userBlodGroup">
-        {{ user.blod_group }}
+        {{ patient.blod_group }}
     </span>
 
     <!-- Separation line-->
@@ -100,35 +63,35 @@
         Ultimo Acceso:
     </spam>
     <span class="col-6 text-nowrap overflow-hidden" id="userBlodGroup">
-        <time>{{ user.last_access_date }}</time>
+        <time>{{ patient.last_login }}</time>
     </span>
-
+    
     <!-- Profile Sigin Date -->
     <spam class="col-6 text-nowrap overflow-hidden">
         Fecha de Registro:
     </spam>
     <span class="col-6 text-nowrap overflow-hidden" id="userBlodGroup">
-        <time>{{ user.registartion_date }}</time>
+        <time>{{ patient.date_joined }}</time>
     </span>
-
+    
     <!-- User Profile Action Buttons -->
     <div class="col-12 text-center">
         <div class="row justify-content-center">
-
+            
             <!--User Events Log Option-->
-            <a href="/profile/events/{{ user.id }}" class="col-12 col-sm btn btn-sm --button m-2">
+            <a href="/patient/events/{{ patient.id }}" class="col-12 col-sm btn btn-sm --button m-2">
                 <img src="{% static 'img/profile-log.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
                 EVENTOS
             </a>
-
+            
             <!-- User Edit Option-->
-            <a href="/profile/edit/{{ user.id }}" class="col-12 col-sm btn btn-sm --button m-2">
+            <a href="/patient/edit/{{ patient.id }}" class="col-12 col-sm btn btn-sm --button m-2">
                 <img src="{% static 'img/edit-profile.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
                 EDITAR
             </a>
-
+            
             <!-- User Supress Option -->
-            <a href="/profile/supress/{{ user.id }}" class="col-12 col-sm btn btn-sm btn-danger m-2">
+            <a href="/patient/supress/{{ patient.id }}" class="col-12 col-sm btn btn-sm btn-danger m-2">
                 <img src="{% static 'img/delete-profile.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
                 SUPRIMIR
             </a>

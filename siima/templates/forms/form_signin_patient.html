@@ -1,59 +1,17 @@
 {% load static %}
 
-<!--    Template render context values
-    
-    Description coneventions: key : data_type
-                              type -> extended_type  
-    
-    {   current_date : datetime,
-        profile_url : str,
-        user : user {
-            user.nickname : str
-            user.picture_url : str
-            user.name : str
-            user.name2 : str
-            user.surname : str
-            user.surname2 : str
-            user.genere : str        //avaliable 'male' | 'female'
-            user.ci : str
-            user.phone : str
-            user.email : str
-            user.blod_group : [      // avaliables ['A','B','O', '+ | -']
-                value :: str,
-                ...
-            ]
-            user.last_access_date : datetime
-            user.registration_date : datetime
-            
-        },
-        links : [ 
-            link {
-                link.href : str,
-                link.text : str
-            },
-            {...}
-        ]
-    
-    }
-    
--->
-
-
 <!-- User Registration Formulary-->
-<form action="/login/start/" class="form rounded-3 data-form p-2 m-0">
+<form action="/patient/sigin/" method="post" class="form rounded-3 data-form p-2 m-0">
+    {% csrf_token %}
 
     <!--First name input group-->
     <fieldset class="row p-1 g-1">
         <div class="col-12 text-start">
             <label class="form-label">Nombres:</label>
         </div>
-        <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="user_name" type="text" maxlength="30" placeholder="Primer Nombre"
-                required value="{{ user.name }}">
-        </div>
-        <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="user_name2" type="text" maxlength="30"
-                placeholder="Segundo Nombre" value="{{ user.name2 }}">
+        <div class="col-12">
+            <input class="form-control form-input" name="first_name" type="text" maxlength="30"
+                placeholder="Primer Nombre" required value="{{ patient.first_name }}">
         </div>
     </fieldset>
 
@@ -62,30 +20,37 @@
         <div class="col-12 text-start">
             <label class="form-label">Apellidos:</label>
         </div>
-        <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="user_surname" type="text" maxlength="30"
-                placeholder="Primer Apellido" required value="{{ user.surname }}">
-        </div>
-        <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="user_surname2" type="text" maxlength="30"
-                placeholder="Segundo Apellido" value="{{ user.surname2 }}">
+        <div class="col-12">
+            <input class="form-control form-input" name="last_name" type="text" maxlength="30"
+                placeholder="Primer Apellido" required value="{{ patient.last_name }}">
         </div>
     </fieldset>
 
-    <!--User Genere-->
+    <!--User Sex -->
     <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
         <div class="col-12 text-start">
             <label class="form-label">Genero:</label>
         </div>
         <div class="col-6 form-check">
-            <input class="form-radio-input me-3" name="user_genere" id="user_genere_male" type="radio"
-            {% if user.genere == "m" %} checked {% endif %}>
-            <label class="form-check-label" for="#male"> Hombre</label>
+            <input class="form-radio-input me-3" name="sex" id="sex_male" type="radio" {% if patient.sex == "M" %}
+                checked {% endif %} value="M">
+            <label class="form-check-label" for="##sex_male"> Hombre </label>
         </div>
         <div class="col-6 form-check">
-            <input class="form-radio-input me-3" name="user_genere" id="user_genere_female" 
-            type="radio" {% if user.genere == "f" %} checked {% endif %}>
-            <label class="form-check-label" for="#female"> Mujer</label>
+            <input class="form-radio-input me-3" name="sex" id="sex_female" type="radio" {% if patient.sex == "F" %}
+                checked {% endif %} value="F">
+            <label class="form-check-label" for="#sex_female"> Mujer </label>
+        </div>
+    </fieldset>
+    
+    <!--User Age Inputs-->
+    <fieldset class="row p-1 g-1">
+        <div class="col-12 text-start">
+            <label class="form-label">Apellidos:</label>
+        </div>
+        <div class="col-12">
+            <input class="form-control form-input" name="age" type="number" min="1" max="200"
+                placeholder="Edad en A&nacute;os" required value="{{ patient.age }}">
         </div>
     </fieldset>
     
@@ -94,32 +59,31 @@
         <div class="col-12 text-start">
             <label class="form-label">Grupo sanguineo</label>
         </div>
-        
+
         <div class="col form-check">
             <label class="form-check-label"> A</label>
-            <input class="form-check-input" name="user_blod_group_letter" id="user_blod_group_letter_a" type="checkbox"
-            {% if user.blod_group.letter == 'a' %} checked {% endif %}
-            >
+            <input class="form-check-input" name="blod_group_letter" type="checkbox" 
+            {% if "A" in patient.blod_group %} checked {% endif %} value="A">
         </div>
         <div class="col form-check">
             <label class="form-check-label"> B</label>
-            <input class="form-check-input" name="user_blod_group_letter" id="user_blod_group_letter_b" type="checkbox"
-            {% if user.blod_group.letter == 'b' %} checked {% endif %}>
+            <input class="form-check-input" name="blod_group_letter" type="checkbox" 
+            {% if "B" in patient.blod_group %} checked {% endif %} value="B">
         </div>
         <div class="col form-check">
             <label class="form-check-label"> O</label>
-            <input class="form-check-input" name="user_blod_group_letter" id="user_blod_group_letter_o" type="checkbox"
-            {% if user.blod_group.letter == 'o' %} checked {% endif %}>
+            <input class="form-check-input" name="blod_group_letter" type="checkbox" 
+            {% if "O" in patient.blod_group %} checked {% endif %}  value="O">
         </div>
-
+        
         <div class="col">
-            <input class="form-ratio-input" name="user_blod_group_signus" id="user_blod_group_signus_positive" type="radio" 
-            {% if user.blod_group.signum == '+' %} checked {% endif %}>
+            <input class="form-ratio-input" name="blod_group_signus" type="radio" 
+            {% if "+" in patient.blod_group %} checked {% endif %} value="+">
             <label class="form-check-label fw-bold">(+)</label>
         </div>
         <div class="col">
-            <input class="form-ratio-input" name="user_blod_group_signus" id="user_blod_group_signus_negative" type="radio"
-            {% if user.blod_group.letter == '-' %} checked {% endif %}>
+            <input class="form-ratio-input" name="blod_group_signus" type="radio"
+            {% if "-" in patient.blod_group %} checked {% endif %} value="-">
             <label class="form-check-label fw-bold">(-)</label>
         </div>
 
@@ -129,9 +93,9 @@
     <fieldset class="row p-1 g-1">
         <div class="col-12 text-start">
             <label class="form-label">Numero de CI:</label>
-            <input class="form-control form-input" id="user_ci" type="text" placeholder="No. de Carnet" 
-                required value="{{ user.ci }}"
-                minlength="11" maxlength="11" onkeypress="return mathType(event ,'userCI','number-only');">
+            <input class="form-control form-input" name="ci" id="ci" type="text" placeholder="No. de Carnet" required
+                value="{{ patient.ci }}" minlength="11" maxlength="11"
+                onkeypress="return mathType(event ,'ci','number-only');">
         </div>
     </fieldset>
 
@@ -148,9 +112,9 @@
         </div>
 
         <div class="col">
-            <input class="form-control form-input" id="user_phone" type="text" placeholder="#######" minlength="8"
-                maxlength="8" onkeypress="return mathType(event ,'user_phone','number-only');"
-                value="{{ user.phone }}">
+            <input class="form-control form-input" name="phone" id="phone" type="text" placeholder="#######"
+                minlength="8" maxlength="8" onkeypress="return mathType(event ,'phone','number-only');"
+                value="{{ patient.phone }}">
         </div>
 
     </fieldset>
@@ -169,26 +133,25 @@
                 <!--User nickname-->
                 <fieldset class="col-12 form-group text-start">
                     <label class="form-label ms-1">Usuario:</label>
-                    <input class="form-control form-input" id="user_nickname" type="text" maxlength="30"
-                        placeholder="Teclee un nombre de usuario"
-                        value="{{ user.nickname }}">
+                    <input class="form-control form-input" id="user_nickname" type="text" name="username" maxlength="30"
+                        placeholder="Teclee un nombre de usuario" value="{{ patient.username }}">
                 </fieldset>
 
                 <!--Recuperation mail-->
                 <fieldset class="col-12 form-group text-start mt-3">
                     <label class="form-label ms-1" for="#userMail">Correo de
                         Recuperacion:</label>
-                    <input class="form-control form-input" id="user_email" type="email" maxlength="30"
-                        placeholder="example@nauta.cu" required value="{{ user.email }}"
+                    <input class="form-control form-input" type="email" name="email" id="user_email" maxlength="30"
+                        placeholder="example@nauta.cu" required value="{{ patient.email }}"
                         onkeyup="verifyEmail('user_email');">
                 </fieldset>
-
+                
                 <!--User password (click -> showPassword)-->
                 <label class="form-label mt-3 ms-1" for="userPassword">Contrase&ntilde;a:</label>
-
-                <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
+                
+                <fieldset class="col-12 form-group text-start mt-1">
                     <div class="input-group mb-3">
-                        <input class="form-control form-input" id="user_password" type="password" maxlength="30"
+                        <input class="form-control form-input" id="user_password" type="password" name="password" maxlength="30"
                             placeholder="Teclee su c0ntr4s3&ntilde;4"
                             onkeyup="mathInputs('user_password','user_password2')">
                         
@@ -197,26 +160,26 @@
                             onclick="switchPasswordVisibility('user_password','seeUserPasswordImage')">
                             <img class="img-fluid" id="seeUserPasswordImage" src="{% static 'img/see-dark.svg' %}">
                         </span>
-
+                    
                     </div>
                 </fieldset>
 
                 <!--User password verify (click -> showPassword)-->
-                <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
+                <fieldset class="col-12 form-group text-start mt-1">
                     <div class="input-group mb-3">
                         <input class="form-control form-input" id="user_password2" type="password" maxlength="30"
                             placeholder="Repita su c0ntr4s3&ntilde;4"
                             onkeyup="mathInputs('user_password','user_password2')">
-
+                        
                         <!--See password button-->
                         <span class="input-group-text"
                             onclick="switchPasswordVisibility('user_password2','seeUserPassword2Image')">
                             <img class="img-fluid" id="seeUserPassword2Image" src="{% static 'img/see-dark.svg' %}">
                         </span>
-
+                    
                     </div>
                 </fieldset>
-            
+
             </div>
 
         </div>
@@ -224,21 +187,20 @@
 
     <!-- Formulary Buttons -->
     <div class="form-group text-end me-1 me-md-2">
-
+        
         <!-- Dialog Close Option -->
         <a class="btn btn-sm btn-secondary" data-bs-dismiss="modal" data-bs-target="#userSiginDialog">
             <img src="{% static 'img/delete-light.svg' %}" width="20" height="20"
                 class="img-fluid mb-1 me-1 d-sm-inline">
             CANCELAR
         </a>
-        
+
         <!-- User Sigin Button -->
         <button class="btn btn-sm --button" type="submit">
-            <img src="{% static 'img/add-profile.svg' %}" width="20" height="20"
-            class="img-fluid mb-1 me-1">
+            <img src="{% static 'img/add-profile.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
             REGISTAR
         </button>
-    
+
     </div>
 
 </form>

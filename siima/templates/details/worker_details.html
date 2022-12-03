@@ -1,72 +1,28 @@
 {% load static %}
 
-<!--    Template render context values
-    
-    Description coneventions: key : data_type
-                              type -> extended_type  
-    
-    {   current_date : datetime,
-        profile_url : str,
-        worker : worker -> user {
-            user.nickname : str
-            user.picture_url : str
-            user.name : str
-            user.name2 : str
-            user.surname : str
-            user.surname2 : str
-            user.genere : str        //avaliables 'male' | 'female'
-            user.ci : str
-            user.phone : str
-            user.email : str
-            user.blod_group : [      // avaliables ['A','B','O', '+ | -']
-                value :: str,
-                ...
-            ]
-            user.last_access_date : datetime
-            user.registration_date : datetime
-            
-            worker.role : str          // avaliables (roles.info)    
-            worker.permissions : [     // avaliables ['r','a','e', 'd', 's']
-                value :: str, 
-                ...,
-            ],
-            
-        },
-        links : [ 
-            link {
-                link.href : str,
-                link.text : str
-            },
-            {...}
-        ]
-    
-    }
-    
--->
-
 <!-- Worker Description Section -->
 <div class="row p-2 justify-content-center align-items-center g-2 text-start rounded-3 data-form p-2 m-0">
     
     <!-- Worker profile UserIcon -->
     <spam class="col-12 text-center" href=".">
         <img class="img rounded-1 fs-6 bg-gray user-icon-large" alt="user logo" 
-        src="{% static worker.picture_url %}" width="150"
+        src="{{ profile_icon }}" width="150"
             height="150">
         <br>
-
+    
     </spam>
-
+    
     <!-- Worker profile Username -->
     <span class="col-12 text-nowrap overflow-hidden text-center user-name-label">
-        {{ worker.nickname }}
+        {{ worker.username }}
     </span>
-
+    
     <!-- Worker profile Names -->
     <span class="col-6 text-nowrap overflow-hidden">
         Nombre:
     </span>
     <span class="col-6 text-nowrap overflow-hidden">
-        {{ worker.name }} {{ user.name2 }}
+        {{ worker.first_name }}
     </span>
     
     <!-- Worker profile SurNames -->
@@ -74,15 +30,15 @@
         Apellidos
     </span>
     <spam class="col-6 text-nowrap overflow-hidden" id="userSurNames">
-        {{ worker.surname }} {{ user.surname2 }}
+        {{ worker.last_name }}
     </spam>
-
+    
     <!-- Worker profile Genere -->
     <spam class="col-6 text-nowrap overflow-hidden">
         Sexo:
     </spam>
     <span class="col-6 text-nowrap overflow-hidden" id="userGenere">
-        {{ worker.genere }}
+        {{ worker.sex }}
     </span>
     
     <!-- Worker profile Age -->
@@ -92,10 +48,10 @@
     <span class="col-6 text-nowrap overflow-hidden" id="userAge">
         {{ worker.age }} Años
     </span>
-
+    
     <!-- Separation line -->
     <span class="col-12 border border-dark"></span>
-
+    
     <!-- Worker Profile Job -->
     <spam class="col-6 text-nowrap overflow-hidden">
         Especialidad:
@@ -103,13 +59,13 @@
     <span class="col-6 text-nowrap overflow-hidden" id="workJob">
         {{ worker.role }}
     </span>
-
+    
     <!-- Worker Profile Permisions Granted -->
     <spam class="col-6 text-nowrap overflow-hidden">
         Permisos:
     </spam>
     <span class="col-6 text-nowrap overflow-hidden" id="workJob">
-        {{ worker.permissions|join:" - " }}
+        {{ worker.permissions | join:" - " }}
     </span>
 
     <!--Separation line-->
