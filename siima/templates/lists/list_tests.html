@@ -3,39 +3,53 @@
 <!--Any web pages contents is here-->
 <div class="row justify-content-center">
     
+    <script>
+        var tests = new Array();
+        
+        {% for test in object_list %}
+        tests['{{ forloop.counter0 }}']={
+            'type': '{{ test.type }}',
+            'patientCI': '{{ test.patientCI }}',
+            'id': '{{ test.testID }}',
+        };
+        {% endfor %}
+    
+    </script>
+    <script src="{% static 'js/resolve_test_listener.js' %}"></script>
+    
     <div class="col-12 text-center fs-5 fw-bold">
         Gestion de Analisis
     </div>
-    
+
     <!-- User analisis editable list -->
     <div class="col-11 col-md-8 mt-2 border border-dark overflow-auto" style="height: 50vh;">
 
         <table class="table">
             <thead>
                 <th scope="col" class="col-4 text-center">Tipo</th>
-                <th scope="col" class="col text-center">Fecha</th>
-                <th scope="col" class="col text-center">Estado</th>
+                <th scope="col" class="col-2 text-center">Fecha</th>
+                <th scope="col" class="col-2 text-center">Estado</th>
                 <th scope="col" class="col-4 text-center">Accion</th>
             </thead>
             <tbody>
                 
                 {% for test in object_list %}
-                
+
                 {% if test.state == "waiting" %}
                 <!-- Pending Test Entry row mode -->
-                <tr class="examen bg-red">
+                <tr class="examen bg-warning">
                     {% else %}
-                <!-- Executed Test Entry row mode -->
+                    <!-- Executed Test Entry row mode -->
                 <tr class="examen bg-green">
                     {% endif %}
-                    
+
                     <td class="col-4">
                         {{ test.type }}
                     </td>
-                    <td class="col">
+                    <td class="col-2">
                         <time>{{ test.begin_date }}</time>
                     </td>
-                    <td class="col">
+                    <td class="col-2">
                         {% if test.state == "waiting" %}
                         <!-- Pending Test Entry label -->
                         PENDIENTE
@@ -44,20 +58,20 @@
                         LISTO
                         {% endif %}
                     </td>
-                    <td class="col-6 bg-light">
+                    <td class="col-4">
 
                         <!-- Test Edit button -->
-                        <button class="btn btn-sm --button border-light">
+                        <button class="btn btn-sm --button border-light edit-button" data-bs-toggle="modal"
+                            data-bs-target="#editTestDialog" index="{{forloop.counter0}}">
                             <img src="{% static 'img/edit-profile.svg' %}" width="20" height="20"
                                 class="img-fluid mb-1 me-1">
                             <span class="d-none d-lg-inline">
                                 EDITAR
                             </span>
                         </button>
-                        
-                        /
-                        
+
                         {% if test.state == "resolved" %}
+                        /
                         <!-- Test Notify button -->
                         <button class="btn btn-sm btn-danger border-light">
                             <img src="img/delete-log.svg" width="20" height="20"
@@ -85,7 +99,8 @@
             NUEVO
         </button>
     </div>
-    
+
     {% include 'modals/modal_add_test.html' %}
+    {% include 'modals/modal_edit_test.html' %}
 
 </div>

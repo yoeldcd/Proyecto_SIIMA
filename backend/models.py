@@ -6,11 +6,11 @@ from django.contrib.auth.models import *;
 ###############################################################################
 
 class SystemUser(User):
-    ci = CharField(max_length=11)
-    phone = CharField(max_length=10)
-    age = IntegerField()
-    sex = CharField(max_length=1, default='M')
-    icon_path = CharField(max_length=128, default='default_profile.png')
+    ci = CharField(max_length=11, null=False)
+    phone = CharField(max_length=10, null=True)
+    age = IntegerField(null=False)
+    sex = CharField(max_length=1, null=False, default='M')
+    icon_path = CharField(max_length=128, null=False, default='default_profile.png')
     
 class SystemUserManager:    
     
@@ -23,7 +23,7 @@ class SystemUserManager:
 ###############################################################################
     
 class Worker(SystemUser):
-    role = CharField(max_length=50)
+    role = CharField(max_length=50, null=False, default='worker')
     
 class WorkerManager:
     
@@ -47,7 +47,7 @@ class WorkerManager:
 
 ###############################################################################
 class Patient(SystemUser):
-    blod_group = CharField(max_length=3)
+    blod_group = CharField(max_length=3, null=True)
 
 class PatientManager:
     
@@ -73,12 +73,13 @@ class PatientManager:
 
 #Test management model class
 class Test(Model):
+    type = CharField(max_length=32, default='uncategorized')
     state = CharField(max_length=32, default='waiting')
-    patient = ForeignKey(Patient, on_delete=CASCADE, null=True)
-    testID = CharField(max_length=11)
-    result = CharField(max_length=256)
-    begin_date = DateField()
-    resolution_date = DateField()
+    patientCI = CharField(max_length=11, default='00000000000')
+    testID = CharField(max_length=11, null=False, default="0000")
+    result = CharField(max_length=256, null=True)
+    begin_date = DateField(null=False, auto_now=True)
+    resolution_date = DateField(null=True)
 
 class TestManager:    
     
@@ -89,14 +90,13 @@ class TestManager:
 
 #Event management model class
 class SystemEvent(Model):
-    date = DateField()
-    type = CharField(max_length=32, default="NOTICE")
-    message = CharField(max_length=512)
+    date = DateField(null=False, auto_now=True)
+    type = CharField(max_length=32, null=False, default="NOTICE")
+    message = CharField(max_length=512, null=False, default="event")
     
 class UserEvent(SystemEvent):
     user = ForeignKey(User, on_delete=CASCADE)
     
-
 class EventManager:    
     
     def list_all_events():

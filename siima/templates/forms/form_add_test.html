@@ -1,8 +1,10 @@
 {% load static %}
 <!-- Test addition formulary -->
-<form action="tests/add" method="post" class="form">
+<form action="/tests/add/" method="post" class="form">
+    {% csrf_token %}
+
     <fieldset class="col-12 form-group m-2 text-start">
-        
+
         <!-- test user role-->
         <label for="#testType" class="form-label m-1">Tipo:</label>
         <select id="testType" name="type" class="form-select form-input">
@@ -10,7 +12,7 @@
             <option>Sanguineo</option>
             <option>Virologico</option>
         </select>
-        
+
         <!--tested User CI number-->
         <fieldset class="row p-1 g-1">
             <div class="col-12 text-start">
@@ -20,7 +22,7 @@
                     onkeypress="return mathType(event ,'testCI','number-only');">
             </div>
         </fieldset>
-        
+
         <!-- Test ID User number-->
         <fieldset class="row p-1 g-1">
             <div class="col-12 text-start">
@@ -30,6 +32,15 @@
                     onkeypress="return mathType(event ,'testID','number-only');">
             </div>
         </fieldset>
+        
+        <!-- Submit button -->
+        <fieldset class="row p-1 g-1">
+            <button type="submit" class="btn --button">
+                <img src="{% static 'img/add.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
+                AGREGAR
+            </button>
+        </fieldset>
     
+
     </fieldset>
 </form>

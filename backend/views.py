@@ -200,8 +200,6 @@ class WorkerListView(ListView):
 
 ###############################################################################
 
-###############################################################################
-
 class TestListView(ListView):
     template_name = 'test_list.html'
     
@@ -218,6 +216,24 @@ class TestListView(ListView):
         }
         
         return render(req, self.template_name, context)
+
+###########################################
+
+class TestAddView(View):
+
+    def post(self, req:HttpRequest):
+        params = req.POST
+        
+        # create and store a new test
+        Test.objects.create(
+            patientCI = params.get('ci'),
+            testID = params.get('id'),
+            type = params.get('type'),
+            begin_date = datetime.utcnow
+        ).save()
+        
+        # return back to test list
+        return redirect('tests')
 
 ###############################################################################
 

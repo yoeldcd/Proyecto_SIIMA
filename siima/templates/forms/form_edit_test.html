@@ -1,0 +1,58 @@
+{% load static %}
+<!-- Test addition formulary -->
+<form action="/tests/resolve/" method="post" class="form">
+    {% csrf_token %}
+    
+    <fieldset class="col-12 form-group m-2 text-start" id="testDetails">
+        
+        <!-- Test description area -->
+        <div class="row p-1 g-1">
+            <label class="form-label">Descripcion:</label>
+            
+            <!-- Asociated test type -->
+            <spam class="col-4">
+                TYPE:
+            </spam>
+            <spam class="col-8" id="test_type">
+                uncategorized
+            </spam>
+            
+            <!-- Asociated test ci -->
+            <spam class="col-4">
+                CI:
+            </spam>
+            <spam class="col-8" id="test_patient_CI">
+                00000000000
+            </spam>
+            
+            <!-- Asociated test id -->
+            <spam class="col-4">
+                ID: testID
+            </spam>
+            <spam class="col-8" id="test_ID">
+                000012
+            </spam>
+        
+        </div>
+        
+        <!--Test resolution -->
+        <fieldset class="row p-1 g-1">
+            <div class="col-12 text-start">
+                <label class="form-label">Resultado:</label>
+                <textarea class="form-control" name="result" id="testResult" type="text"
+                    required maxlength="512">
+                </textarea>
+            </div>
+        </fieldset>
+
+        <!-- Submit button -->
+        <fieldset class="row p-1 g-1">
+            <button type="submit" class="btn --button">
+                <img src="{% static 'img/save.svg' %}" width="20" height="20"
+                    class="img-fluid mb-1 me-1">
+                GUARDAR
+            </button>
+        </fieldset>
+
+    </fieldset>
+</form>
