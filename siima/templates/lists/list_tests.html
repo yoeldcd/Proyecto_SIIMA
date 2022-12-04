@@ -1,0 +1,91 @@
+{% load static %}
+
+<!--Any web pages contents is here-->
+<div class="row justify-content-center">
+    
+    <div class="col-12 text-center fs-5 fw-bold">
+        Gestion de Analisis
+    </div>
+    
+    <!-- User analisis editable list -->
+    <div class="col-11 col-md-8 mt-2 border border-dark overflow-auto" style="height: 50vh;">
+
+        <table class="table">
+            <thead>
+                <th scope="col" class="col-4 text-center">Tipo</th>
+                <th scope="col" class="col text-center">Fecha</th>
+                <th scope="col" class="col text-center">Estado</th>
+                <th scope="col" class="col-4 text-center">Accion</th>
+            </thead>
+            <tbody>
+                
+                {% for test in object_list %}
+                
+                {% if test.state == "waiting" %}
+                <!-- Pending Test Entry row mode -->
+                <tr class="examen bg-red">
+                    {% else %}
+                <!-- Executed Test Entry row mode -->
+                <tr class="examen bg-green">
+                    {% endif %}
+                    
+                    <td class="col-4">
+                        {{ test.type }}
+                    </td>
+                    <td class="col">
+                        <time>{{ test.begin_date }}</time>
+                    </td>
+                    <td class="col">
+                        {% if test.state == "waiting" %}
+                        <!-- Pending Test Entry label -->
+                        PENDIENTE
+                        {% else %}
+                        <!-- Executed Test Entry label -->
+                        LISTO
+                        {% endif %}
+                    </td>
+                    <td class="col-6 bg-light">
+
+                        <!-- Test Edit button -->
+                        <button class="btn btn-sm --button border-light">
+                            <img src="{% static 'img/edit-profile.svg' %}" width="20" height="20"
+                                class="img-fluid mb-1 me-1">
+                            <span class="d-none d-lg-inline">
+                                EDITAR
+                            </span>
+                        </button>
+                        
+                        /
+                        
+                        {% if test.state == "resolved" %}
+                        <!-- Test Notify button -->
+                        <button class="btn btn-sm btn-danger border-light">
+                            <img src="img/delete-log.svg" width="20" height="20"
+                                class="img-fluid mb-1 me-1">
+                            <span class="d-none d-lg-inline">
+                                NOTIFICAR
+                            </span>
+                        </button>
+                        {% endif %}
+
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <!--User analisis actions-->
+    <div class="col-11 col-md-8 mt-2 text-end">
+        <button class="btn btn-sm --button p-1 px-3 me-3 " data-bs-toggle="modal"
+            data-bs-target="#addTestDialog">
+            <img src="{% static 'img/add.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
+            NUEVO
+        </button>
+    </div>
+    
+    {% include 'modals/modal_add_test.html' %}
+
+</div>

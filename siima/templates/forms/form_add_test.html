@@ -1,33 +1,35 @@
 {% load static %}
 <!-- Test addition formulary -->
-<form class="form">
+<form action="tests/add" method="post" class="form">
     <fieldset class="col-12 form-group m-2 text-start">
         
         <!-- test user role-->
         <label for="#testType" class="form-label m-1">Tipo:</label>
-        <select id="testType" class="form-select form-input">
+        <select id="testType" name="type" class="form-select form-input">
             <option selected>Nefrologico</option>
             <option>Sanguineo</option>
             <option>Virologico</option>
         </select>
-
+        
         <!--tested User CI number-->
         <fieldset class="row p-1 g-1">
             <div class="col-12 text-start">
                 <label class="form-label">CI de paciente:</label>
-                <input class="form-control form-input" id="testCI" type="text" placeholder="No. de Carnet" required
-                    minlength="11" maxlength="11" onkeypress="return mathType(event ,'testCI','number-only');">
+                <input class="form-control form-input" name="ci" id="testCI" type="text"
+                    placeholder="No. de Carnet" required minlength="11" maxlength="11"
+                    onkeypress="return mathType(event ,'testCI','number-only');">
             </div>
         </fieldset>
-
+        
         <!-- Test ID User number-->
         <fieldset class="row p-1 g-1">
             <div class="col-12 text-start">
                 <label class="form-label">ID de muestra:</label>
-                <input class="form-control form-input" id="testID" type="text" placeholder="No. de ID" required
-                    minlength="11" maxlength="11" onkeypress="return mathType(event ,'testID','number-only');">
+                <input class="form-control form-input" name="id" id="testID" type="text"
+                    placeholder="No. de ID" required minlength="11" maxlength="11"
+                    onkeypress="return mathType(event ,'testID','number-only');">
             </div>
         </fieldset>
-
+    
     </fieldset>
 </form>

@@ -10,6 +10,14 @@ from .models import *
 
 # create your own views here
 
+PROFILES_ICON_DIR = '/static/img/profiles/'
+PROFILES = {
+    'ADMIN':'ADMIN',
+    'WORKER':'WORKER',
+    'PATIENT':'PATIENT'
+}
+
+
 ###############################################################################
 
 class LoginView(FormView):
@@ -24,12 +32,6 @@ class LoginView(FormView):
         return render(req, self.template_name, {})
 
 ###############################################################################
-
-PROFILES = {
-    'ADMIN':'ADMIN',
-    'WORKER':'WORKER',
-    'PATIENT':'PATIENT'
-}
 
 class AuthView(LoginView):
     
@@ -53,6 +55,8 @@ class AuthView(LoginView):
             return redirect('/patient/'+str(user.id))
         else:
             return redirect('/worker/'+str(user.id))
+
+###########################################
 
 class LogoutView(View):
 
@@ -79,18 +83,20 @@ class PatientProfileView(DetailView):
             'current_time': datetime.utcnow,
             'profile_type': PROFILES['PATIENT'],
             'profile_url': reverse('patient', kwargs = {'user_id': user_id}),
-            'profile_icon': patient.icon_path,
+            'profile_icon': PROFILES_ICON_DIR + patient.icon_path,
             'patient': patient
         }
         
         return render(req, self.template_name, context)
 
-class SiginView(View):
+###########################################
+
+class SiginPatientView(View):
     
     def post(self, req:HttpRequest):
         params = req.POST
         
-        # registre new params user
+        # registre new patient user
         Patient.objects.create_user(
             username = params.get('username'),
             password = params.get('password'),
@@ -104,8 +110,28 @@ class SiginView(View):
             phone = params.get('phone'),
         ).save()
         
+        # redirect admin to user list
         return redirect('auth')
+
+###########################################
+
+class PatientListView(ListView):
+    template_name = 'patient_list.html'
+    
+    def get(self, req:HttpRequest):
         
+        context = {
+            'current_time': datetime.utcnow,
+            'profile_type': PROFILES['ADMIN'],
+            'profile_url': reverse('worker', kwargs = {'user_id': req.user.id}),
+            #'profile_icon': PROFILES_ICON_DIR + worker.icon_path,
+            'worker': req.user,
+            'object_list': PatientManager.list_all() 
+        }
+        
+        return render(req, self.template_name, context)
+
+
 ###############################################################################
 
 class WorkerProfileView(DetailView):
@@ -118,9 +144,8 @@ class WorkerProfileView(DetailView):
         context = {
             'current_time': datetime.utcnow,
             'profile_type': PROFILES['WORKER'],
-            'profile_url': reverse('worker', kwargs = {'user_id': user_id}),
-            #'profile_icon': worker.icon_path,
-            'profile_icon': '/static/img/profiles/default_profile.png',
+            'profile_url': reverse('worker', kwargs = {'user_id': worker.id}),
+            'profile_icon': PROFILES_ICON_DIR + worker.icon_path,
             'worker': worker
         }
         
@@ -130,34 +155,82 @@ class WorkerProfileView(DetailView):
         
         return render(req, self.template_name, context)
 
-###############################################################################
+###########################################
+
+class SiginWorkerView(View):
+    
+    def post(self, req:HttpRequest):
+        params = req.POST
+        
+        # registre new worker user
+        Worker.objects.create_user(
+            username = params.get('username'),
+            password = params.get('password'),
+            email = params.get('email'),
+            ci = params.get('ci'),
+            first_name = params.get('first_name'),
+            last_name = params.get('last_name'),
+            sex = params.get('sex'),
+            age = params.get('age'),
+            phone = params.get('phone'),
+            role = params.get('role')
+        ).save()
+        
+        # redirect admin to worker list
+        return redirect('workers')
+
+###########################################
 
 class WorkerListView(ListView):
     template_name = 'worker_list.html'
     
     def get(self, req:HttpRequest):
-        return render(req, self.template_name, {})
+        worker = WorkerManager.get_worker_user(req.user)
+        
+        context = {
+            'current_time': datetime.utcnow,
+            'profile_type': PROFILES['ADMIN'],
+            'profile_url': reverse('worker', kwargs = {'user_id': worker.id}),
+            'profile_icon': PROFILES_ICON_DIR + worker.icon_path,
+            'worker': worker,
+            'object_list': WorkerManager.list_all() 
+        }
+        
+        return render(req, self.template_name, context)
 
 ###############################################################################
 
-class UserListView(ListView):
-    template_name = 'user_list.html'
+###############################################################################
+
+class TestListView(ListView):
+    template_name = 'test_list.html'
     
     def get(self, req:HttpRequest):
-        return render(req, self.template_name, {})
+        worker = WorkerManager.get_worker_user(req.user)
+        
+        context = {
+            'current_time': datetime.utcnow,
+            'profile_type': PROFILES['WORKER'],
+            'profile_url': reverse('worker', kwargs = {'user_id': worker.id}),
+            'profile_icon': PROFILES_ICON_DIR + worker.icon_path,
+            'worker': worker,
+            'object_list': TestManager.list_all() 
+        }
+        
+        return render(req, self.template_name, context)
 
 ###############################################################################
 
-class TaskList(ListView):
-    template_name = 'task_list.html'
-    
-    def get(self, req:HttpRequest):
-        return render(req, self.template_name, {})
-
-###############################################################################
-
-class ResultList(ListView):
+class ResultListView(ListView):
     template_name = 'result_list.html'
+    
+    def get(self, req:HttpRequest):
+        return render(req, self.template_name, {})
+
+###############################################################################
+
+class EventListView(ListView):
+    template_name = 'event_list.html'
     
     def get(self, req:HttpRequest):
         return render(req, self.template_name, {})

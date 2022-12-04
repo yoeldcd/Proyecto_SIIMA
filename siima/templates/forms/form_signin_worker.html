@@ -1,112 +1,71 @@
 {% load static %}
 
-<!--    Template render context values
-    
-    Description coneventions: key : data_type
-                              type -> extended_type  
-    
-    {   current_date : datetime,
-        profile_url : str,
-        worker : worker -> user {
-            user.nickname : str
-            user.picture_url : str
-            user.name : str
-            user.name2 : str
-            user.surname : str
-            user.surname2 : str
-            user.genere : str        //avaliable 'male' | 'female'
-            user.ci : str
-            user.phone : str
-            user.email : str
-            user.blod_group : [      // avaliables ['A','B','O', '+ | -']
-                value :: str,
-                ...
-            ]
-            user.last_access_date : datetime
-            user.registration_date : datetime
-            
-            worker.role : str          // avaliables (roles.info)    
-            worker.permissions : [     // avaliables ['r','a','e', 'd', 's']
-                value :: str, 
-                ...,
-            ],
-            
-        },
-        links : [ 
-            link {
-                link.href : str,
-                link.text : str
-            },
-            {...}
-        ]
-    
-    }
-    
--->
-
-
 <!-- Worker registration formulary -->
-<form action="/login/start/" class="form rounded-3 data-form p-2 m-0">
-    
-    <!-- Worker First Names inputs -->
+<form action="/worker/sigin/" method="post" class="form rounded-3 data-form p-2 m-0">
+
+    {% csrf_token %}
+
+    <!--First name input group-->
     <fieldset class="row p-1 g-1">
         <div class="col-12 text-start">
             <label class="form-label">Nombres:</label>
         </div>
-        <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="worker_name" type="text" maxlength="30"
-                placeholder="Primer Nombre" required value="{{ worker.name }}">
-        </div>
-        <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="worker_name2" type="text" maxlength="30"
-                placeholder="Segundo Nombre" value="{{ worker.name2 }}">
+        <div class="col-12">
+            <input class="form-control form-input" name="first_name" type="text" maxlength="30"
+                placeholder="Primer Nombre" required value="{{ worker.first_name }}">
         </div>
     </fieldset>
 
-    <!-- Worker Sur Names Inputs -->
+    <!--User Surnames Inputs-->
     <fieldset class="row p-1 g-1">
         <div class="col-12 text-start">
             <label class="form-label">Apellidos:</label>
         </div>
-        <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="worker_surname" type="text" maxlength="30"
-                placeholder="Primer Apellido" required value="{{ worker.surname }}">
-        </div>
-        <div class="col-12 col-sm-6">
-            <input class="form-control form-input" id="worker_surname2" type="text" maxlength="30"
-                placeholder="Segundo Apellido" value="{{ worker.surname2 }}">
+        <div class="col-12">
+            <input class="form-control form-input" name="last_name" type="text" maxlength="30"
+                placeholder="Primer Apellido" required value="{{ worker.last_name }}">
         </div>
     </fieldset>
 
-    <!-- Worker Genere -->
+    <!--User Sex -->
     <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
         <div class="col-12 text-start">
             <label class="form-label">Genero:</label>
         </div>
         <div class="col-6 form-check">
-            <input class="form-radio-input me-3" name="worker_genere" id="worker_genere_male" type="radio" {% if
-                worker.genere=='m' %} checked {% endif %}>
-            <label class="form-check-label" for="#male"> Hombre</label>
+            <input class="form-radio-input me-3" name="sex" id="sex_male" type="radio"
+                {% if "M" in patient.sex %} checked {% endif %} value="M">
+            <label class="form-check-label" for="##sex_male"> Hombre </label>
         </div>
         <div class="col-6 form-check">
-            <input class="form-radio-input me-3" name="worker_genere" id="worker_genere_female" type="radio" {% if
-                worker.genere=='f' %} checked {% endif %}>
-            <label class="form-check-label" for="#female"> Mujer</label>
-
+            <input class="form-radio-input me-3" name="sex" id="sex_female" type="radio"
+                {% if "F" in patient.sex %} checked {% endif %} value="F">
+            <label class="form-check-label" for="#sex_female"> Mujer </label>
         </div>
     </fieldset>
 
-    <!-- Worker CI number -->
+    <!--User Age Inputs-->
+    <fieldset class="row p-1 g-1">
+        <div class="col-12 text-start">
+            <label class="form-label">Apellidos:</label>
+        </div>
+        <div class="col-12">
+            <input class="form-control form-input" name="age" type="number" min="1" max="200"
+                placeholder="Edad en A&nacute;os" required value="{{ worker.age }}">
+        </div>
+    </fieldset>
+
+    <!--CI number-->
     <fieldset class="row p-1 g-1">
         <div class="col-12 text-start">
             <label class="form-label">Numero de CI:</label>
-            <input class="form-control form-input" id="worker_ci" type="text" placeholder="No. de Carnet" required
-                minlength="11" maxlength="11" onkeypress="return mathType(event ,'userCI','number-only');"
-                value="{worker.ci}">
+            <input class="form-control form-input" name="ci" id="ci" type="text"
+                placeholder="No. de Carnet" required value="{{ worker.ci }}" minlength="11"
+                maxlength="11" onkeypress="return mathType(event ,'ci','number-only');">
         </div>
     </fieldset>
 
-    <!-- Worker Phone number -->
+    <!--Phone number-->
     <fieldset class="row p-1 g-1 justify-content-center">
         <div class="col-12 text-start">
             <label class="form-label">Telefono:</label>
@@ -119,8 +78,9 @@
         </div>
 
         <div class="col">
-            <input class="form-control form-input" id="worker_phone" type="text" placeholder="#######" minlength="8"
-                maxlength="8" onkeypress="return mathType(event ,'worker_phone','number-only');" value="{worker.phone}">
+            <input class="form-control form-input" name="phone" id="phone" type="text"
+                placeholder="#######" minlength="8" maxlength="8"
+                onkeypress="return mathType(event ,'phone','number-only');" value="{{ worker.phone }}">
         </div>
 
     </fieldset>
@@ -136,9 +96,9 @@
         <!-- **Worker Profile Job-Role -->
         <div class="col-12 m-1 text-start">
             <label class="form-label m-1">Puesto:</label>
-            <select name="workerJob" id="worker_role" class="form-select form-input">
+            <select name="role" id="worker_role" class="form-select form-input">
 
-                <option selected>Enfermera</option>
+                <option>Enfermera</option>
                 <option>Tecnico de Laboratorio</option>
 
             </select>
@@ -151,73 +111,60 @@
             <div class="row">
                 <div class="col-12 col-md-6 text-start">
                     <label class="form-label m-1">
-                        <input type="checkbox" id="worker_permision_read" class="form-checkox me-2"
-                        {% if worker.permissions.add == True %}
-                        checked
-                        {% endif %}
-                        >Consultar
-                        muesta
+                        <input type="checkbox" id="worker_permision_read" name="permission_read"
+                            class="form-checkox me-2">
+                        Consultar muestra
                     </label>
                 </div>
 
                 <div class="col-12 col-md-6 text-start">
                     <label class="form-label m-1">
-                        <input type="checkbox" id="worker_permision_add" class="form-checkox me-2"
-                        {% if worker.permissions.add == True %}
-                        checked
-                        {% endif %}
-                        >Agregar
-                        muesta
+                        <input type="checkbox" id="worker_permision_add" name="permission_add"
+                            class="form-checkox me-2">
+                        Agregar muestra
                     </label>
                 </div>
 
                 <div class="col-12 col-md-6 text-start">
                     <label class="form-label m-1">
-                        <input type="checkbox" id="worker_permision_edit" class="form-checkox me-2"
-                        {% if worker.permissions.edit == True %}
-                        checked
-                        {% endif %}
-                        >Modificar
-                        muesta
+                        <input type="checkbox" id="worker_permision_edit" name="permission_edit"
+                            class="form-checkox me-2">
+                        Modificar muestra
                     </label>
                 </div>
 
                 <div class="col-12 col-md-6 text-start">
                     <label class="form-label m-1">
-                        <input type="checkbox" id="worker_permision_delete" class="form-checkox me-2"
-                        {% if worker.permissions.delete == True %}
-                        checked
-                        {% endif %}
-                        >Eliminar
-                        muesta
+                        <input type="checkbox" id="worker_permision_delete" name="permission_delete"
+                            class="form-checkox me-2">
+                        Eliminar muestra
                     </label>
                 </div>
-                
+
                 <div class="col-12 col-md-6 text-start fw-bold">
                     <label class="form-label m-1">
-                        <input type="checkbox" id="worker_permision_root" class="form-checkox me-2" 
-                        {% if worker.permissions.root == True %}
-                        checked
-                        {% endif %}
-                        >Administrador
+                        <input type="checkbox" id="worker_permision_root" class="form-checkox me-2"
+                            {% if worker.is_superuser %} checked {% endif %}>
+                        Administrador
                     </label>
                 </div>
 
 
             </div>
-        
+
         </div>
 
         <!-- Admin Password -->
         <fieldset class="col-12 form-group text-start mt-1">
             <div class="input-group mb-3">
-                <input class="form-control form-input" id="admin_password" type="password" maxlength="30"
-                    placeholder="Contraseña de Administrador" required>
-                
+                <input class="form-control form-input" id="admin_password" name="admin_password"
+                    type="password" maxlength="30" placeholder="Contraseña de Administrador" required>
+
                 <!--See password button-->
                 <span class="input-group-text"
                     onclick="switchPasswordVisibility('admin_password','seeAdminPasswordImage')">
-                    <img class="img-fluid" id="seeAdminPasswordImage" src="{% static '/img/see-dark.svg' %}">
+                    <img class="img-fluid" id="seeAdminPasswordImage"
+                        src="{% static '/img/see-dark.svg' %}">
                 </span>
 
             </div>
@@ -238,18 +185,17 @@
                 <!--User nickname-->
                 <fieldset class="col-12 form-group text-start">
                     <label class="form-label ms-1">Usuario:</label>
-                    <input class="form-control form-input" id="worker_nickname" type="text" maxlength="30"
-                        placeholder="Teclee un nombre de usuario"
-                        value="{% worker.nickname %}">
+                    <input class="form-control form-input" name="username" type="text" maxlength="30"
+                        placeholder="Teclee un nombre de usuario" value="{{ worker.username }}">
                 </fieldset>
-
+                
                 <!--Recuperation mail-->
                 <fieldset class="col-12 form-group text-start mt-3">
                     <label class="form-label ms-1">Correo de
                         Recuperacion:</label>
-                    <input class="form-control form-input" id="worker_email" type="email" maxlength="30"
-                        placeholder="example@nauta.cu" required onkeyup="verifyEmail('worker_email');"
-                        value="{% worker.email %}">
+                    <input class="form-control form-input" id="worker_email" name="email" type="email"
+                        maxlength="30" placeholder="example@nauta.cu" required
+                        onkeyup="verifyEmail('worker_email');" value="{{ worker.email }}">
                 </fieldset>
                 
                 <label class="form-label mt-3 ms-1">Contrase&ntilde;a:</label>
@@ -257,30 +203,32 @@
                 <!--User password (click -> showPassword)-->
                 <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
                     <div class="input-group mb-3">
-                        <input class="form-control form-input" id="worker_password" type="password" maxlength="30"
-                            placeholder="Teclee su c0ntr4s3&ntilde;4"
+                        <input class="form-control form-input" id="worker_password" name="password"
+                            type="password" maxlength="30" placeholder="Teclee su c0ntr4s3&ntilde;4"
                             onkeyup="mathInputs('userPassword','worker_password2')">
                         
                         <!--See password button-->
                         <span class="input-group-text"
                             onclick="switchPasswordVisibility('worker_password','seeUserPasswordImage')">
-                            <img class="img-fluid" id="seeUserPasswordImage" src="{% static '/img/see-dark.svg' %}">
+                            <img class="img-fluid" id="seeUserPasswordImage"
+                                src="{% static '/img/see-dark.svg' %}">
                         </span>
-
+                    
                     </div>
                 </fieldset>
 
                 <!--User password verify (click -> showPassword)-->
                 <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
                     <div class="input-group mb-3">
-                        <input class="form-control form-input" id="worker_password2" type="password" maxlength="30"
-                            placeholder="Repita su c0ntr4s3&ntilde;4"
+                        <input class="form-control form-input" id="worker_password2" type="password"
+                            maxlength="30" placeholder="Repita su c0ntr4s3&ntilde;4"
                             onkeyup="mathInputs('worker_password','worker_password2')">
 
                         <!--See password button-->
                         <span class="input-group-text"
                             onclick="switchPasswordVisibility('worker_password','seeUserPassword2Image')">
-                            <img class="img-fluid" id="seeUserPassword2Image" src="{% static '/img/see-dark.svg' %}">
+                            <img class="img-fluid" id="seeUserPassword2Image"
+                                src="{% static '/img/see-dark.svg' %}">
                         </span>
 
                     </div>
@@ -300,10 +248,11 @@
                 class="img-fluid mb-1 me-1 d-none d-sm-inline">
             CANCELAR
         </a>
-
+        
         <!-- User Signin Button -->
         <button class="btn btn-sm --button" type="submit">
-            <img src="{% static 'img/add-profile.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
+            <img src="{% static 'img/add-profile.svg' %}" width="20" height="20"
+                class="img-fluid mb-1 me-1">
             REGISTAR
         </button>
 

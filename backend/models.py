@@ -10,18 +10,20 @@ class SystemUser(User):
     phone = CharField(max_length=10)
     age = IntegerField()
     sex = CharField(max_length=1, default='M')
-    icon_path = CharField(max_length=128, default='img/profiles/default_profile.png')
+    icon_path = CharField(max_length=128, default='default_profile.png')
     
 class SystemUserManager:    
     
-    def get_system_user(self, user : User):
-        return self.objects.get(id=user.id)
-    
+    def get_system_user(user : User):
+        try:
+            return SystemUser.objects.get(id=user.id)
+        except SystemUser.DoesNotExist:
+            return None
+
 ###############################################################################
     
 class Worker(SystemUser):
-    role = CharField(max_length=20)
-    
+    role = CharField(max_length=50)
     
 class WorkerManager:
     
@@ -50,7 +52,7 @@ class Patient(SystemUser):
 class PatientManager:
     
     # check if an instance of user is a Patient
-    def is_patient_user( user : User) -> bool :
+    def is_patient_user(user : User) -> bool :
         
         try:
             return Patient.objects.get(id=user.id) is not None
@@ -71,6 +73,7 @@ class PatientManager:
 
 #Test management model class
 class Test(Model):
+    state = CharField(max_length=32, default='waiting')
     patient = ForeignKey(Patient, on_delete=CASCADE, null=True)
     testID = CharField(max_length=11)
     result = CharField(max_length=256)

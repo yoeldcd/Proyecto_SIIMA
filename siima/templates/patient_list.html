@@ -1,0 +1,27 @@
+{% extends "layouts/main_layout.html" %}
+
+{% block title %}
+USER: {{ user.username }}
+{% endblock %}
+
+{% block page_header %}
+{% include 'layouts/page_header.html' %}
+{% endblock %}
+
+{% block page_content %}
+
+<!--Main Web Content is here-->
+<div class="row w-100 h-50 m-0 justify-content-center">
+    <div class="col mx-2">
+    
+    {% include 'lists/list_patients.html' %}
+    
+    </div>
+</div>
+
+{% endblock %}
+<!--End of page content-->
+
+{% block page_footer %}
+{% include 'layouts/page_footer.html' %}
+{% endblock %}
