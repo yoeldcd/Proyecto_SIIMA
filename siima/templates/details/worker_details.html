@@ -7,45 +7,46 @@
     <!-- Worker profile UserIcon -->
     <spam class="col-12 text-center" href=".">
         <img class="img rounded-1 fs-6 bg-gray user-icon-large" alt="user logo"
-            src="/static/img/profiles/{{ worker.icon_path }}" width="150" height="150">
+            src="/static/img/profiles/{{ detailed_worker.icon_path }}" width="150" height="150"
+            id="detailed_worker_icon">
         <br>
     </spam>
 
     <!-- Worker profile Username -->
-    <span class="col-12 text-nowrap overflow-hidden text-center user-name-label">
-        {{ worker.username }}
+    <span class="col-12 text-nowrap overflow-hidden text-center user-name-label" id="detailed_worker_username">
+        {{ detailed_worker.username }}
     </span>
 
     <!-- Worker profile Names -->
     <span class="col-6 text-nowrap overflow-hidden">
         Nombre:
     </span>
-    <span class="col-6 text-nowrap overflow-hidden">
-        {{ worker.first_name }}
+    <span class="col-6 text-nowrap overflow-hidden" id="detailed_worker_first_name">
+        {{ detailed_worker.first_name }}
     </span>
 
     <!-- Worker profile SurNames -->
     <span class="col-6 text-nowrap overflow-hidden">
         Apellidos
     </span>
-    <spam class="col-6 text-nowrap overflow-hidden" id="userSurNames">
-        {{ worker.last_name }}
+    <spam class="col-6 text-nowrap overflow-hidden" id="detailed_worker_last_name">
+        {{ detailed_worker.last_name }}
     </spam>
-    
+
     <!-- Worker profile Genere -->
     <spam class="col-6 text-nowrap overflow-hidden">
         Sexo:
     </spam>
-    <span class="col-6 text-nowrap overflow-hidden" id="userGenere">
-        {{ worker.sex }}
+    <span class="col-6 text-nowrap overflow-hidden" id="detailed_worker_sex">
+        {{ detailed_worker.sex }}
     </span>
-    
+
     <!-- Worker profile Age -->
     <spam class="col-6 text-nowrap overflow-hidden">
         Edad:
     </spam>
-    <span class="col-6 text-nowrap overflow-hidden" id="userAge">
-        {{ worker.age }} Años
+    <span class="col-6 text-nowrap overflow-hidden" id="detailed_worker_age">
+        {{ detailed_worker.age }} Años
     </span>
 
     <!-- Separation line -->
@@ -55,16 +56,16 @@
     <spam class="col-6 text-nowrap overflow-hidden">
         Especialidad:
     </spam>
-    <span class="col-6 text-nowrap overflow-hidden" id="workJob">
-        {{ worker.role }}
+    <span class="col-6 text-nowrap overflow-hidden" id="detailed_worker_role">
+        {{ detailed_worker.role }}
     </span>
 
     <!-- Worker Profile Permisions Granted -->
     <spam class="col-6 text-nowrap overflow-hidden">
         Permisos:
     </spam>
-    <span class="col-6 text-nowrap overflow-hidden" id="workJob">
-        {{ worker.permissions | join:" - " }}
+    <span class="col-6 text-nowrap overflow-hidden" id="detailed_worker_permisions">
+        {{ detailed_worker.permissions | join:" - " }}
     </span>
 
     <!--Separation line-->
@@ -74,16 +75,20 @@
     <spam class="col-6 text-nowrap overflow-hidden">
         Ultimo Acceso:
     </spam>
-    <span class="col-6 text-nowrap overflow-hidden" id="userBlodGroup">
-        <time>{{ worker.last_access_date }}</b></time>
+    <span class="col-6 text-nowrap overflow-hidden" id="detailed_worker_last_login">
+        <time id="worker_last_login">
+            {{ detailed_worker.last_login }}
+        </time>
     </span>
 
     <!-- Worker Profile Sigin Date -->
     <spam class="col-6 text-nowrap overflow-hidden">
         Fecha de Registro:
     </spam>
-    <span class="col-6 text-nowrap overflow-hidden" id="userBlodGroup">
-        <time>{{ worker.registration_date }}</time>
+    <span class="col-6 text-nowrap overflow-hidden" id="detailed_worker_joined_date">
+        <time id="worker_date_joined">
+            {{ detailed_worker.date_joined }}
+        </time>
     </span>
 
     <!-- Worker profile Action Buttons -->
@@ -91,21 +96,24 @@
         <div class="row justify-content-center">
 
             <!--Worker Events Log Option-->
-            <a href="/profile/events/{{ user.id }}" class="col-12 col-sm btn btn-sm --button m-2">
+            <a href="/events?user_id={{ detailed_worker.id }}"
+                class="col-12 col-sm btn btn-sm --button m-2" id="detailed_worker_events_link">
                 <img src="{% static 'img/profile-log.svg' %}" width="20" height="20"
                     class="img-fluid mb-1 me-1">
                 EVENTOS
             </a>
 
             <!-- Worker Edit Option-->
-            <a href="/profile/edit/{{ user.id }}" class="col-12 col-sm btn btn-sm --button m-2">
+            <a href="/workers/edit/{{ detailed_worker.id }}"
+                class="col-12 col-sm btn btn-sm --button m-2" id="detailed_worker_edit_link">
                 <img src="{% static 'img/edit-profile.svg' %}" width="20" height="20"
                     class="img-fluid mb-1 me-1">
                 EDITAR
             </a>
 
             <!-- Worker Supress Option -->
-            <a href="/profile/supress/{{ user.id }}" class="col-12 col-sm btn btn-sm btn-danger m-2">
+            <a href="/workers/supress/{{ detailed_worker.id }}"
+                class="col-12 col-sm btn btn-sm btn-danger m-2" id="detailed_worker_supress_link">
                 <img src="{% static 'img/delete-profile.svg' %}" width="20" height="20"
                     class="img-fluid mb-1 me-1">
                 SUPRIMIR

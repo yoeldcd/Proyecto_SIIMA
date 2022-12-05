@@ -6,12 +6,12 @@ from django.contrib.auth.models import *;
 ###############################################################################
 
 class SystemUser(User):
-    ci = CharField(max_length=11, null=False)
-    phone = CharField(max_length=10, null=True)
-    age = IntegerField(null=False)
-    sex = CharField(max_length=1, null=False, default='M')
+    ci = CharField(max_length=12, null=False)
+    phone = CharField(max_length=11, null=True)
+    age = IntegerField(null=False, default=0)
+    sex = CharField(max_length=2, null=False, default='M')
     icon_path = CharField(max_length=128, null=False, default='default_profile.png')
-    
+
 class SystemUserManager:    
     
     def get_system_user(user : User):
@@ -42,12 +42,19 @@ class WorkerManager:
         except Worker.DoesNotExist:
             return None
     
+    def get_worker_user_by_id(wid : int):
+        
+        try:
+            return Worker.objects.get(id=wid)
+        except Worker.DoesNotExist:
+            return None
+    
     def list_all():
         return Worker.objects.values()
 
 ###############################################################################
 class Patient(SystemUser):
-    blod_group = CharField(max_length=3, null=True)
+    blod_group = CharField(max_length=5, null=True)
 
 class PatientManager:
     
@@ -66,6 +73,14 @@ class PatientManager:
         except Patient.DoesNotExist:
             return None
     
+    def get_patient_user_by_id(uid : int):
+        
+        try:
+            return Patient.objects.get(id=uid)
+        except Patient.DoesNotExist:
+            return None
+    
+
     def list_all():
         return Patient.objects.values()
 
@@ -75,16 +90,28 @@ class PatientManager:
 class Test(Model):
     type = CharField(max_length=32, default='uncategorized')
     state = CharField(max_length=32, default='waiting')
-    patientCI = CharField(max_length=11, default='00000000000')
-    testID = CharField(max_length=11, null=False, default="0000")
+    patientCI = CharField(max_length=12, default='00000000000')
+    testID = CharField(max_length=12, null=False, default="0000")
     result = CharField(max_length=256, null=True)
     begin_date = DateField(null=False, auto_now=True)
     resolution_date = DateField(null=True)
 
 class TestManager:    
     
+    def get_test(id:str):
+
+        try:
+            return Test.objects.get(testID = id)
+        except Test.DoesNotExist:
+            print('Not exists')
+            return None
+        except Test.MultipleObjectsReturned:
+            print('Multiplied')
+            return None
+    
     def list_all():
         return Test.objects.values()
+    
 
 ###############################################################################
 

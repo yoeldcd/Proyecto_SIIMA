@@ -1,0 +1,32 @@
+{% load static %}
+
+<!--Modal Worker Details Dialog-->
+<div class="modal fade" tabindex="-1" aria-hidden="true" id="workerDetailsDialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Dialog Title -->
+            <div class="modal-header text-center">
+                <spam class="modal-title">
+                    Detalles de Especialista
+                </spam>
+            </div>
+            
+            <!-- Dialog Content -->
+            <div class="modal-body">
+                {% include 'details/worker_details.html' %}
+            </div>
+            
+            <div class="modal-footer">
+                <!-- Dialog Close Option -->
+                <a class="col-12 btn btn-sm btn-secondary" data-bs-dismiss="modal"
+                    data-bs-target="#workerDetailsDialog">
+                    <img src="{% static 'img/delete-light.svg' %}" width="20" height="20"
+                        class="img-fluid mb-1 me-1">
+                    CERRAR
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

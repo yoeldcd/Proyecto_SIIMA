@@ -1,0 +1,245 @@
+{% load static %}
+
+<!-- User Profile Formulary-->
+
+<form
+    action="{% if edited_patient %}/patient/update/{{edited_patient.id}}{% else %}/patient/sigin/{% endif %}"
+    method="post" id="user_profile_formulary" class="form rounded-3 data-form p-2 m-0">
+    {% csrf_token %}
+
+    <!--First name input group-->
+    <fieldset class="row p-1 g-1">
+        <div class="col-12 text-start">
+            <label class="form-label">Nombres:</label>
+        </div>
+        <div class="col-12">
+            <input type="text" name="first_name" id="patient_first_name" maxlength="120"
+                placeholder="Primer Nombre" {% if edited_patient is None %} required {% endif %}
+                value="{{ edited_patient.first_name }}" class="form-control form-input">
+        </div>
+    </fieldset>
+
+    <!--User Surnames Inputs-->
+    <fieldset class="row p-1 g-1">
+        <div class="col-12 text-start">
+            <label class="form-label">Apellidos:</label>
+        </div>
+        <div class="col-12">
+            <input type="text" name="last_name" id="patient_last_name" maxlength="120"
+                placeholder="Primer Apellido" {% if edited_patient is None %} required {% endif %}
+                value="{{ edited_patient.last_name }}" class="form-control form-input">
+        </div>
+    </fieldset>
+
+    <!--User Sex -->
+    <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
+        <div class="col-12 text-start">
+            <label class="form-label">Genero:</label>
+        </div>
+        <div class="col-6 form-check">
+            <input type="radio" name="sex" id="patient_sex_male" {% if "M" in edited_patient.sex %}
+                checked {% endif %} {% if edited_patient is None %} required {% endif %}value="M"
+                class="form-radio-input me-3">
+            <label class="form-check-label" for="##sex_male"> Hombre </label>
+        </div>
+        <div class="col-6 form-check">
+            <input type="radio" name="sex" id="patient_sex_female" {% if "F" in edited_patient.sex %}
+                checked {% endif %} {% if edited_patient is None %} required {% endif %} value="F"
+                class="form-radio-input me-3">
+            <label class="form-check-label" for="#sex_female"> Mujer </label>
+        </div>
+    </fieldset>
+
+    <!--User Age Inputs-->
+    <fieldset class="row p-1 g-1">
+        <div class="col-12 text-start">
+            <label class="form-label">Apellidos:</label>
+        </div>
+        <div class="col-12">
+            <input type="number" name="age" id="patient_age" min="1" max="200"
+                placeholder="Edad en A&nacute;os" {% if edited_patient is None %} required {% endif %}
+                value="{{ edited_patient.age }}" class="form-control form-input">
+        </div>
+    </fieldset>
+
+    <!-- User Blod Group -->
+    <fieldset class="row m-1 p-2 g-1 text-start border border-dark rounded-3">
+        <div class="col-12 text-start">
+            <label class="form-label">Grupo sanguineo</label>
+        </div>
+
+        <div class="col form-check">
+            <label class="form-check-label"> A</label>
+            <input type="checkbox" name="blod_group_letter" id="patient_blod_group_A"
+                {% if "A" in edited_patient.blod_group %} checked {% endif %} value="A"
+                class="form-check-input">
+        </div>
+        <div class="col form-check">
+            <label class="form-check-label"> B</label>
+            <input type="checkbox" name="blod_group_letter" id="patient_blod_group_B"
+                {% if "B" in edited_patient.blod_group %} checked {% endif %} value="B"
+                class="form-check-input">
+        </div>
+        <div class="col form-check">
+            <label class="form-check-label"> O</label>
+            <input type="checkbox" name="blod_group_letter" id="patient_blod_group_C"
+                {% if "C" in edited_patient.blod_group %} checked {% endif %} value="C"
+                class="form-check-input">
+        </div>
+
+        <div class="col">
+            <input type="radio" name="blod_group_signus" id="patient_blod_group_signus_plus"
+                {% if "+" in edited_patient.blod_group %} checked {% endif %} value="+"
+                class="form-ratio-input">
+            <label class="form-check-label fw-bold">(+)</label>
+        </div>
+        <div class="col">
+            <input type="radio" name="blod_group_signus" id="patient_blod_group_signus_minus"
+                {% if "-" in edited_patient.blod_group %} checked {% endif %} value="-"
+                class="form-ratio-input"><label class="form-check-label fw-bold">(-)</label>
+        </div>
+
+    </fieldset>
+
+    <!--CI number-->
+    <fieldset class="row p-1 g-1">
+        <div class="col-12 text-start">
+            <label class="form-label">Numero de CI:</label>
+            <input type="text" name="ci" id="patient_ci" placeholder="No. de Carnet"
+                {% if edited_patient is None %} required {% endif %} value="{{ edited_patient.ci }}"
+                minlength="11" maxlength="11" onkeypress="return mathType(event ,'ci','number-only');"
+                class="form-control form-input">
+        </div>
+    </fieldset>
+
+    <!--Phone number-->
+    <fieldset class="row p-1 g-1 justify-content-center">
+        <div class="col-12 text-start">
+            <label class="form-label">Telefono:</label>
+        </div>
+
+        <div class="col-4 col-md-2 text-start">
+            <span class="form-control form-input">
+                +53
+            </span>
+        </div>
+
+        <div class="col">
+            <input type="text" name="phone" id="patient_phone" placeholder="#######" minlength="8"
+                maxlength="8" onkeypress="return mathType(event ,'pateinet_phone','number-only');"
+                value="{{ patient.phone }}" class="form-control form-input">
+        </div>
+
+    </fieldset>
+
+    <!-- Credentials Section -->
+    <fieldset class="row p-2 g-1">
+        <div class="col-12 p-2 text-start border border-secondary rounded-3">
+
+            <!--Section Title-->
+            <label class="form-label w-100 text-center fw-bold">
+                Credenciales:
+            </label>
+
+            <div class="row p-1">
+
+                <!--User nickname-->
+                <fieldset class="col-12 form-group text-start">
+                    <label class="form-label ms-1">Usuario:</label>
+                    <input type="text" name="username" id="patient_username" maxlength="30"
+                        placeholder="Teclee un nombre de usuario" {% if edited_patient is None %}
+                        required {% endif %} value="{{ edited_patient.username }}"
+                        class="form-control form-input">
+                </fieldset>
+
+                <!--Recuperation mail-->
+                <fieldset class="col-12 form-group text-start mt-3">
+                    <label class="form-label ms-1" for="#patient_email">Correo de
+                        Recuperacion:</label>
+                    <input type="email" name="email" id="patient_email" maxlength="30"
+                        placeholder="example@nauta.cu" {% if edited_patient is None %} required
+                        {% endif %} value="{{ edited_patient.email }}"
+                        onkeyup="verifyEmail('patient_email');" class="form-control form-input">
+                </fieldset>
+
+                <!--User password (click -> showPassword)-->
+                <label class="form-label mt-3 ms-1" for="userPassword">Contrase&ntilde;a:</label>
+
+                <fieldset class="col-12 form-group text-start mt-1">
+                    <div class="input-group mb-3">
+                        <input type="password" name="password" id="patient_password" maxlength="30"
+                            placeholder="Teclee su c0ntr4s3&ntilde;4" {% if edited_patient is None %}
+                            required {% endif %}
+                            onkeyup="mathInputs('patient_password','patient_password2')"
+                            class="form-control form-input">
+
+                        <!--See password button-->
+                        <span class="input-group-text"
+                            onclick="switchPasswordVisibility('patient_password','seePatientPasswordImage')">
+                            <img class="img-fluid" id="seePatientPasswordImage"
+                                src="{% static 'img/see-dark.svg' %}">
+                        </span>
+
+                    </div>
+                </fieldset>
+
+                <!--User password verify (click -> showPassword)-->
+                <fieldset class="col-12 form-group text-start mt-1">
+                    <div class="input-group mb-3">
+                        <input type="password" id="patient_password2" maxlength="30"
+                            placeholder="Repita su c0ntr4s3&ntilde;4" {% if edited_patient is None %}
+                            required {% endif %}
+                            onkeyup="mathInputs('patient_password','patient_password2')"
+                            class="form-control form-input">
+
+                        <!--See password button-->
+                        <span class="input-group-text"
+                            onclick="switchPasswordVisibility('patient_password2','seePatientPassword2Image')">
+                            <img class="img-fluid" id="seePatientPassword2Image"
+                                src="{% static 'img/see-dark.svg' %}">
+                        </span>
+
+                    </div>
+                </fieldset>
+
+            </div>
+
+        </div>
+    </fieldset>
+
+    <!-- Formulary Buttons -->
+    <div class="form-group text-end me-1 me-md-2">
+
+        {% if edited_patient is None %}
+
+        <!-- Modal Dialog Close Option -->
+        <a class="btn btn-sm btn-secondary" data-bs-dismiss="modal" data-bs-target="#userSiginDialog">
+            <img src="{% static 'img/delete-light.svg' %}" width="20" height="20"
+                class="img-fluid mb-1 me-1 d-sm-inline">
+            CANCELAR
+        </a>
+
+        {% endif %}
+
+        <!-- Submit Button -->
+        <button class="btn btn-sm --button" type="submit">
+            {% if edited_patient %}
+            <img src="{% static 'img/save.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
+            ACTUALIZAR
+
+            {% else %}
+            <img src="{% static 'img/add-profile.svg' %}" width="20" height="20"
+                class="img-fluid mb-1 me-1">
+            REGISTRAR
+
+            {% endif %}
+
+        </button>
+
+
+
+
+
+    </div>
+
+</form>

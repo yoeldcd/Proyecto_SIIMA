@@ -16,7 +16,8 @@
                 <!--Nav blank Space-->
                 <div class="col text-start">
                     <a class="btn d-inline d-sm-none p-0" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#navOffcanvas" aria-controls="navOffcanvas" id="offcanvasOpenButton">
+                        data-bs-target="#navOffcanvas" aria-controls="navOffcanvas"
+                        id="offcanvasOpenButton">
                         <span class="container-fluid navbar-toggler-icon"></span>
                     </a>
                 </div>
@@ -33,7 +34,7 @@
                             <img class="img img-rounded rounded-5 fs-6 bg-gray user-icon" alt="user logo"
                                 src="{{ profile_icon }}" width="50" height="50">
                         </a>
-                        
+
                         <!--Profile User name-->
                         <div
                             class="col-10 p-0 text-center text-nowrap overflow-hidden text-decoration-underline only-text">
@@ -43,8 +44,8 @@
                         <!--Profile Exit button-->
                         <div class="col p-0">
                             <a href="{% url 'logout' %}">
-                                <img class="img-fluid --button-ligth" src="{% static 'img/exit-dark.png' %}" width="25"
-                                    height="25">
+                                <img class="img-fluid --button-ligth"
+                                    src="{% static 'img/exit-dark.png' %}" width="25" height="25">
                             </a>
                         </div>
 
@@ -54,7 +55,8 @@
                         <!--Generic Profile User icon-->
                         <a class="col-10 p-0" href="">
                             <img class="img img-rounded rounded-5 fs-6 bg-gray user-icon" alt="user logo"
-                                src="{% static 'img/profiles/default_profile.png' %}" width="50" height="50">
+                                src="{% static 'img/profiles/default_profile.png' %}" width="50"
+                                height="50">
                         </a>
 
                         <!--Login message-->
@@ -66,8 +68,8 @@
                         <!--Profile Exit button-->
                         <div class="col p-0">
                             <a href="{% url 'login' %}">
-                                <img class="img-fluid --button-ligth" src="{% static 'img/key-dark.svg' %}" width="25"
-                                    height="25">
+                                <img class="img-fluid --button-ligth"
+                                    src="{% static 'img/key-dark.svg' %}" width="25" height="25">
                             </a>
                         </div>
 
@@ -114,7 +116,8 @@
     </nav>
 
     <!-- Navigation Offcanvas Side Menu-->
-    <div class="offcanvas offcanvas-start p-0 w-50" tabindex="-1" id="navOffcanvas" aria-labelledby="offcanvasLabel">
+    <div class="offcanvas offcanvas-start p-0 w-50" tabindex="-1" id="navOffcanvas"
+        aria-labelledby="offcanvasLabel">
         <div class="offcanvas-header bg-success align-items-start" id="offcanvasHeader">
 
             <!--User Profile picture -->
@@ -127,11 +130,11 @@
                     <img class="img img-rounded rounded-5 fs-6 bg-gray user-icon" alt="user logo"
                         src="{{ profile_icon }}" width="80" height="80">
                 </a>
-                
+
                 {% else %}
-                
+
                 <!-- Show generic profile icon if is'not user logged -->
-                
+
                 <a href="/login/">
                     <img class="img rounded-5 fs-6 bg-gray user-icon" alt="user logo"
                         src="{% static '/img/profiles/default_profile.png' %}" width="80" height="80">
@@ -150,7 +153,8 @@
         <div class="offcanvas-body p-0 w-100 text-start fs-4" id="offcanvasLinks">
 
             <!--Profile description and actions -->
-            <div class="col-12 row justify-content-between text-ligth m-0 fs-6 text-nowrap overflow-hidden user-name">
+            <div
+                class="col-12 row justify-content-between text-ligth m-0 fs-6 text-nowrap overflow-hidden user-name">
 
                 <!-- only show profile options if is user logged -->
                 {% if user.is_authenticated == True %}
@@ -162,7 +166,8 @@
 
                 <!--Profile Exit button-->
                 <a href="{% url 'logout' %}" class="col-2 border-none p-0 text-end me-2">
-                    <img class="img-fluid" src="{% static 'img/exit-ligth.png' %}" width="30" height="30">
+                    <img class="img-fluid" src="{% static 'img/exit-ligth.png' %}" width="30"
+                        height="30">
                 </a>
 
                 {% else %}
@@ -181,7 +186,7 @@
             </div>
 
             <!-- Rendering offcanvas type_user links -->
-            
+
             {% if profile_type == 'ADMIN' %}
             <a href="{% url 'patients' %}" class="col-12 nav-link offcanvas-link ps-3 fs-4">
                 PACIENTES
@@ -192,7 +197,7 @@
             <a href="{% url 'events' %}" class="col-12 nav-link offcanvas-link ps-3 fs-4">
                 EVENTOS
             </a>
-            
+
             {% elif profile_type == 'WORKER' %}
             <a href="{% url 'tests' %}" class="col-12 nav-link offcanvas-link ps-3 fs-4">
                 EXAMANES

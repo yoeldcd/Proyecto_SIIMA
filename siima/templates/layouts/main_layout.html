@@ -5,49 +5,57 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>
-        {% block title %} {% endblock %}
-    </title>
+        <title>
+            {% block title %} {% endblock %}
+        </title>
 
-    <script src="{% static 'bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.2.2-dist/css/bootstrap.min.css' %}">
-
-    <!--Custom styles sheets-->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main-layouts-styles.css' %}">
-
-    <!--Scripts-->
-    <script src="{% static 'jquery-3.6.1-min/jquery-3.6.1.min.js' %}"></script>
-    <script src="{% static 'js/scripts.js' %}"></script>
-
-</head>
-
-<body>
-
-    {% block page_header %}
-    {% endblock %}
-    
-    <!--Web site Content layout -->
-    <main class="flex-shrink-0 main-content-layout">
-        <div class="container-fluid bg-gray">
-            
-            <!--Any web pages contents is here-->
-            
-            {% block page_content %}
-            {% endblock %}
-            
-            <!--End of web contenet -->
+        <script src="{% static 'bootstrap-5.2.2-dist/js/bootstrap.bundle.min.js' %}"></script>
+        <link rel="stylesheet" type="text/css"
+            href="{% static 'bootstrap-5.2.2-dist/css/bootstrap.min.css' %}">
         
-        </div>
-    </main>
-    
-    {% block page_footer %}
-    {% endblock %}
+        <!--Custom styles sheets-->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main-layouts-styles.css' %}">
 
-</body>
+        <!--Scripts-->
+        <script src="{% static 'jquery-3.6.1-min/jquery-3.6.1.min.js' %}"></script>
+        <script src="{% static 'js/scripts.js' %}"></script>
+        
+        <!-- Server side message mechanism -->
+        {% if query_message is not None %}
+        <script>
+            alert("Message: {{ query_message }}");
+        </script>
+        {% endif %}
+        
+    </head>
+
+    <body>
+
+        {% block page_header %}
+        {% endblock %}
+
+        <!--Web site Content layout -->
+        <main class="flex-shrink-0 main-content-layout">
+            <div class="container-fluid bg-gray">
+
+                <!--Any web pages contents is here-->
+
+                {% block page_content %}
+                {% endblock %}
+
+                <!--End of web contenet -->
+
+            </div>
+        </main>
+
+        {% block page_footer %}
+        {% endblock %}
+
+    </body>
 
 </html>

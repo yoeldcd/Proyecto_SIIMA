@@ -1,7 +1,7 @@
 {% load static %}
     
     <!-- Sesion Login Formulary -->
-    <form action="{% url 'auth' %}" method="POST" class="form rounded-3 data-form p-2 m-0">
+    <form action="{% url 'auth' %}" method="get" class="form rounded-3 data-form p-2 m-0">
         {% csrf_token %}
         
         <!-- Form Title Text -->

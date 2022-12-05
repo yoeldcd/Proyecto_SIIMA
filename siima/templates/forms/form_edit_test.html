@@ -2,45 +2,39 @@
 <!-- Test addition formulary -->
 <form action="/tests/resolve/" method="post" class="form">
     {% csrf_token %}
-    
+
     <fieldset class="col-12 form-group m-2 text-start" id="testDetails">
-        
+
         <!-- Test description area -->
         <div class="row p-1 g-1">
             <label class="form-label">Descripcion:</label>
-            
+
             <!-- Asociated test type -->
             <spam class="col-4">
                 TYPE:
             </spam>
-            <spam class="col-8" id="test_type">
-                uncategorized
-            </spam>
+            <input class="col-8 form-input" id="test_type" name="type" readonly>
             
             <!-- Asociated test ci -->
             <spam class="col-4">
                 CI:
             </spam>
-            <spam class="col-8" id="test_patient_CI">
-                00000000000
-            </spam>
+            <input class="col-8 form-input" id="test_patient_CI" name="ci" readonly>
             
             <!-- Asociated test id -->
             <spam class="col-4">
                 ID: testID
             </spam>
-            <spam class="col-8" id="test_ID">
-                000012
-            </spam>
-        
+            <input class="col-8 form-input" id="test_ID" name="id" readonly>
+
         </div>
-        
+
         <!--Test resolution -->
         <fieldset class="row p-1 g-1">
             <div class="col-12 text-start">
                 <label class="form-label">Resultado:</label>
-                <textarea class="form-control" name="result" id="testResult" type="text"
-                    required maxlength="512">
+                <textarea class="form-control" id="test_result" name="result" required
+                    maxlength="512">
                 </textarea>
             </div>
         </fieldset>

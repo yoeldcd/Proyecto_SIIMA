@@ -1,0 +1,36 @@
+{% load static %}
+
+<!-- Modal Patient Details Dialog-->
+<div class="modal fade" tabindex="-1" aria-hidden="true" id="patientDetailsDialog">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <!--Modal Patient Title-->
+            <div class="modal-header">
+                <spam class="modal-title">
+                    Detalles de Paciente
+                </spam>
+            </div>
+
+            <!-- Patient Description Section -->
+            <div class="modal-body">
+                {% include 'details/patient_details.html' %}
+            </div>
+
+            <div class="modal-footer">
+                <!-- Dialog Close Option -->
+                <a class="col-12 btn btn-sm btn-secondary" data-bs-dismiss="modal"
+                    data-bs-target="#patientDetailsDialog">
+                    <img src="{% static 'img/delete-light.svg' %}" width="20" height="20"
+                        class="img-fluid mb-1 me-1">
+                    CERRAR
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
