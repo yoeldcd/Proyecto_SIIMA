@@ -5,8 +5,10 @@ from django.utils.http import urlencode
 from django.http import HttpRequest, HttpResponse;
 from django.shortcuts import render, redirect;
 from django.views.generic import *;
-from django.contrib.auth import *;
 from django.urls import *
+from django.contrib.auth import *;
+from django.contrib.auth.mixins import *;
+from django.contrib.auth.decorators import *
 
 from .models import *
 
@@ -69,9 +71,10 @@ class AuthView(LoginView):
 
 # VISUAL ##############################################################################
 
-class PatientProfileView(DetailView):
+class PatientProfileView(PermissionRequiredMixin, DetailView):
     template_name = 'patient_profile.html'
-    
+    permission_required = ('backend.view_patient')
+
     def get(self, req:HttpRequest, user_id:int):
         
         systemuser = SystemUserManager.get_system_user(req.user)
@@ -99,20 +102,8 @@ class SiginPatientView(View):
         params = req.POST
         
         # registre new patient user
-        Patient.objects.create_user(
-            username = params.get('username'),
-            password = params.get('password'),
-            email = params.get('email'),
-            ci = params.get('ci'),
-            first_name = params.get('first_name'),
-            last_name = params.get('last_name'),
-            blod_group = params.get('blod_group_letter') + params.get('blod_group_signus'),
-            sex = params.get('sex'),
-            age = params.get('age'),
-            phone = params.get('phone'),
-        ).save()
-
-        query_message = "REGISTRED USER: " + params.get('username') + " PASSWORD " + params.get('password')
+        new_patient = PatientManager.create_patient_user(params)
+        query_message = "SUCESS: Patient Profile Registred: " + params.get('username') + " PASSWORD " + params.get('password')
         
         # redirect admin to profile_page
         return redirect(reverse('auth')+'?'+urlencode({
@@ -123,8 +114,9 @@ class SiginPatientView(View):
 
 # VISUAL ##########################################
 
-class EditPatientView(FormView):
+class EditPatientView(PermissionRequiredMixin, FormView):
     template_name = 'edit_patient.html'
+    permission_required = ('backend.change_patient')
     
     def get(self, req:HttpRequest, user_id):
         q_params = req.GET
@@ -138,7 +130,7 @@ class EditPatientView(FormView):
             'profile_type': PROFILES['WORKER'],
             'current_time': datetime.now,
             'query_message': query_message,
-            'profile_url': reverse('worker', kwargs = {'user_id': req.user.id }),
+            'profile_url': reverse('worker', kwargs = {'user_id': systemuser.id }),
             'profile_icon': PROFILES_ICON_DIR + systemuser.icon_path,
             'systemuser': systemuser,
             'edited_patient': edited_patient
@@ -148,59 +140,21 @@ class EditPatientView(FormView):
             context['profile_type'] = PROFILES['ADMIN']
         
         return render(req, self.template_name, context)
-
-    def post(self, req: HttpRequest, user_id : int):
+    
+    def post(self, 
+    req: HttpRequest, user_id : int):
         q_params = req.POST
         query_message = ""
         
+        # check patient joined
         edited_patient = PatientManager.get_patient_user_by_id(user_id)
         
         if edited_patient is None:
             query_message = "ERROR No identified patient"
             return redirect(reverse('workers')+urlencode({'query_message': query_message}))
         
-        # update patient with new field values
-        field = 'username'
-        if q_params.get(field) != '':
-            edited_patient.username = q_params.get(field)
-        
-        field = 'password'
-        if q_params.get(field) != '':
-            edited_patient.password = q_params.get(field)
-        
-        field = 'email'
-        if q_params.get(field) != '':
-            edited_patient.email = q_params.get(field)
-        
-        field = 'ci'
-        if q_params.get(field) != '':
-            edited_patient.ci = q_params.get(field)
-        
-        field = 'first_name'
-        if q_params.get(field) != '':
-            edited_patient.first_name = q_params.get(field)
-            
-        field = 'last_name'
-        if q_params.get(field) != '':
-            edited_patient.last_name = q_params.get(field)
-            
-        field = 'sex'
-        if q_params.get(field) != '':
-            edited_patient.sex = q_params.get(field)
-            
-        field = 'age'
-        if q_params.get(field) != '':
-            edited_patient.age = int(q_params.get(field))
-        
-        field = 'phone'
-        if q_params.get(field) != '':
-            edited_patient.phone = q_params.get(field)
-        
-        if q_params.get('blod_group_letter') != '' and q_params.get('blod_group_letter') != '':
-            edited_patient.blod_group = q_params.get('blod_group_letter') + q_params.get('blod_group_letter')
-        
-        # save updated patient 
-        edited_patient.save()
+        # update patient profile
+        PatientManager.update_patient_user(edited_patient, q_params)
         query_message = "SUCCESS: Pateint profile updated"
         
         # go back to patient list
@@ -208,8 +162,9 @@ class EditPatientView(FormView):
 
 # VISUAL ##########################################
 
-class PatientListView(ListView):
+class PatientListView(PermissionRequiredMixin, ListView):
     template_name = 'patient_list.html'
+    permission_required = ('backend.edit_patient')
     
     def get(self, req:HttpRequest):
         
@@ -229,8 +184,9 @@ class PatientListView(ListView):
 
 # VISUAL ##############################################################################
 
-class WorkerProfileView(DetailView):
+class WorkerProfileView(PermissionRequiredMixin, DetailView):
     template_name = 'worker_profile.html'
+    permission_required = ('backend.view_worker')
     
     def get(self, req:HttpRequest, user_id:int):
         
@@ -256,38 +212,26 @@ class WorkerProfileView(DetailView):
 
 ###########################################
 
-class SiginWorkerView(View):
+class SiginWorkerView(PermissionRequiredMixin, View):
+    permission_required = ('backend.add_worker')
     
     def post(self, req:HttpRequest):
         params = req.POST
         
         # registre new worker user
-        worker = Worker.objects.create_user(
-            username = params.get('username'),
-            password = params.get('password'),
-            email = params.get('email'),
-            ci = params.get('ci'),
-            first_name = params.get('first_name'),
-            last_name = params.get('last_name'),
-            sex = params.get('sex'),
-            age = params.get('age'),
-            phone = params.get('phone'),
-            role = params.get('role')
-        )
-        
-        # define super_user role
-        if params['permission_root'] == 'true':
-            worker.is_superuser = True
-        
-        worker.save()
+        worker = WorkerManager.add_worker_user(params)
+        query_message = "SUCCESS: Worker Profile Registred: " + params.get('username') + " PASSWORD " + params.get('password')
         
         # redirect admin to worker list
-        return redirect('workers')
+        return redirect(reverse('workers')+'?'+urlencode({
+            'query_message': query_message 
+        }))
 
 # VISUAL ##########################################
 
-class EditWorkerView(FormView):
+class EditWorkerView(PermissionRequiredMixin, FormView):
     template_name = 'edit_worker.html'
+    permission_required = ('backend.edit_worker')
     
     def get(self, req:HttpRequest, user_id):
         q_params = req.GET
@@ -311,64 +255,20 @@ class EditWorkerView(FormView):
             context['profile_type'] = PROFILES['ADMIN']
         
         return render(req, self.template_name, context)
-             
+    
     def post(self, req: HttpRequest, user_id : int):
-        q_params = req.GET
+        q_params = req.POST
         query_message = ""
         
+        # check worker joined
         edited_worker = WorkerManager.get_worker_user_by_id(user_id)
         
         if edited_worker is None:
             query_message = "ERROR No identified worker"
             return redirect(reverse('workers')+urlencode({'query_message': query_message}))
         
-        # update worker with new field values
-        field = 'username'
-        if q_params.get(field) != '':
-            edited_worker.username = q_params.get(field)
-        
-        field = 'password'
-        if q_params.get(field) != '':
-            edited_worker.password = q_params.get(field)
-        
-        field = 'email'
-        if q_params.get(field) != '':
-            edited_worker.email = q_params.get(field)
-        
-        field = 'ci'
-        if q_params.get(field) != '':
-            edited_worker.ci = q_params.get(field)
-        
-        field = 'first_name'
-        if q_params.get(field) != '':
-            edited_worker.first_name = q_params.get(field)
-            
-        field = 'last_name'
-        if q_params.get(field) != '':
-            edited_worker.last_name = q_params.get(field)
-            
-        field = 'sex'
-        if q_params.get(field) != '':
-            edited_worker.sex = q_params.get(field)
-            
-        field = 'age'
-        if q_params.get(field) != '':
-            edited_worker.age = int(q_params.get(field))
-        
-        field = 'phone'
-        if q_params.get(field) != '':
-            edited_worker.phone = q_params.get(field)
-        
-        field = 'role'
-        if q_params.get(field) != '':
-            edited_worker.role = q_params.get(field)
-        
-        # updating permission
-        
-        
-        # save updated worker
-
-        edited_worker.save()
+        # update worker profile
+        WorkerManager.update_worker_user(edited_worker, q_params)
         query_message = "Worker profile updated"
         
         # go back to worker list
@@ -376,9 +276,10 @@ class EditWorkerView(FormView):
     
 # VISUAL ##########################################
 
-class WorkerListView(ListView):
+class WorkerListView(PermissionRequiredMixin, ListView):
     template_name = 'worker_list.html'
-    
+    permission_required = ('backend.edit_worker')
+     
     def get(self, req:HttpRequest):
         
         systemuser = SystemUserManager.get_system_user(req.user)
@@ -397,8 +298,9 @@ class WorkerListView(ListView):
 
 # VISUAL ##############################################################################
 
-class TestListView(ListView):
+class TestListView(PermissionRequiredMixin, ListView):
     template_name = 'test_list.html'
+    permission_required = ('backend.edit_test')
     
     def get(self, req:HttpRequest):
         systemuser = SystemUserManager.get_system_user(req.user)
@@ -413,12 +315,12 @@ class TestListView(ListView):
             'object_list': TestManager.list_all(),
         }
         
-        
         return render(req, self.template_name, context)
 
 ###########################################
 
-class TestAddView(View):
+class TestAddView(PermissionRequiredMixin, View):
+    permission_required = ('backend.add_test')
 
     def post(self, req:HttpRequest):
         params = req.POST
@@ -436,7 +338,8 @@ class TestAddView(View):
 
 ###########################################
 
-class TestResolveView(View):
+class TestResolveView(PermissionRequiredMixin, View):
+    permission_required = ('backend.edit_test')
     
     def post(self, req:HttpRequest):
         params = req.POST
@@ -459,20 +362,20 @@ class TestResolveView(View):
 
 # VISUAL ##############################################################################
 
-class ResultListView(ListView):
+class ResultListView(PermissionRequiredMixin, ListView):
     template_name = 'result_list.html'
+    permission_required = ('backend.view_test')
     
     def get(self, req:HttpRequest):
         return render(req, self.template_name, {})
 
 # VISUAL ##############################################################################
 
-class EventListView(ListView):
+class EventListView(PermissionRequiredMixin, ListView):
     query_message = ""
     template_name = 'event_list.html'
-    
-    
-
+    permission_required = ('backend.edit_systemevent')
+  
     def get(self, req:HttpRequest):
         return render(req, self.template_name, {})
 

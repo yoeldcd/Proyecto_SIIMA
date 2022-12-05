@@ -20,7 +20,7 @@ urlpatterns = [
     
     # User role views
     path('patients/', login_required(PatientListView.as_view()), name='patients'),
-    path('patient/sigin/', login_required(SiginPatientView.as_view()), name='sigin_patient'),
+    path('patient/sigin/', SiginPatientView.as_view(), name='sigin_patient'),
     path('patient/edit/<int:user_id>', login_required(EditPatientView.as_view()), name='sigin_patient'),
     path('patient/update/<int:user_id>', login_required(EditPatientView.as_view()), name='sigin_patient'),
     path('patient/<int:user_id>', login_required(PatientProfileView.as_view()), name='patient'),
