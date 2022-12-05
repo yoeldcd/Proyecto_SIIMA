@@ -19,7 +19,7 @@ PROFILES = {
     'PATIENT':'PATIENT'
 }
 
-###############################################################################
+# VISUAL ##############################################################################
 
 class LoginView(FormView):
     template_name = 'login.html'
@@ -67,13 +67,15 @@ class AuthView(LoginView):
         else:
             return redirect('/worker/'+str(user.id))
 
-###############################################################################
+# VISUAL ##############################################################################
 
 class PatientProfileView(DetailView):
     template_name = 'patient_profile.html'
     
     def get(self, req:HttpRequest, user_id:int):
-        patient = PatientManager.get_patient_user(req.user)
+        
+        systemuser = SystemUserManager.get_system_user(req.user)
+        detailed_patient = PatientManager.get_patient_user(req.user)
         
         # define context values
         context = {
@@ -81,9 +83,9 @@ class PatientProfileView(DetailView):
             'query_message': req.GET.get('query_message'),
             'profile_type': PROFILES['PATIENT'],
             'profile_url': reverse('patient', kwargs = {'user_id': user_id}),
-            'profile_icon': PROFILES_ICON_DIR + patient.icon_path,
-            'patient': patient,
-            'detailed_patient': patient
+            'profile_icon': PROFILES_ICON_DIR + systemuser.icon_path,
+            'systemuser': systemuser,
+            'detailed_patient': detailed_patient
         }
         
         return render(req, self.template_name, context)
@@ -119,7 +121,7 @@ class SiginPatientView(View):
             'query_message': query_message 
         }))
 
-###########################################
+# VISUAL ##########################################
 
 class EditPatientView(FormView):
     template_name = 'edit_patient.html'
@@ -128,7 +130,7 @@ class EditPatientView(FormView):
         q_params = req.GET
         query_message = q_params.get('query_message')
         
-        worker = WorkerManager.get_worker_user(req.user)
+        systemuser = SystemUserManager.get_system_user(req.user)
         edited_patient = PatientManager.get_patient_user_by_id(user_id)
         
         # define context values
@@ -137,12 +139,12 @@ class EditPatientView(FormView):
             'current_time': datetime.now,
             'query_message': query_message,
             'profile_url': reverse('worker', kwargs = {'user_id': req.user.id }),
-            'profile_icon': PROFILES_ICON_DIR+'default_profile.png',
-            'worker': worker,
+            'profile_icon': PROFILES_ICON_DIR + systemuser.icon_path,
+            'systemuser': systemuser,
             'edited_patient': edited_patient
         }
         
-        if worker.is_superuser:
+        if systemuser.is_superuser:
             context['profile_type'] = PROFILES['ADMIN']
         
         return render(req, self.template_name, context)
@@ -201,34 +203,38 @@ class EditPatientView(FormView):
         edited_patient.save()
         query_message = "SUCCESS: Pateint profile updated"
         
-        return redirect(reverse('workers')+'?'+urlencode({'query_message': query_message}))
+        # go back to patient list
+        return redirect(reverse('patients')+'?'+urlencode({'query_message': query_message}))
 
-###########################################
+# VISUAL ##########################################
 
 class PatientListView(ListView):
     template_name = 'patient_list.html'
     
     def get(self, req:HttpRequest):
-        worker = WorkerManager.get_worker_user(req.user)
+        
+        systemuser = SystemUserManager.get_system_user(req.user)
         
         context = {
             'current_time': datetime.now,
             'query_message': req.GET.get('query_message'),
             'profile_type': PROFILES['ADMIN'],
             'profile_url': reverse('worker', kwargs = {'user_id': req.user.id}),
-            'profile_icon': PROFILES_ICON_DIR + worker.icon_path,
-            'worker': req.user,
+            'profile_icon': PROFILES_ICON_DIR + systemuser.icon_path,
+            'systemuser': systemuser,
             'object_list': PatientManager.list_all() 
         }
         
         return render(req, self.template_name, context)
 
-###############################################################################
+# VISUAL ##############################################################################
 
 class WorkerProfileView(DetailView):
     template_name = 'worker_profile.html'
     
     def get(self, req:HttpRequest, user_id:int):
+        
+        systemuser = SystemUserManager.get_system_user(req.user)
         worker = WorkerManager.get_worker_user(req.user)
         
         # define context values from template rendering
@@ -237,8 +243,8 @@ class WorkerProfileView(DetailView):
             'query_message': req.GET.get('query_message'),
             'profile_type': PROFILES['WORKER'],
             'profile_url': reverse('worker', kwargs = {'user_id': worker.id}),
-            'profile_icon': PROFILES_ICON_DIR + worker.icon_path,
-            'worker': worker,
+            'profile_icon': PROFILES_ICON_DIR + systemuser.icon_path,
+            'systemuser': systemuser,
             'detailed_worker': worker
         }
         
@@ -278,7 +284,7 @@ class SiginWorkerView(View):
         # redirect admin to worker list
         return redirect('workers')
 
-###########################################
+# VISUAL ##########################################
 
 class EditWorkerView(FormView):
     template_name = 'edit_worker.html'
@@ -287,7 +293,7 @@ class EditWorkerView(FormView):
         q_params = req.GET
         query_message = q_params.get('query_message')
         
-        worker = WorkerManager.get_worker_user(req.user)
+        systemuser = SystemUserManager.get_system_user(req.user)
         edited_worker = WorkerManager.get_worker_user_by_id(user_id)
         
         # define context values
@@ -295,18 +301,17 @@ class EditWorkerView(FormView):
             'profile_type': PROFILES['WORKER'],
             'current_time': datetime.now,
             'query_message': query_message,
-            'profile_url': reverse('worker', kwargs = {'user_id': req.user.id }),
+            'profile_url': reverse('worker', kwargs = {'user_id': systemuser.id }),
             'profile_icon': PROFILES_ICON_DIR+'default_profile.png',
-            'worker': worker,
+            'systemuser': systemuser,
             'edited_worker': edited_worker
         }
         
-        if worker.is_superuser:
+        if systemuser.is_superuser:
             context['profile_type'] = PROFILES['ADMIN']
         
         return render(req, self.template_name, context)
-        
-        
+             
     def post(self, req: HttpRequest, user_id : int):
         q_params = req.GET
         query_message = ""
@@ -356,52 +361,55 @@ class EditWorkerView(FormView):
         
         field = 'role'
         if q_params.get(field) != '':
-            edited_worker.phone = q_params.get(field)
+            edited_worker.role = q_params.get(field)
         
         # updating permission
         
         
-        # save updated worker 
+        # save updated worker
+
         edited_worker.save()
         query_message = "Worker profile updated"
         
+        # go back to worker list
         return redirect(reverse('workers')+urlencode({'query_message': query_message}))
     
-###########################################
+# VISUAL ##########################################
 
 class WorkerListView(ListView):
     template_name = 'worker_list.html'
     
     def get(self, req:HttpRequest):
-        worker = WorkerManager.get_worker_user(req.user)
+        
+        systemuser = SystemUserManager.get_system_user(req.user)
         
         context = {
             'current_time': datetime.now,
             'query_message': req.GET.get('query_message'),
             'profile_type': PROFILES['ADMIN'],
-            'profile_url': reverse('worker', kwargs = {'user_id': worker.id}),
-            'profile_icon': PROFILES_ICON_DIR + worker.icon_path,
-            'worker': worker,
+            'profile_url': reverse('worker', kwargs = {'user_id': systemuser.id}),
+            'profile_icon': PROFILES_ICON_DIR + systemuser.icon_path,
+            'systemuser': systemuser,
             'object_list': WorkerManager.list_all() 
         }
         
         return render(req, self.template_name, context)
 
-###############################################################################
+# VISUAL ##############################################################################
 
 class TestListView(ListView):
     template_name = 'test_list.html'
     
     def get(self, req:HttpRequest):
-        worker = WorkerManager.get_worker_user(req.user)
+        systemuser = SystemUserManager.get_system_user(req.user)
         
         context = {
             'current_time': datetime.now,
             'query_message': req.GET.get('query_message'),
             'profile_type': PROFILES['WORKER'],
             'profile_url': reverse('worker', kwargs = {'user_id': worker.id}),
-            'profile_icon': PROFILES_ICON_DIR + worker.icon_path,
-            'worker': worker,
+            'profile_icon': PROFILES_ICON_DIR + systemuser.icon_path,
+            'systemuser': systemuser,
             'object_list': TestManager.list_all(),
         }
         
@@ -449,7 +457,7 @@ class TestResolveView(View):
         # return back to test list
         return redirect(reverse('tests')+'?'+urlencode({ 'query_message':query_message }))
 
-###############################################################################
+# VISUAL ##############################################################################
 
 class ResultListView(ListView):
     template_name = 'result_list.html'
@@ -457,7 +465,7 @@ class ResultListView(ListView):
     def get(self, req:HttpRequest):
         return render(req, self.template_name, {})
 
-###############################################################################
+# VISUAL ##############################################################################
 
 class EventListView(ListView):
     query_message = ""

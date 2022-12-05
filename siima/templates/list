@@ -1,0 +1,11 @@
+
+
+    
+    {% for persona in object_list %}
+    
+    <span>Numero: {{ forloop.counter0 }}</span>
+    <span>Nombre: {{ persona.name }}</span>
+    <span>Edad: {{ persona.age }}</span>
+    
+    {% endfor %}
+
