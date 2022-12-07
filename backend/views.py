@@ -551,14 +551,14 @@ class EventListView(PermissionRequiredMixin, ListView):
         system_user = SystemUserManager.get_system_user(req.user)
         
         if 'user_id' in params:
-            systemuser = SystemUserManager.get_system_user_by_id(params.get('user_id'))
+            detailed_user = SystemUserManager.get_system_user_by_id(params.get('user_id'))
             
-            if systemuser is None:
+            if detailed_user is None:
                 query_message = f'ERROR: No registred user'
                 user_id = params.get('user_id')
                 EventManager.log_user_event(system_user, 'DANGER', 'PROFILE EVENTS FAIL', f'El {system_user.system_role} { system_user.username } intento acceder a los datos del usuario no registrado {user_id}')
             
-            object_list = EventManager.list_all_user_events(systemuser)
+            object_list = EventManager.list_all_user_events(detailed_user)
         else:
             object_list = EventManager.list_all_events()
         
@@ -566,7 +566,8 @@ class EventListView(PermissionRequiredMixin, ListView):
             'current_time': datetime.now,
             'query_message': query_message,
             'system_user': system_user,
-            'object_list': object_list 
+            'detailed_user': detailed_user,
+            'object_list': object_list
         }
         
         return render(req, self.template_name, context)
