@@ -138,12 +138,15 @@ class PatientManager:
         if q_params.get(field) != '':
             edited_patient.username = str(q_params.get(field))
         
+        need_reauthenticate = False
         field = 'password'
         if q_params.get(field) != '':
             if edited_patient.is_authenticated:
                 need_reauthenticate = True
-
+            
             edited_patient.set_password(str(q_params.get(field)))
+        
+        
 
         field = 'email'
         if q_params.get(field) != '':
@@ -301,6 +304,7 @@ class WorkerManager:
         if field in q_params and q_params.get(field) != '':
             edited_worker.username = str(q_params.get(field))
         
+        need_reauthenticate = False
         field = 'password'
         if field in q_params and q_params.get(field) != '':
             if edited_worker.is_authenticated:
@@ -462,7 +466,7 @@ class TestManager:
     def list_all_unnotified_tests():
         return Test.objects.filter(~Q(state = 'notified')).values()
     
-    def list_all_patient_tests(patient):
+    def list_all_patient_tests(patient:Patient):
         return Test.objects.filter(patientCI = patient.ci).values()
     
     def add_test(params):
@@ -477,20 +481,28 @@ class TestManager:
         
         return None
     
-    def resolve_test(resolved_test, result):
-
+    def resolve_test(resolved_test:Test, result):
+        
         # store test result on DB
         resolved_test.state = 'resolved'
         resolved_test.result = result
+        resolved_test.resolution_date = datetime.now()
         resolved_test.save()                
         
         return None
     
-    def notify_test(notified_test):
+    def notify_test(notified_test:Test):
         
         # store test result on DB
         notified_test.state = 'notified'
         notified_test.save()                
+        
+        return None
+
+    def delete_test(notified_test:Test):
+        
+        # store test result on DB
+        notified_test.delete()                
         
         return None
     

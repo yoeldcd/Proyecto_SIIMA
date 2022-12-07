@@ -114,7 +114,7 @@ class SiginPatientView(View):
             
             # log action
             username = params.get('username')
-            EventManager.log_user_event('LOG', 'PROFILE ADDED',f'El paciente { username } se registro en la BD')
+            EventManager.log_user_event(req.user, 'LOG', 'PROFILE ADDED',f'El paciente { username } se registro en la BD')
         
             return redirect('/auth?'+urlencode({
                 'username': params.get('username'),
@@ -126,12 +126,12 @@ class SiginPatientView(View):
             
             # log action
             username = params.get('username')
-            EventManager.log_user_event('LOG', 'PROFILE ADDED',f'El admin {req.user.username} regristro al paciente { username } en la BD')
-
+            EventManager.log_user_event(req.user, 'LOG', 'PROFILE ADDED',f'El admin {req.user.username} regristro al paciente { username } en la BD')
+            
             return redirect('/patients?'+urlencode({
                 'query_message': query_message 
             }))
-    
+
 class SignoutPatientView(PermissionRequiredMixin, View):
     permission_required = ('backend.delete_patient_profile')
 
@@ -151,7 +151,7 @@ class SignoutPatientView(PermissionRequiredMixin, View):
         if req.user.is_superuser:
             # log action
             username = supressed_patient.username
-            EventManager.log_user_event('WARNING', 'PROFILE SUPRESSED',f'El admin {req.user.username} suprimio el perfil del paciente { username } en la BD')
+            EventManager.log_user_event(req.user, 'WARNING', 'PROFILE SUPRESSED',f'El admin {req.user.username} suprimio el perfil del paciente { username } en la BD')
             
             # go back to worker list
             return redirect(reverse('patients')+'?'+urlencode({
@@ -159,12 +159,12 @@ class SignoutPatientView(PermissionRequiredMixin, View):
             }))
         else:
             username = supressed_patient.username
-            EventManager.log_user_event('WARNING', 'PROFILE SUPRESSED',f'El paciente {username} suprimio su perfil en la BD')
-            
-            # go back to login
-            return redirect(reverse('loguin')+'?'+urlencode({
-                'query_message': query_message 
-            }))
+            EventManager.log_user_event(req.user,'WARNING', 'PROFILE SUPRESSED',f'El paciente {username} suprimio su perfil en la BD')
+        
+        # go back to login
+        return redirect(reverse('loguin')+'?'+urlencode({
+            'query_message': query_message 
+        }))
 
 # VISUAL ##########################################
 
@@ -491,7 +491,50 @@ class ResultListView(PermissionRequiredMixin, ListView):
     permission_required = ('backend.view_result_list')
     
     def get(self, req:HttpRequest):
-        return render(req, self.template_name, {})
+        query_message = req.GET
+        system_patient = PatientManager.get_patient_user(req.user)
+        
+        if system_patient is None:
+            query_message = 'ERROR: No identified patient'
+        
+        # get a list of test asociateds to patient
+        object_list = TestManager.list_all_patient_tests(system_patient)
+        
+        context = {
+            'current_time': datetime.now,
+            'query_message': req.GET.get('query_message'),
+            'system_user': system_patient,
+            'object_list': object_list,
+        }
+        
+        return render(req, self.template_name, context)
+
+class SupressResultView(PermissionRequiredMixin, View):
+    permission_required = ('backend.delete_result')
+    
+    def get(self, req:HttpRequest, test_id):
+        params = req.GET
+        query_message = params.get('query_message')
+        
+        # get identified test
+        supressed_test = TestManager.get_test_by_id(test_id)
+        
+        # check test on DB
+        if supressed_test is None:
+            EventManager.log_user_event(req.user, 'WARNING','TEST SUPRESSION FAIL',f'El ususraio { req.user.username} inteto eliminar un analisis no registrado en la BD')
+            query_message = f'ERROR: No identified Test : { params.get("id") }'
+        else:
+            # update test with result
+            TestManager.delete_test(supressed_test)
+            
+            # log action
+            EventManager.log_user_event(req.user, 'WARNING','TEST SUPRESSED',f'El ususraio { req.user.username} elimino un analisis en la BD')
+            query_message = 'SUCESS: Test delete'
+        
+        # return back to test list
+        return redirect(reverse('results')+'?'+urlencode({
+            'query_message':query_message
+        }))
 
 # VISUAL ##############################################################################
 
