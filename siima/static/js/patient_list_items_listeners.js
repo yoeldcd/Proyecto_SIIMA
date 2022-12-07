@@ -22,6 +22,7 @@ function loadPatientItem(e){
     $('#detailed_patient_last_name').text(patient.last_name);
     $('#detailed_patient_age').text(patient.age);
     $('#detailed_patient_sex').text(patient.sex);
+    $('#detailed_patient_blodgroup').text(patient.blodgroup);
     $('#detailed_patient_last_login').text(patient.last_login);
     $('#detailed_patient_date_joined').text(patient.date_joined);
     

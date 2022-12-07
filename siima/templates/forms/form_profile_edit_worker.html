@@ -43,7 +43,7 @@
             <label class="form-check-label" for="##sex_male"> Hombre </label>
         </div>
         <div class="col-6 form-check">
-            <input type="radio" name="sex" id="worker_sex_female" {% if "F" in edited_worker.sex %}
+            <input type="radio" name="sex" id="worker_sex_female" {% if not "M" in edited_worker.sex %}
                 checked {% endif %} value="F" class="form-radio-input me-3"
                 {% if edited_worker is None %}required{% endif %}>
             <label class="form-check-label" for="#sex_female"> Mujer </label>
@@ -53,7 +53,7 @@
     <!--User Age Inputs-->
     <fieldset class="row p-1 g-1">
         <div class="col-12 text-start">
-            <label class="form-label">Apellidos:</label>
+            <label class="form-label">Edad:</label>
         </div>
         <div class="col-12">
             <input type="number" name="age" id="worker_age" min="1" max="200"
@@ -95,6 +95,8 @@
 
     </fieldset>
 
+    {% if system_user.system_role == 'admin' and edited_worker.id != system_user.id %}
+    
     <!-- Worker Information -->
     <fieldset class="row p-2 m-2 mt-2 g-2 border border-secondary rounded-3">
 
@@ -107,11 +109,13 @@
         <div class="col-12 m-1 text-start">
             <label class="form-label m-1">Puesto:</label>
             <select name="role" id="worker_role" class="form-select form-input"
-                {% if edited_worker is None %}required{% endif %}>
-
-                <option>Enfermera</option>
-                <option>Tecnico de Laboratorio</option>
-
+                {% if edited_worker is None %}required{% endif %} value="{{ edited_worker.role ">
+                
+                <option>Enfermeria</option>
+                <option>Microbiologia</option>
+                <option>Virologia</option>
+                <option>Tecnico</option>
+                
             </select>
         </div>
 
@@ -122,50 +126,54 @@
             <div class="row">
                 <div class="col-12 col-md-6 text-start">
                     <label class="form-label m-1">
-                        <input type="checkbox" name="permission_read" id="worker_permision_read"
+                        <input type="checkbox" name="permission_view" id="worker_permission_view"
+                            {% if "-v " in edited_worker.actions %} checked {% endif %}
                             value="yes" class="form-checkox me-2">
-                        Consultar muestra
+                        Consultar analisis:
                     </label>
                 </div>
 
                 <div class="col-12 col-md-6 text-start">
                     <label class="form-label m-1">
-                        <input type="checkbox" name="permission_add" id="worker_permision_add"
-                            value="yes" class="form-checkox me-2">
-                        Agregar muestra
+                        <input type="checkbox" name="permission_create" id="worker_permission_create"
+                            {% if "-c " in edited_worker.actions %} checked {% endif %} value="yes"
+                            class="form-checkox me-2">
+                        A&ntilde;adir analisis
                     </label>
                 </div>
 
                 <div class="col-12 col-md-6 text-start">
                     <label class="form-label m-1">
-                        <input type="checkbox" name="permission_edit" id="worker_permision_edit"
-                            value="yes" class="form-checkox me-2">
-                        Modificar muestra
+                        <input type="checkbox" name="permission_resolve" id="worker_permission_resolve"
+                            {% if "-r " in edited_worker.actions %} checked {% endif %} value="yes"
+                            class="form-checkox me-2">
+                        Resolucionar analisis
                     </label>
                 </div>
 
                 <div class="col-12 col-md-6 text-start">
                     <label class="form-label m-1">
-                        <input type="checkbox" name="permission_delete" id="worker_permision_delete"
-                            value="yes" class="form-checkox me-2">
-                        Eliminar muestra
+                        <input type="checkbox" name="permission_notify" id="worker_permision_notify"
+                            {% if "-n " in edited_worker.actions %} checked {% endif %} value="yes"
+                            class="form-checkox me-2">
+                        Notificar analisis
                     </label>
                 </div>
-
+                <br>
                 <div class="col-12 col-md-6 text-start fw-bold">
                     <label class="form-label m-1">
-                        <input type="checkbox" name="permission_root" id="worker_permision_root"
-                            value="yes" {% if edited_worker.is_superuser %} checked {% endif %}
+                        <input type="checkbox" name="permission_root" id="worker_permission_root"
+                            value="yes" {% if "-root" in edited_worker.actions %} checked {% endif %}
                             class="form-checkox me-2">
-                        Administrador
+                        Designar Administrador
                     </label>
                 </div>
-
-
+            
+            
             </div>
 
         </div>
-
+        
         <!-- Admin Password -->
         <fieldset class="col-12 form-group text-start mt-1">
             <div class="input-group mb-3">
@@ -182,6 +190,8 @@
             </div>
         </fieldset>
 
+        {% endif %}
+        
     </fieldset>
 
     <!-- Worker Account Credentials -->
@@ -199,63 +209,58 @@
                     <label class="form-label ms-1">Usuario:</label>
                     <input type="text" name="username" maxlength="30"
                         placeholder="Teclee un nombre de usuario" value="{{ edited_worker.username }}"
-                        {% if edited_worker is None %}required{% endif %}
-                        class="form-control form-input">
-                </fieldset>
+                {% if edited_worker is None %}required{% endif %} class="form-control form-input">
+    </fieldset>
 
-                <!--Recuperation mail-->
-                <fieldset class="col-12 form-group text-start mt-3">
-                    <label class="form-label ms-1">Correo de
-                        Recuperacion:</label>
-                    <input type="email" name="email" id="worker_email" maxlength="30"
-                        placeholder="example@nauta.cu" {% if edited_worker is None %}required{% endif %}
-                        onkeyup="verifyEmail('worker_email');" value="{{ edited_worker.email }}"
-                        class="form-control form-input">
-                </fieldset>
+    <!--Recuperation mail-->
+    <fieldset class="col-12 form-group text-start mt-3">
+        <label class="form-label ms-1">Correo de
+            Recuperacion:</label>
+        <input type="email" name="email" id="worker_email" maxlength="30" placeholder="example@nauta.cu"
+            {% if edited_worker is None %}required{% endif %} onkeyup="verifyEmail('worker_email');"
+            value="{{ edited_worker.email }}" class="form-control form-input">
+    </fieldset>
 
-                <label class="form-label mt-3 ms-1">Contrase&ntilde;a:</label>
+    <label class="form-label mt-3 ms-1">Contrase&ntilde;a:</label>
 
-                <!--User password (click -> showPassword)-->
-                <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
-                    <div class="input-group mb-3">
-                        <input type="password" name="password" id="worker_password" maxlength="30"
-                            placeholder="Teclee su c0ntr4s3&ntilde;4"
-                            {% if edited_worker is None %}required{% endif %}
-                            onkeyup="mathInputs('userPassword','worker_password2')"
-                            class="form-control form-input">
+    <!--User password (click -> showPassword)-->
+    <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
+        <div class="input-group mb-3">
+            <input type="password" name="password" id="worker_password" maxlength="30"
+                placeholder="Teclee su c0ntr4s3&ntilde;4"
+                {% if edited_worker is None %}required{% endif %}
+                onkeyup="mathInputs('userPassword','worker_password2')" class="form-control form-input">
 
-                        <!--See password button-->
-                        <span class="input-group-text"
-                            onclick="switchPasswordVisibility('worker_password','seeUserPasswordImage')">
-                            <img class="img-fluid" id="seeUserPasswordImage"
-                                src="{% static '/img/see-dark.svg' %}">
-                        </span>
-
-                    </div>
-                </fieldset>
-
-                <!--User password verify (click -> showPassword)-->
-                <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
-                    <div class="input-group mb-3">
-                        <input type="password" id="worker_password2" maxlength="30"
-                            placeholder="Repita su c0ntr4s3&ntilde;4"
-                            {% if edited_worker is None %}required{% endif %}
-                            onkeyup="mathInputs('worker_password','worker_password2')"
-                            class="form-control form-input">
-
-                        <!--See password button-->
-                        <span class="input-group-text"
-                            onclick="switchPasswordVisibility('worker_password2','seeUserPassword2Image')">
-                            <img class="img-fluid" id="seeUserPassword2Image"
-                                src="{% static '/img/see-dark.svg' %}">
-                        </span>
-
-                    </div>
-                </fieldset>
-
-            </div>
+            <!--See password button-->
+            <span class="input-group-text"
+                onclick="switchPasswordVisibility('worker_password','seeUserPasswordImage')">
+                <img class="img-fluid" id="seeUserPasswordImage" src="{% static '/img/see-dark.svg' %}">
+            </span>
 
         </div>
+    </fieldset>
+
+    <!--User password verify (click -> showPassword)-->
+    <fieldset class="col-12 col-xl-6 form-group text-start mt-1">
+        <div class="input-group mb-3">
+            <input type="password" id="worker_password2" maxlength="30"
+                placeholder="Repita su c0ntr4s3&ntilde;4"
+                {% if edited_worker is None %}required{% endif %}
+                onkeyup="mathInputs('worker_password','worker_password2')"
+                class="form-control form-input">
+
+            <!--See password button-->
+            <span class="input-group-text"
+                onclick="switchPasswordVisibility('worker_password2','seeUserPassword2Image')">
+                <img class="img-fluid" id="seeUserPassword2Image" src="{% static '/img/see-dark.svg' %}">
+            </span>
+
+        </div>
+    </fieldset>
+
+    </div>
+
+    </div>
     </fieldset>
 
     <!-- Formulary Action Buttons -->

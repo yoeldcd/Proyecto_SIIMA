@@ -6,7 +6,6 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.urls import path
-
 from backend.views import *
 
 urlpatterns = [
@@ -23,22 +22,30 @@ urlpatterns = [
     path('patient/sigin/', SiginPatientView.as_view(), name='sigin_patient'),
     path('patient/edit/<int:user_id>', login_required(EditPatientView.as_view()), name='sigin_patient'),
     path('patient/update/<int:user_id>', login_required(EditPatientView.as_view()), name='sigin_patient'),
+    path('patient/supress/<int:user_id>', login_required(SignoutPatientView.as_view()), name='sigou_patient'),
     path('patient/<int:user_id>', login_required(PatientProfileView.as_view()), name='patient'),
     
     # Worker role views
     path('workers/', login_required(WorkerListView.as_view()), name='workers'),
-    path('worker/sigin/', login_required(SiginWorkerView.as_view()), name='sigin_worker'),
+    path('worker/sigin/', SiginWorkerView.as_view(), name='sigin_worker'),
     path('worker/edit/<int:user_id>', login_required(EditWorkerView.as_view()), name='sigin_patient'),
     path('worker/update/<int:user_id>', login_required(EditWorkerView.as_view()), name='sigin_patient'),
+    path('worker/supress/<int:user_id>', login_required(SignoutWorkerView.as_view()), name='sigin_patient'),
     path('worker/<int:user_id>/', login_required(WorkerProfileView.as_view()), name='worker'),
+    path('admin/<int:user_id>/', login_required(WorkerProfileView.as_view()), name='worker'),
     
     # test edition views
     path('tests/', login_required(TestListView.as_view()), name='tests'),
-    path('tests/add/', login_required(TestAddView.as_view()), name='add_test'),
-    path('tests/resolve/', login_required(TestResolveView.as_view()), name='resolve_test'),
+    path('test/add/', login_required(AddTestView.as_view()), name='add_test'),
+    path('test/resolve/<int:test_id>', login_required(ResolveTestView.as_view()), name='resolve_test'),
+    path('test/notify/<int:test_id>', login_required(NotifyTestView.as_view()), name='resolve_test'),
     
+
     # Model lists
     path('results/', login_required(ResultListView.as_view()), name='results'),
     path('events/', login_required(EventListView.as_view()), name='events'),
+    path('event/supress/<int:event_id>', login_required(SupressEventView.as_view()), name='events'),
     
 ]
+
+make_custom_permissions()

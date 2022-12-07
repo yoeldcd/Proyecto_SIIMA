@@ -23,13 +23,21 @@ function loadPatientItem(e){
     $('#detailed_worker_age').text(worker.age);
     $('#detailed_worker_sex').text(worker.sex);
     $('#detailed_worker_role').text(worker.role);
-    $('#detailed_worker_permissions').text(worker.permissions);
+    
+    if($('#detailed_worker_permissions'))
+        $('#detailed_worker_permissions').text(worker.permissions);
+    
     $('#detailed_worker_last_login').text(worker.last_login);
     $('#detailed_worker_date_joined').text(worker.date_joined);
     
-    $('#detailed_worker_events_link')[0].href = '/events/?user_id='+worker.id;
-    $('#detailed_worker_edit_link')[0].href = '/worker/edit/'+worker.id;
-    $('#detailed_worker_supress_link')[0].href = '/worker/supress/'+worker.id;
+    if($('#detailed_worker_events_link')[0])
+        $('#detailed_worker_events_link')[0].href = '/events/?user_id='+worker.id;
+    
+    if($('#detailed_worker_edit_link')[0])
+        $('#detailed_worker_edit_link')[0].href = '/worker/edit/'+worker.id;
+    
+    if($('#detailed_worker_supress_link')[0])
+        $('#detailed_worker_supress_link')[0].href = '/worker/supress/'+worker.id;
     
 }
 

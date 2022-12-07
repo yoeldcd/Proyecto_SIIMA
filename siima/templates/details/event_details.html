@@ -1,0 +1,75 @@
+{% load static %}
+<!-- EventLog Details Section -->
+<div class="row p-2 justify-content-center align-items-center g-2 text-start">
+
+    <!--Profile User icon-->
+    <spam class="col-12 text-center" href=".">
+        <img alt="user logo" src="{% static 'img/profile-log.svg' %}" width="150" height="150"
+            class="img-fluid rounded-3 fs-6 bg-dark p-2 user-icon-large">
+        <br>
+    </spam>
+
+    <!--Profile user name-->
+    <span id="detailed_event_type"
+        class="col-12 bg-warning text-dark fw-bold text-nowrap overflow-auto text-center">
+        LABEL
+    </span>
+
+    <!--Event log title -->
+    <span class="col-6 text-nowrap overflow-hidden">
+        Title:
+    </span>
+    <spam id="detailed_event_title" class="col-6 text-nowrap overflow-hidden">
+        TITLE
+    </spam>
+
+    <!--Separation line-->
+    <span class="col-12 border border-dark"></span>
+
+    <!--Event log description -->
+    <span class="col-6 text-nowrap overflow-hidden">
+        Message:
+    </span>
+    <span id="detailed_event_message" class="col-6 text-wrap">
+        En este apartado se encuentra
+        la descripcion de una traza de
+        evento producida por el usuario`
+    </span>
+
+    <!--Separation line-->
+    <span class="col-12 border border-dark"></span>
+
+    <spam class="col-6 text-nowrap overflow-hidden">
+        Fecha:
+    </spam>
+    <span class="col-6 text-nowrap overflow-hidden" id="userBlodGroup">
+        <time>
+            <b id="detailed_event_date">
+                event date here
+            </b>
+        </time>
+    </span>
+
+    <!--Event Log Action Buttons -->
+    <div class="col-12">
+        <div class="row justify-content-end p-2">
+
+            <!-- Dialog Close Button -->
+            <button type="button" class="col-12 col-sm btn btn-sm btn-secondary m-2"
+                data-bs-dismiss="modal" data-bs-target="#eventLogDetailsDialog">
+                <img src="{% static 'img/delete-light.svg' %}" width="20" height="20"
+                    class="img-fluid mb-1 me-1 d-none d-sm-inline">
+                CERRAR
+            </button>
+
+            <!-- EventLog Supress-->
+            <a id="detailed_event_supress_link" href="#" class="col-12 col-sm btn btn-sm btn-danger m-2">
+                <img src="{% static 'img/delete-log.svg' %}" width="20" height="20"
+                    class="img-fluid mb-1 me-1">
+                SUPRIMIR
+            </a>
+
+        </div>
+    </div>
+
+</div>

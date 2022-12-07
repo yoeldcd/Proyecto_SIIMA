@@ -30,15 +30,15 @@
                         <!-- Show profile options if is user logged -->
 
                         <!--Profile User icon-->
-                        <a class="col-10" href="{{ profile_url }}">
+                        <a class="col-10" href="/{{system_user.system_role}}/{{system_user.id}}">
                             <img class="img img-rounded rounded-5 fs-6 bg-gray user-icon" alt="user logo"
-                                src="{{ profile_icon }}" width="50" height="50">
+                                src="{% static 'img/profiles/' %}{{ system_user.icon_path }}" width="50" height="50">
                         </a>
 
                         <!--Profile User name-->
                         <div
                             class="col-10 p-0 text-center text-nowrap overflow-hidden text-decoration-underline only-text">
-                            {{ user.username }}
+                            {{ system_user.username }}
                         </div>
 
                         <!--Profile Exit button-->
@@ -85,7 +85,7 @@
 
                         <!--  Define type_user rol links -->
 
-                        {% if profile_type == 'ADMIN' %}
+                        {% if system_user.system_role == 'admin' %}
                         <a href="{% url 'patients' %}" class="col-2 nav-link navbar-link">
                             PACIENTES
                         </a>
@@ -96,12 +96,12 @@
                             EVENTOS
                         </a>
 
-                        {% elif profile_type == 'WORKER' %}
+                        {% elif system_user.system_role == 'worker' %}
                         <a href="{% url 'tests' %}" class="col-2 nav-link navbar-link">
                             EXAMANES
                         </a>
-
-                        {% elif profile_type == 'PATIENT' %}
+                        
+                        {% elif system_user.system_role == 'patient' %}
                         <a href="{% url 'results' %}" class="col-2 nav-link navbar-link">
                             RESULTADOS
                         </a>
@@ -126,9 +126,9 @@
                 {% if user.is_authenticated == True %}
                 <!-- Show profile icon if is user logged -->
 
-                <a href="{{ profile_url }}">
+                <a href="/{{system_user.system_role}}/{{system_user.id}}">
                     <img class="img img-rounded rounded-5 fs-6 bg-gray user-icon" alt="user logo"
-                        src="{{ profile_icon }}" width="80" height="80">
+                        src="{% static 'img/profiles/' %}{{ system_user.icon_path }}" width="80" height="80">
                 </a>
 
                 {% else %}
@@ -157,11 +157,11 @@
                 class="col-12 row justify-content-between text-ligth m-0 fs-6 text-nowrap overflow-hidden user-name">
 
                 <!-- only show profile options if is user logged -->
-                {% if user.is_authenticated == True %}
+                {% if system_user.is_authenticated == True %}
 
                 <!--Profile user name-->
                 <span class="col-8 text-nowrap overflow-hidden ps-3 user-name">
-                    {{ user.username }}
+                    {{ system_user.username }}
                 </span>
 
                 <!--Profile Exit button-->
@@ -187,7 +187,7 @@
 
             <!-- Rendering offcanvas type_user links -->
 
-            {% if profile_type == 'ADMIN' %}
+            {% if system_user.system_role == 'admin' %}
             <a href="{% url 'patients' %}" class="col-12 nav-link offcanvas-link ps-3 fs-4">
                 PACIENTES
             </a>
@@ -198,17 +198,17 @@
                 EVENTOS
             </a>
 
-            {% elif profile_type == 'WORKER' %}
+            {% elif system_user.system_role == 'worker' %}
             <a href="{% url 'tests' %}" class="col-12 nav-link offcanvas-link ps-3 fs-4">
                 EXAMANES
             </a>
 
-            {% elif profile_type == 'PATINT' %}
+            {% elif system_user.system_role == 'patient' %}
             <a href="{% url 'results' %}" class="col-12 nav-link offcanvas-link ps-3 fs-4">
                 RESULTADOS
             </a>
             {% endif %}
-
+        
         </div>
     </div>
 

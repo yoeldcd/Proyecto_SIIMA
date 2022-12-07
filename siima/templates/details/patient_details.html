@@ -9,7 +9,7 @@
             src="/static/img/profiles/{{ detailed_patient.icon_path }}"
             width="150" height="150" id="detailed_patient_icon">
     </spam>
-
+    
     <!-- Profile Username-->
     <span class="col-12 text-nowrap overflow-hidden text-center user-name-label" id="detailed_patient_username">
         {{ detailed_patient.username }}
@@ -81,7 +81,9 @@
     <!-- User Profile Action Buttons -->
     <div class="col-12 text-center">
         <div class="row justify-content-center">
-
+            
+            {% if system_user.is_superuser %}
+            
             <!--User Events Log Option-->
             <a href="/events/?user_id={{ detailed_patient.id }}" class="col-12 col-sm btn btn-sm --button m-2"
                 id="detailed_patient_events_link">
@@ -89,6 +91,8 @@
                     class="img-fluid mb-1 me-1">
                 EVENTOS
             </a>
+            
+            {% endif %}
 
             <!-- User Edit Option-->
             <a href="/patient/edit/{{ detailed_patient.id }}" class="col-12 col-sm btn btn-sm --button m-2"
@@ -105,7 +109,7 @@
                     class="img-fluid mb-1 me-1">
                 SUPRIMIR
             </a>
-
+        
         </div>
     </div>
 </div>

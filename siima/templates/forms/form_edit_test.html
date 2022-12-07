@@ -1,8 +1,8 @@
 {% load static %}
 <!-- Test addition formulary -->
-<form action="/tests/resolve/" method="post" class="form">
+<form id="resolve_test_form" action="/tests/resolve/" method="post" class="form">
     {% csrf_token %}
-
+    
     <fieldset class="col-12 form-group m-2 text-start" id="testDetails">
 
         <!-- Test description area -->
@@ -28,7 +28,7 @@
             <input class="col-8 form-input" id="test_ID" name="id" readonly>
 
         </div>
-
+        
         <!--Test resolution -->
         <fieldset class="row p-1 g-1">
             <div class="col-12 text-start">
