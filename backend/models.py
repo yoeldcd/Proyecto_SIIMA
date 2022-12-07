@@ -395,36 +395,33 @@ class WorkerManager:
                         actions += '-v '
                     else:
                         edited_worker.user_permissions.remove(permissions.get(codename='view_test_list'))
+                # (grant or revoke) permission to add a test
+                if 'permission_create' in q_params and q_params.get('permission_create') == 'yes':
+                    edited_worker.user_permissions.add(permissions.get(codename='view_test_list'))
+                    edited_worker.user_permissions.add(permissions.get(codename='create_test'))
+                    actions += '-c '
+                else:
+                    edited_worker.user_permissions.remove(permissions.get(codename='create_test'))
 
-                if 'permission_create' in q_params:
-                    # (grant or revoke) permission to add a test
-                    if q_params.get('permission_create') == 'yes':
-                        edited_worker.user_permissions.add(permissions.get(codename='view_test_list'))
-                        edited_worker.user_permissions.add(permissions.get(codename='create_test'))
-                        actions += '-c '
-                    else:
-                        edited_worker.user_permissions.remove(permissions.get(codename='create_test'))
+                
+                # (grant or revoke)  permission to resolve a test
+                if 'permission_resolve' in q_params and q_params.get('permission_resolve') == 'yes':
+                    edited_worker.user_permissions.add(permissions.get(codename='view_test_list'))
+                    edited_worker.user_permissions.add(permissions.get(codename='resolve_test'))
+                    actions += '-r '
+                else:
+                    edited_worker.user_permissions.remove(permissions.get(codename='resolve_test'))
 
-                if 'permission_resolve' in q_params:
-                    # (grant or revoke)  permission to modify a test
-                    if q_params.get('permission_resolve') == 'yes':
-                        edited_worker.user_permissions.add(permissions.get(codename='view_test_list'))
-                        edited_worker.user_permissions.add(permissions.get(codename='resolve_test'))
-                        actions += '-r '
-                    else:
-                        edited_worker.user_permissions.remove(permissions.get(codename='resolve_test'))
-
-                if 'permission_notify' in q_params:
-                    # (grant or revoke)  permission to notify a test
-                    if q_params.get('permission_notify') == 'yes':
-                        edited_worker.user_permissions.add(permissions.get(codename='view_test_list'))
-                        edited_worker.user_permissions.add(permissions.get(codename='notify_test'))
-                        actions += '-n '
-                    else:
-                        edited_worker.user_permissions.remove(permissions.get(codename='notify_test'))
+                # (grant or revoke)  permission to notify a test
+                if 'permission_notify' in q_params and q_params.get('permission_notify') == 'yes':
+                    edited_worker.user_permissions.add(permissions.get(codename='view_test_list'))
+                    edited_worker.user_permissions.add(permissions.get(codename='notify_test'))
+                    actions += '-n '
+                else:
+                    edited_worker.user_permissions.remove(permissions.get(codename='notify_test'))
 
             edited_worker.actions = actions
-
+        
         log_message = f'UPDATED: Worker { edited_worker }'
         
         # store updated worker on DB
