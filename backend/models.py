@@ -9,24 +9,29 @@ from datetime import datetime
 
 ###############################################################################
     
+# State code values
 INTERNAL_ERROR = -100
-UNREGISTRED_INSTANCE = -10
-DUPLICATED_INSTANCE = -7
-INVALID_CREDENTIAL = -9
+UNREGSTRED_EVENT = -30
+UNREGISTRED_TEST = -21
+DUPLICATED_TEST = -20
+UNREGISTRED_PROFILE = -11
+DUPLICATED_PROFILE = -10
+INVALID_CREDENTIAL = -7
 INVALID_PROFILE_DATA = -2
 NOT_AUTENTICATED = -1
+
 ERROR = 0
 SUCCESS = 279
 
 class SystemUser(User):
     
-    ci = CharField(max_length=12, null=False)
+    ci = CharField(max_length=12, null=False, unique=True)
     phone = CharField(max_length=11, null=True)
     age = IntegerField(null=False, default=0)
     sex = CharField(max_length=2, null=False, default='M')
     icon_path = CharField(max_length=128, null=False, default='default_profile.png')
     system_role = CharField(max_length=128, null=False, default='patient')
-
+    
     def __str__(self):
         text = f"""
             system_role: {self.system_role},
@@ -66,7 +71,7 @@ class SystemUserManager:
             response['system_user'] = SystemUser.objects.get(id=user_id)
             return SUCCESS
         except SystemUser.DoesNotExist:
-            return UNREGISTRED_INSTANCE
+            return UNREGISTRED_PROFILE
     
     def authenticate_user(req:HttpRequest, params:dict, response:dict):
         username = params.get('username')
@@ -80,7 +85,7 @@ class SystemUserManager:
             existe_profile = True
         except:
             EventManager.log_system_event('WARNING','AUTHENTICATION FAIL',f'Not registred user {username} intento iniciar sesion con password {password}')
-            return UNREGISTRED_INSTANCE
+            return UNREGISTRED_PROFILE
             
         # authenticate profile
         auth_user = authenticate(username=username, password=password)
@@ -101,7 +106,6 @@ class SystemUserManager:
         # finish current user sesion
         EventManager.log_user_event(req.user,'LOG','USER LOGGOUT',f'User {req.user.username} cerro su sesion ')    
         logout(req)
-        
 
 ###############################################################################
 class Patient(SystemUser):
@@ -147,7 +151,7 @@ class PatientManager:
                 
             )
         except IntegrityError:
-            return DUPLICATED_INSTANCE
+            return DUPLICATED_PROFILE
         
         # define patient profile permissions
         new_patient.user_permissions.add(
@@ -179,7 +183,7 @@ class PatientManager:
             response['patient'] = Patient.objects.get(id=patient_id)
             return SUCCESS
         except Patient.DoesNotExist:
-            return UNREGISTRED_INSTANCE
+            return UNREGISTRED_PROFILE
     
     def update_patient_user_by_id(req:HttpRequest, system_user:SystemUser, patientID:int, q_params:dict, response:dict):
         changed_credentials = False
@@ -188,7 +192,7 @@ class PatientManager:
             # get updated patient asociate to ID from DB
             updated_patient = Patient.objects.get(id=patientID)
         except Patient.DoesNotExist:
-            return UNREGISTRED_INSTANCE
+            return UNREGISTRED_PROFILE
         
         ### update patient with new params fields values ##
         
@@ -239,7 +243,7 @@ class PatientManager:
             # store updated patient on DB 
             updated_patient.save()
         except IntegrityError:
-            return DUPLICATED_INSTANCE
+            return DUPLICATED_PROFILE
         
         # reauthenticate
         if changed_credentials & updated_patient.id == system_user.id:
@@ -261,7 +265,7 @@ class PatientManager:
             response['patient'] = supressed_patient
             
         except Patient.DoesNotExist:
-            return UNREGISTRED_INSTANCE
+            return UNREGISTRED_PROFILE
         
         # LOG ACTION
         EventManager.log_user_event(system_user, EventType.WARNING, 'PATIENT PROFILE SUPRESSED', f'El perfil del paciente {supressed_patient.username} fue suprimido por {system_user.username}')
@@ -312,7 +316,7 @@ class WorkerManager:
                 role = str(params.get('role'))
             )
         except IntegrityError:
-            return DUPLICATED_INSTANCE
+            return DUPLICATED_PROFILE
         
         # (grant or not) super_user role
         if params.get('permission_root') == 'true':
@@ -358,7 +362,7 @@ class WorkerManager:
             # store worker on DB
             new_worker.save()
         except IntegrityError:
-            return DUPLICATED_INSTANCE
+            return DUPLICATED_PROFILE
         
         # LOG ACTION
         EventManager.log_user_event(system_user, EventType.LOG, 'WORKER PROFILE CREATED', f'El perfil del trabajador {new_worker.username} fue creado por {system_user.username}')
@@ -373,9 +377,9 @@ class WorkerManager:
             response['worker'] = Worker.objects.get(id=worker_id)
             return SUCCESS
         except Worker.DoesNotExist:
-            return UNREGISTRED_INSTANCE
+            return UNREGISTRED_PROFILE
         except IntegrityError:
-            return DUPLICATED_INSTANCE
+            return DUPLICATED_PROFILE
         
     def update_worker_user_by_id(req:HttpRequest, system_user:SystemUser, worker_id:int, q_params:dict, response:dict):
         changed_credentials = False
@@ -384,7 +388,7 @@ class WorkerManager:
             # get updated worker asociated to ID from DB
             updated_worker = Worker.objects.get(id=worker_id) 
         except Worker.DoesNotExist:
-            return UNREGISTRED_INSTANCE
+            return UNREGISTRED_PROFILE
         
         # update worker with new param fields values
         field = 'username'
@@ -512,7 +516,7 @@ class WorkerManager:
             # store updated worker on DB
             updated_worker.save()
         except IntegrityError:
-            return DUPLICATED_INSTANCE
+            return DUPLICATED_PROFILE
         
         # reauthenticate
         if changed_credentials & updated_worker.id == system_user.id:
@@ -534,7 +538,7 @@ class WorkerManager:
             response['worker'] = supressed_worker
             
         except Worker.DoesNotExist:
-            return UNREGISTRED_INSTANCE
+            return UNREGISTRED_PROFILE
         
         # LOG ACTION
         EventManager.log_user_event(system_user, EventType.WARNING, 'WORKER PROFILE SUPRESSED', f'El perfil del trabajador {supressed_worker.username} fue suprimido por {system_user.username}')
@@ -546,7 +550,7 @@ class Test(Model):
     type = CharField(max_length=32, default='uncategorized')
     state = CharField(max_length=32, default='waiting')
     patientCI = CharField(max_length=12, default='00000000000')
-    testID = CharField(max_length=12, null=False, default="0000")
+    testID = CharField(max_length=12, null=False, default="0000", unique=True)
     result = CharField(max_length=256, null=True)
     begin_date = DateField(null=False, auto_now=True)
     resolution_date = DateField(null=True)
@@ -558,48 +562,47 @@ class TestManager:
         try:
             return Test.objects.get(id = id)
         except Test.DoesNotExist:
-            print('Not exists')
-            return None
+            return UNREGISTRED_TEST
         except Test.MultipleObjectsReturned:
-            print('Multiplied')
-            return None
+            return DUPLICATED_TEST
     
-    def list_tests(system_user:SystemUser, q_params:dict, response:dict):
+    def filter_tests(system_user:SystemUser, q_params:dict, response:dict):
         detailed_patient = None
         object_list = None
         
         # get test filter params
         unnotified_only = q_params.get('unnotified_only')
-        patient_id = q_params.get('patient_id')
         patient_ci = q_params.get('patient_ci')
         first_date = q_params.get('first_date')
         last_date = q_params.get('last_date')
         
         try:
             
-            if patient_id or patient_ci is not None:
+            if patient_ci is not None:
                 
                 try:
                     # get user profile associated to ID or CI from DB
-                    detailed_patient = Patient.objects.get(Q(id=patient_id) or Q(ci = patient_ci))
-                except Patient.DoesNotExist:
-                    return UNREGISTRED_INSTANCE
+                    detailed_patient = Patient.objects.get(Q(ci = patient_ci))
                 
-                except Patient.MultipleObjectsReturned:
-                    return DUPLICATED_INSTANCE
+                except Patient.DoesNotExist:
+                    return UNREGISTRED_PROFILE
                 
                 except InternalError:
                     return INTERNAL_ERROR
 
                 # filter only tests associated to profile
                 sql_query = Test.objects.filter(patientCI = detailed_patient.ci)
+
+            else:
+                # select all test
+                sql_query = Test.objects.all()
             
             # filter test by state    
             if unnotified_only is not None:
                 sql_query = sql_query.filter(~Q(state = 'notified'))
             else:
                 sql_query = sql_query.all()
-
+            
             # filter test by time range
             
             # response filtereds tests
@@ -623,7 +626,7 @@ class TestManager:
             )
             response['test'] = new_test
         except IntegrityError:
-            return DUPLICATED_INSTANCE
+            return DUPLICATED_TEST
         except InternalError:
             return INTERNAL_ERROR
         
@@ -645,7 +648,7 @@ class TestManager:
             response['test'] = updated_test
 
         except Test.DoesNotExist:
-            return UNREGISTRED_INSTANCE
+            return UNREGISTRED_TEST
         except InternalError:
             return INTERNAL_ERROR
             
@@ -666,7 +669,7 @@ class TestManager:
             response['test'] = updated_test
             
         except Test.DoesNotExist:
-            return UNREGISTRED_INSTANCE
+            return UNREGISTRED_TEST
         
         except InternalError:
             return INTERNAL_ERROR
@@ -682,7 +685,7 @@ class TestManager:
             response['test'] = supresssed_test    
                 
         except Test.DoesNotExist:
-            return UNREGISTRED_INSTANCE
+            return UNREGISTRED_TEST
         
         except InternalError:
             return INTERNAL_ERROR
@@ -728,8 +731,8 @@ class EventManager:
             
             ## Chack profile state ##
             
-            if state == UNREGISTRED_INSTANCE:
-                return UNREGISTRED_INSTANCE
+            if state == UNREGISTRED_PROFILE:
+                return UNREGISTRED_PROFILE
             elif state == INTERNAL_ERROR:
                 return INTERNAL_ERROR
             else:
@@ -782,10 +785,11 @@ class EventManager:
         
         try:
             SystemEvent.objects.get(id=event_id).delete()
-            return True
-        except SystemEvent.DoesNotExist:
-            return False
 
+        except SystemEvent.DoesNotExist:
+            return UNREGSTRED_EVENT
+        
+        return SUCCESS
 
 # SYSTEM PEMISSIONS ##################################################################
 

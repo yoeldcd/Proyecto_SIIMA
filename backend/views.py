@@ -29,7 +29,7 @@ class AuthView(View):
         state = SystemUserManager.authenticate_user(req, req.GET, response)
         
         # check authentication state
-        if state == UNREGISTRED_USER:
+        if state == UNREGISTRED_PROFILE:
             query_message = f'ERROR: Usuario no registrado'
         
         elif state == INVALID_CREDENTIAL:
@@ -131,11 +131,11 @@ class SignoutPatientView(PermissionRequiredMixin, View):
         response = {'supressed_patient': None }
         
         # try to supress profile
-        system_user = SystemUserManager.get_system_user(req.user)
-        state = PatientManager.supress_patient_user(system_user, user_id, q_params, response)
+        system_user = SystemUserManager.get_registred_system_user(req.user)
+        state = PatientManager.supress_patient_user_by_id(system_user, user_id, q_params, response)
         
         # check supression state
-        if state == UNREGISTRED_USER:
+        if state == UNREGISTRED_PROFILE:
             query_message = "ERROR: El perfil no esta registrado"
         
         elif state == ERROR:
@@ -203,7 +203,7 @@ class EditPatientView(PermissionRequiredMixin, FormView):
         
         ### check user registration ###
         
-        if state == UNREGISTRED_USER:
+        if state == UNREGISTRED_PROFILE:
             query_message = 'ERROR: Paciente no registrado'
             
         else:
@@ -267,7 +267,7 @@ class UpdatePatientView(PermissionRequiredMixin, UpdateView):
         
         ### check user registration ###
         
-        if state == UNREGISTRED_USER:
+        if state == UNREGISTRED_PROFILE:
             query_message = 'ERROR: Paciente no registrado'
             
         if state == DUPLICATED_PROFILE:
@@ -380,7 +380,7 @@ class SignoutWorkerView(PermissionRequiredMixin, View):
         
         ### check supression state ###
         
-        if state == UNREGISTRED_USER:
+        if state == UNREGISTRED_PROFILE:
             query_message = "ERROR: El perfil no esta registrado"
         
         elif state == ERROR:
@@ -444,7 +444,7 @@ class EditWorkerView(PermissionRequiredMixin, FormView):
         
         ### check user registration ###
         
-        if state == UNREGISTRED_USER:
+        if state == UNREGISTRED_PROFILE:
             query_message = 'ERROR: Perfil no registrado'
             
         else:
@@ -504,7 +504,7 @@ class UpdateWorkerView(PermissionRequiredMixin, UpdateView):
         
         ### Check profile updates ###
         
-        if state == UNREGISTRED_USER:
+        if state == UNREGISTRED_PROFILE:
             query_message = 'ERROR: Trabajador no registrado'
             
         if state == DUPLICATED_PROFILE:
@@ -574,11 +574,10 @@ class AddTestView(PermissionRequiredMixin, View):
         
         ### Check test creation state ###
         
-        if state == DUPLICATED_INSTANCE:
+        if state == DUPLICATED_TEST:
             query_message = 'ERROR: No se pudo crear el analisis porque el id ya esta siendo utilizado por otro en proceso, CAMBIELO E INTENTELO DE NUEVEO'
         
-            
-        if state == INTERNAL_ERROR:
+        elif state == INTERNAL_ERROR:
             query_message = 'ERROR: No se pudo crear el analisis por un ERROR interno, INTENTELO DE NUEVEO'
         
         else:
@@ -634,7 +633,7 @@ class NotifyTestView(PermissionRequiredMixin, View):
         ### Try to notify test associted to ID ###
         
         system_user = SystemUserManager.get_registred_system_user(req.user)
-        state = TestManager.notify_test_by_id(system_user, test_id, params, response)
+        state = TestManager.notify_test_by_id(system_user, test_id, response)
         
         ### Check test notification state ###
         
@@ -658,28 +657,40 @@ class TestListView(PermissionRequiredMixin, ListView):
     permission_required = ('backend.view_test_list')
     
     def get(self, req:HttpRequest):
-        q_params = req.GET
-        query_message = q_params['query_message']
+        q_params = dict(req.GET)
+        query_message = q_params.get('query_message')
+        response = { 'object_list': None, 'patient': None }
+        
+        # define default filter param
+        q_params['unnotified_only'] = True
         
         # get logged user profile
         system_user = SystemUserManager.get_registred_system_user(req.user)
-        object_list = TestManager.list_all_unnotified_tests(q_params)
+        state = TestManager.filter_tests(system_user, q_params, response)
+        
+        ### Check query state ###
+        
+        if state == UNREGISTRED_PROFILE:
+            query_message = 'ERROR: Paciente no registrado'
+            
+        elif state == INTERNAL_ERROR:
+            query_message = 'ERROR: No pudo obtenerse la lista de analisis por un ERROR interno, INTENTELO DE NUEVO'
+        
+        ### Make HTTP Response ###
         
         # define context values
         context = {
             'current_time': datetime.now,
             'query_message': query_message,
             'system_user': system_user,
-            'object_list': object_list,
+            'detailed_patient': response['patient'],
+            'object_list': response['object_list']
         }
         
         # renderize test list view
         return render(req, self.template_name, context)
 
-
-
 ### RESULTS MANAGEMENT VIEWS ##########################################################
-
 
 class SupressResultView(PermissionRequiredMixin, View):
     permission_required = ('backend.delete_result')
@@ -708,7 +719,6 @@ class SupressResultView(PermissionRequiredMixin, View):
         return redirect(reverse('tests')+'?'+urlencode({
             'query_message': query_message
         }))
-        
 
 # VISUAL ##############################################################################
 
@@ -717,24 +727,55 @@ class ResultListView(PermissionRequiredMixin, ListView):
     permission_required = ('backend.view_result_list')
     
     def get(self, req:HttpRequest):
-        query_message = req.GET
-        system_patient = PatientManager.get_patient_user(req.user)
+        q_params = dict(req.GET)
+        query_message = q_params.get('query_message')
+        response = {'object_list': None, 'patient': None }
         
-        if system_patient is None:
-            query_message = 'ERROR: No identified patient'
+        # get logued patient profile
+        system_patient = PatientManager.get_registred_patient_user(req.user)
         
-        # get a list of test asociateds to patient
-        object_list = TestManager.list_all_patient_tests(system_patient)
+        # get test associateds to patient profile
+        q_params['patient_ci'] = system_patient.ci
+        state = TestManager.filter_tests(system_patient, q_params, response)
         
+        ### Check query state ###
+        
+        if state == INTERNAL_ERROR:
+            query_message = 'ERROR: No pudimos obtener la lista de resultados por un ERROR interno, INTENTALO DE NUEVO'
+        
+        ### Make HTTP Response ###
+        
+        # define ontext values
         context = {
             'current_time': datetime.now,
-            'query_message': req.GET.get('query_message'),
+            'query_message': query_message,
             'system_user': system_patient,
-            'object_list': object_list,
+            'object_list': response['object_list']
         }
         
+        # renderize patient test list view page
         return render(req, self.template_name, context)
 
+
+### RESULTS MANAGEMENT VIEWS ##########################################################
+
+
+class SupressEventView(PermissionRequiredMixin, View):
+    template_name = 'event_list.html'
+    permission_required = ('backend.delete_event')
+    
+    def get(self, req, event_id):
+        query_message = ''
+        
+        # delete log of DB model 
+        if EventManager.supress_event_by_id(event_id):
+            query_message = 'SUCESS: Event Log deleted'
+        else:
+            query_message = 'ERROR: Event Log not deleted'
+        
+        return redirect('/events/?'+urlencode({
+            'query_message': query_message
+        }))
 
 # VISUAL ##############################################################################
 
@@ -755,16 +796,16 @@ class EventListView(PermissionRequiredMixin, ListView):
         object_list = None
         response = {'user': None, 'object_list': None }
         
-        ### Get detailed events user profile asocited to ID from DB ###
+        ### Filter events from DB ###
         
-        state = EventManager.list_all_events(q_params, response)
+        state = EventManager.filter_events(q_params, response)
         
         ### Check event fetch state ###
             
         if state == INTERNAL_ERROR:
             query_message = 'ERROR: No se pudo acceder a los eventos del perfil por un ERROR interno, INTENTELO DE NUEVO'
         
-        if state == UNREGISTRED_INSTANCE:
+        if state == UNREGISTRED_PROFILE:
             query_message = 'ERROR: Usuario no registrado'
 
         else:
@@ -783,22 +824,21 @@ class EventListView(PermissionRequiredMixin, ListView):
         # renderize profile event list view page
         return render(req, self.template_name, context)
 
-class SupressEventView(PermissionRequiredMixin, View):
-    
-    query_message = ""
-    template_name = 'event_list.html'
-    permission_required = ('backend.delete_event')
-    
-    def get(self, req, event_id):
-        query_message = ''
 
-        # delete log of DB model 
-        if EventManager.supress_event_by_id(event_id):
-            query_message = 'SUCESS: Event Log deleted'
-        else:
-            query_message = 'ERROR: Event Log not deleted'
-        
-        return redirect('/events/?'+urlencode({
-            'query_message': query_message
-        }))
+# Custom template filter 
 
+from django import template
+
+register = template.Library()
+
+@register.filter('replace')
+def replace(value, arg):
+    """
+    Replacing filter
+    Use `{{ "aaa"|replace:"a|b" }}`
+    """
+    if len(arg.split('|')) != 2:
+        return value
+    
+    what, to = arg.split('|')
+    return value.replace(what, to)

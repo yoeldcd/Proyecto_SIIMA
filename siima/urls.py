@@ -24,7 +24,7 @@ urlpatterns = [
     path('patient/update/<int:user_id>', login_required(UpdatePatientView.as_view()), name='update_patient'),
     path('patient/supress/<int:user_id>', login_required(SignoutPatientView.as_view()), name='signout_patient'),
     path('patient/', login_required(PatientProfileView.as_view()), name='patient'),
-    
+     
     # worker's management views
     path('workers/', login_required(WorkerListView.as_view()), name='workers'),
     path('worker/sigin/', SiginWorkerView.as_view(), name='sigin_worker'),
