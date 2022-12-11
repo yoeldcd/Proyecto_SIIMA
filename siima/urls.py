@@ -20,19 +20,19 @@ urlpatterns = [
     # patients's management views
     path('patients/', login_required(PatientListView.as_view()), name='patients'),
     path('patient/sigin/', SiginPatientView.as_view(), name='sigin_patient'),
-    path('patient/edit/<int:user_id>', login_required(EditPatientView.as_view()), name='sigin_patient'),
-    path('patient/update/<int:user_id>', login_required(EditPatientView.as_view()), name='sigin_patient'),
-    path('patient/supress/<int:user_id>', login_required(SignoutPatientView.as_view()), name='sigou_patient'),
-    path('patient/<int:user_id>', login_required(PatientProfileView.as_view()), name='patient'),
+    path('patient/edit/<int:user_id>', login_required(EditPatientView.as_view()), name='edit_patient'),
+    path('patient/update/<int:user_id>', login_required(UpdatePatientView.as_view()), name='update_patient'),
+    path('patient/supress/<int:user_id>', login_required(SignoutPatientView.as_view()), name='signout_patient'),
+    path('patient/', login_required(PatientProfileView.as_view()), name='patient'),
     
     # worker's management views
     path('workers/', login_required(WorkerListView.as_view()), name='workers'),
     path('worker/sigin/', SiginWorkerView.as_view(), name='sigin_worker'),
-    path('worker/edit/<int:user_id>', login_required(EditWorkerView.as_view()), name='sigin_patient'),
-    path('worker/update/<int:user_id>', login_required(EditWorkerView.as_view()), name='sigin_patient'),
-    path('worker/supress/<int:user_id>', login_required(SignoutWorkerView.as_view()), name='sigin_patient'),
-    path('worker/<int:user_id>/', login_required(WorkerProfileView.as_view()), name='worker'),
-    path('admin/<int:user_id>/', login_required(WorkerProfileView.as_view()), name='admin'),
+    path('worker/edit/<int:user_id>', login_required(EditWorkerView.as_view()), name='edit_worker'),
+    path('worker/update/<int:user_id>', login_required(UpdateWorkerView.as_view()), name='update_worker'),
+    path('worker/supress/<int:user_id>', login_required(SignoutWorkerView.as_view()), name='signout_worker'),
+    path('worker/', login_required(WorkerProfileView.as_view()), name='worker'),
+    path('admin/', login_required(WorkerProfileView.as_view()), name='admin'),
     
     # test management views
     path('tests/', login_required(TestListView.as_view()), name='tests'),
