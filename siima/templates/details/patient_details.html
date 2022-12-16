@@ -10,10 +10,17 @@
             width="150" height="150" id="detailed_patient_icon">
     </spam>
     
-    <!-- Profile Username-->
-    <span class="col-12 text-nowrap overflow-hidden text-center user-name-label" id="detailed_patient_username">
-        {{ detailed_patient.username }}
-    </span>
+    <!-- Profile Username-CI-->
+    <div class="col-12 text-nowrap overflow-hidden text-center user-name-label">
+        <spam id="detailed_patient_username">
+            {{ detailed_patient.username }}
+        </spam>
+        <br>
+        CI: 
+        <spam id="detailed_patient_ci">
+            {{ detailed_patient.ci }}
+        </spam>
+    </div>
     
     <!-- Profile Name -->
     <span class="col-6 text-nowrap overflow-hidden">

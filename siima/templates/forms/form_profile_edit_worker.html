@@ -229,8 +229,8 @@
             <input type="password" name="password" id="worker_password" maxlength="30"
                 placeholder="Teclee su c0ntr4s3&ntilde;4"
                 {% if edited_worker is None %}required{% endif %}
-                onkeyup="mathInputs('userPassword','worker_password2')" class="form-control form-input">
-
+                onkeyup="mathInputs('worker_password','worker_password2')" class="form-control form-input">
+            
             <!--See password button-->
             <span class="input-group-text"
                 onclick="switchPasswordVisibility('worker_password','seeUserPasswordImage')">
@@ -248,7 +248,7 @@
                 {% if edited_worker is None %}required{% endif %}
                 onkeyup="mathInputs('worker_password','worker_password2')"
                 class="form-control form-input">
-
+            
             <!--See password button-->
             <span class="input-group-text"
                 onclick="switchPasswordVisibility('worker_password2','seeUserPassword2Image')">

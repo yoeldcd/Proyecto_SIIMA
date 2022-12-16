@@ -1,0 +1,39 @@
+{% load static %}
+
+<!-- Requireds Scripts libs -->
+<script src="{% static 'js/alert_dialog_actions.js' %}"></script>
+
+<!-- Alert Message Modal Dialog-->
+<div id="genericMessageDialog" class="modal fade" aria-hidden="true">
+    
+    <div class="modal-dialog bd-example-modal-sm">
+        <div class="alert alert-success" id="genericMessage">
+            
+            <spam class="fs-5" id="genericMessageTitle">
+                Operaci&oacute;n Completada:
+            </spam>
+            
+            <hr>
+            
+            <spam class="alert-content" id="genericMessageDescription">
+                
+                <!-- message description here -->
+                {{ query_message }}
+            
+            </spam>
+
+        </div>
+    </div>
+
+</div>
+
+{% if query_message is not None %}
+<script>
+    
+    $(document).ready(() => {
+        console.log('started')
+        showQueryMessage("{{ query_message }}");
+    })
+    
+</script>
+{%endif %}

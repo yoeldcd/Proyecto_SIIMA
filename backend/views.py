@@ -30,10 +30,10 @@ class AuthView(View):
         
         # check authentication state
         if state == UNREGISTRED_PROFILE:
-            query_message = f'ERROR: Usuario no registrado'
+            query_message = f'ERROR, Usuario no registrado, Para usar el sistema debe crear una cuenta'
         
         elif state == INVALID_CREDENTIAL:
-            query_message = f'ERROR: Credenciales invalidas'
+            query_message = f'ERROR, Credenciales invalidas, verifique los datos introducidos e intentelo de nuevo'
         
         else:
             # state is SUCCESS:
@@ -65,9 +65,9 @@ class LoginView(FormView):
         query_message = req.GET.get('query_message')
         
         if req.user.is_authenticated:
+            query_message = f'NOTICE, { req.user.username } HA SALIDO DEL SISTEMA'
             SystemUserManager.deauthenticate_user(req)
-            query_message = f'{ req.user.username } HA SALIDO DEL SISTEMA'
-        
+            
         # define context values
         context = {
             'current_time': datetime.now,
@@ -93,9 +93,9 @@ class SiginPatientView(View):
         
         # check registration state
         if state == INVALID_CREDENTIAL:
-            query_message = 'ERROR: Duplicated profile credential'
+            query_message = 'ERROR, Credenciales duplicadas, Sus credenciales de registros ya estan siendo usadas por otro usuario. Cambielas e intente el registro nuevamente'
         else:
-            query_message = 'SUCESS: Patient Profile Registred'
+            query_message = 'SUCESS, Su cuenta se creo satisfactoriamente'
             signed = True
         
         # execute redirections
@@ -136,13 +136,13 @@ class SignoutPatientView(PermissionRequiredMixin, View):
         
         # check supression state
         if state == UNREGISTRED_PROFILE:
-            query_message = "ERROR: El perfil no esta registrado"
+            query_message = "ERROR, El perfil no esta registrado"
         
         elif state == ERROR:
-            query_message = "ERROR: No pudimos eliminar el perfil REINTENTALO LUEGO"
+            query_message = "ERROR, Perfil no eliminado, No pudimos eliminar el perfil por un error tecnico, intentelo de nuevo"
         
         else: # state is SUCCESS:
-            query_message = "SUCCESS: Patient profile supressed"
+            query_message = "SUCCESS: Perfil eliminado satisfacoriamente"
             supressed = True
         
         # Make redirections    
@@ -204,7 +204,7 @@ class EditPatientView(PermissionRequiredMixin, FormView):
         ### check user registration ###
         
         if state == UNREGISTRED_PROFILE:
-            query_message = 'ERROR: Paciente no registrado'
+            query_message = 'ERROR, Paciente no registrado'
             
         else:
             query_message = None
@@ -268,13 +268,13 @@ class UpdatePatientView(PermissionRequiredMixin, UpdateView):
         ### check user registration ###
         
         if state == UNREGISTRED_PROFILE:
-            query_message = 'ERROR: Paciente no registrado'
+            query_message = 'ERROR, Paciente no registrado'
             
         if state == DUPLICATED_PROFILE:
-            query_message = 'ERROR: Datos de perfil duplicados'
+            query_message = 'ERROR, Datos de perfil duplicados, Los datos registrados ya estan siendo usadas por otro usuario. Cambielas e intente el registro nuevamente'
             
         else:
-            query_message = 'SUCESS: Perfil de Actualizado'
+            query_message = 'SUCESS, Perfil de Actualizado satisfactoriamente'
             profile_updated = True
         
         ### make HTTPResponse ###
@@ -346,9 +346,9 @@ class SiginWorkerView(View):
         
         # check registration state
         if state == INVALID_CREDENTIAL:
-            query_message = 'ERROR: Duplicated profile credential'
+            query_message = 'ERROR, Credenciales duplicadas, Las credenciales de registros ya estan siendo usadas por otro usuario. Cambielas e intente el registro nuevamente'
         else:
-            query_message = 'SUCESS: Worker Profile Registred'
+            query_message = 'SUCESS, El perfil se creo satisfactoriamente'
         
         # execute redirections
         if system_user.system_role == 'admin':
@@ -381,13 +381,13 @@ class SignoutWorkerView(PermissionRequiredMixin, View):
         ### check supression state ###
         
         if state == UNREGISTRED_PROFILE:
-            query_message = "ERROR: El perfil no esta registrado"
+            query_message = "ERROR, El perfil no esta registrado"
         
         elif state == ERROR:
-            query_message = "ERROR: No pudimos eliminar el perfil REINTENTALO LUEGO"
+            query_message = "ERROR, Perfil no eliminado, No pudimos eliminar el perfil por un problema tecnico"
         
         else: # state is SUCCESS:
-            query_message = "SUCCESS: Perfil eliminado"
+            query_message = "SUCCESS, Perfil eliminado satisfactoramente"
             supressed = True
         
         ### Make HTTP Response ###
@@ -445,7 +445,7 @@ class EditWorkerView(PermissionRequiredMixin, FormView):
         ### check user registration ###
         
         if state == UNREGISTRED_PROFILE:
-            query_message = 'ERROR: Perfil no registrado'
+            query_message = 'ERROR, Perfil no registrado'
             
         else:
             query_message = None
@@ -505,13 +505,13 @@ class UpdateWorkerView(PermissionRequiredMixin, UpdateView):
         ### Check profile updates ###
         
         if state == UNREGISTRED_PROFILE:
-            query_message = 'ERROR: Trabajador no registrado'
+            query_message = 'ERROR, Trabajador no registrado'
             
         if state == DUPLICATED_PROFILE:
-            query_message = 'ERROR: Datos de perfil duplicados'
+            query_message = 'ERROR, Datos de perfil duplicados, Las credenciales registradas ya estan siendo usadas por otro usuario. Cambielas e intente el registro nuevamente'
             
         else:
-            query_message = 'SUCESS: Perfil del Trabajador Actualizado'
+            query_message = 'SUCESS, Perfil actualizado satisfactoriamente'
             profile_updated = True
         
         ### Make HTTP Response ###
@@ -575,13 +575,13 @@ class AddTestView(PermissionRequiredMixin, View):
         ### Check test creation state ###
         
         if state == DUPLICATED_TEST:
-            query_message = 'ERROR: No se pudo crear el analisis porque el id ya esta siendo utilizado por otro en proceso, CAMBIELO E INTENTELO DE NUEVEO'
+            query_message = 'ERROR, Analisis no creado, No se pudo crear el analisis porque el id ya esta siendo utilizado por otro en proceso. CAMBIELO E INTENTELO DE NUEVEO'
         
         elif state == INTERNAL_ERROR:
-            query_message = 'ERROR: No se pudo crear el analisis por un ERROR interno, INTENTELO DE NUEVEO'
+            query_message = 'ERROR, Analisis no creado, No se pudo crear el analisis por un ERROR interno. INTENTELO DE NUEVEO'
         
         else:
-            query_message = 'SUCCESS: El nuevo analisis fue agregado'
+            query_message = 'SUCCESS, El nuevo analisis fue agregado'
         
         ### make HTTP Response ###
         
@@ -608,10 +608,10 @@ class ResolveTestView(PermissionRequiredMixin, View):
         ### Check test update state ###
         
         if state == INTERNAL_ERROR:
-            query_message = 'ERROR: No se pudo actualizar el resultado por un ERROR interno, INTENTELO DE NUEVEO'
+            query_message = 'ERROR, Resultado no actualizado, No se pudo actualizar el resultado por un ERROR interno, INTENTELO DE NUEVEO'
         
         else:
-            query_message = 'SUCCESS: El analisis fue actualizado'
+            query_message = 'SUCCESS, Analisis actualizado satisfactoriamente'
         
         ### make HTTP Response ###
         
@@ -638,10 +638,10 @@ class NotifyTestView(PermissionRequiredMixin, View):
         ### Check test notification state ###
         
         if state == INTERNAL_ERROR:
-            query_message = 'ERROR: No se pudo enviar el analisis por un ERROR interno, INTENTELO DE NUEVEO'
+            query_message = 'ERROR, Resultado no enviado, No se pudo enviar el analisis por un ERROR interno, INTENTELO DE NUEVEO'
         
         else:
-            query_message = 'SUCCESS: El analisis fue enviado al paciente'
+            query_message = 'SUCCESS, El analisis fue enviado satisfactoriamente'
         
         ### make HTTP Response ###
         
@@ -671,10 +671,10 @@ class TestListView(PermissionRequiredMixin, ListView):
         ### Check query state ###
         
         if state == UNREGISTRED_PROFILE:
-            query_message = 'ERROR: Paciente no registrado'
+            query_message = 'ERROR, Paciente no registrado'
             
         elif state == INTERNAL_ERROR:
-            query_message = 'ERROR: No pudo obtenerse la lista de analisis por un ERROR interno, INTENTELO DE NUEVO'
+            query_message = 'ERROR, Lista no disponible, No pudo obtenerse la lista de analisis por un ERROR interno, INTENTELO DE NUEVO'
         
         ### Make HTTP Response ###
         
@@ -708,10 +708,10 @@ class SupressResultView(PermissionRequiredMixin, View):
         ### Check test supression state ###
         
         if state == INTERNAL_ERROR:
-            query_message = 'ERROR: No se pudo eliminar el analisis por un ERROR interno, INTENTELO DE NUEVEO'
+            query_message = 'ERROR, No se pudo eliminar el analisis por un ERROR interno, INTENTELO DE NUEVEO'
         
         else:
-            query_message = 'SUCCESS: El analisis fue eliminado'
+            query_message = 'SUCCESS, Analisis eliminado satisfactoriamente'
         
         ### make HTTP Response ###
         
@@ -741,7 +741,7 @@ class ResultListView(PermissionRequiredMixin, ListView):
         ### Check query state ###
         
         if state == INTERNAL_ERROR:
-            query_message = 'ERROR: No pudimos obtener la lista de resultados por un ERROR interno, INTENTALO DE NUEVO'
+            query_message = 'ERROR, Lista de resultados no disponible, No pudimos obtener la lista de resultados por un ERROR interno, INTENTALO DE NUEVO'
         
         ### Make HTTP Response ###
         
@@ -769,9 +769,9 @@ class SupressEventView(PermissionRequiredMixin, View):
         
         # delete log of DB model 
         if EventManager.supress_event_by_id(event_id):
-            query_message = 'SUCESS: Event Log deleted'
+            query_message = 'SUCESS, Event Log deleted'
         else:
-            query_message = 'ERROR: Event Log not deleted'
+            query_message = 'ERROR, Event Log not deleted'
         
         return redirect('/events/?'+urlencode({
             'query_message': query_message
@@ -803,10 +803,10 @@ class EventListView(PermissionRequiredMixin, ListView):
         ### Check event fetch state ###
             
         if state == INTERNAL_ERROR:
-            query_message = 'ERROR: No se pudo acceder a los eventos del perfil por un ERROR interno, INTENTELO DE NUEVO'
+            query_message = 'ERROR, Lista de Eventos no disponible, No se pudo acceder a los eventos del perfil por un ERROR interno, INTENTELO DE NUEVO'
         
         if state == UNREGISTRED_PROFILE:
-            query_message = 'ERROR: Usuario no registrado'
+            query_message = 'ERROR, Usuario no registrado'
 
         else:
             # get response events associeted to profile
@@ -831,7 +831,7 @@ from django import template
 
 register = template.Library()
 
-@register.filter('replace')
+@register.filter
 def replace(value, arg):
     """
     Replacing filter

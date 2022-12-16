@@ -12,11 +12,21 @@
         <br>
     </spam>
     
-    <!-- Worker profile Username -->
-    <span class="col-12 text-nowrap overflow-hidden text-center user-name-label"
-        id="detailed_worker_username">
-        {{detailed_worker.system_role}}: {{ detailed_worker.username }}
-    </span>
+    <!-- Profile Username-CI-->
+    <div class="col-12 text-nowrap overflow-hidden text-center user-name-label">
+        (<spam id="detailed_worker_system_role">
+            {{ detailed_worker.system_role }} 
+        </spam>)
+        <spam id="detailed_worker_username">
+            {{ detailed_worker.username }}
+        </spam>
+        <br>
+        CI: 
+        <spam id="detailed_worker_ci">
+            {{ detailed_worker.ci }}
+        </spam>
+
+    </div>
 
     <!-- Worker profile Names -->
     <span class="col-6 text-nowrap overflow-hidden">
@@ -63,11 +73,11 @@
     
     
     {% if system_user.system_role == 'admin' %}
-    <!-- Worker Profile Permisions Granted -->
+    <!-- Worker Profile Permited Actions -->
     <spam class="col-6 text-nowrap overflow-hidden">
         Permisos:
     </spam>
-    <span class="col-6 text-nowrap overflow-hidden" id="detailed_worker_permissions">
+    <span class="col-6 text-nowrap overflow-hidden" id="detailed_worker_actions">
         {{ detailed_worker.actions }}
     </span>
     {% endif %}

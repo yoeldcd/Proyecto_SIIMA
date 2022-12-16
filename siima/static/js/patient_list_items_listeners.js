@@ -18,6 +18,8 @@ function loadPatientItem(e){
     $('#detailed_patient_icon')[0].src = "/static/img/profiles/"+patient.icon_path;
     
     $('#detailed_patient_username').text(patient.username);
+    $('#detailed_patient_ci').text(patient.ci);
+    
     $('#detailed_patient_first_name').text(patient.first_name);
     $('#detailed_patient_last_name').text(patient.last_name);
     $('#detailed_patient_age').text(patient.age);
@@ -30,9 +32,4 @@ function loadPatientItem(e){
     $('#detailed_patient_edit_link')[0].href = '/patient/edit/'+patient.id;
     $('#detailed_patient_supress_link')[0].href = '/patient/supress/'+patient.id;
     
-}
-
-function notifyItem(){
-    let request = new XMLHttpRequest();
-    request.url = 'tests/notify/';
 }

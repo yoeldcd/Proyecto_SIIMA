@@ -30,7 +30,7 @@
                         <!-- Show profile options if is user logged -->
 
                         <!--Profile User icon-->
-                        <a class="col-10" href="/{{system_user.system_role}}/{{system_user.id}}">
+                        <a class="col-10" href="/{{system_user.system_role}}/">
                             <img class="img img-rounded rounded-5 fs-6 bg-gray user-icon" alt="user logo"
                                 src="{% static 'img/profiles/' %}{{ system_user.icon_path }}" width="50" height="50">
                         </a>
@@ -126,7 +126,7 @@
                 {% if user.is_authenticated == True %}
                 <!-- Show profile icon if is user logged -->
 
-                <a href="/{{system_user.system_role}}/{{system_user.id}}">
+                <a href="/{{system_user.system_role}}/">
                     <img class="img img-rounded rounded-5 fs-6 bg-gray user-icon" alt="user logo"
                         src="{% static 'img/profiles/' %}{{ system_user.icon_path }}" width="80" height="80">
                 </a>

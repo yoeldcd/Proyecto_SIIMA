@@ -17,15 +17,18 @@ function loadPatientItem(e){
     // store values
     $('#detailed_worker_icon')[0].src = "/static/img/profiles/"+worker.icon_path;
     
+    $('#detailed_worker_system_role').text(worker.system_role);
     $('#detailed_worker_username').text(worker.username);
+    $('#detailed_worker_ci').text(worker.ci);
+    
     $('#detailed_worker_first_name').text(worker.first_name);
     $('#detailed_worker_last_name').text(worker.last_name);
     $('#detailed_worker_age').text(worker.age);
     $('#detailed_worker_sex').text(worker.sex);
     $('#detailed_worker_role').text(worker.role);
     
-    if($('#detailed_worker_permissions'))
-        $('#detailed_worker_permissions').text(worker.permissions);
+    if($('#detailed_worker_actions'))
+        $('#detailed_worker_actions').text(worker.actions);
     
     $('#detailed_worker_last_login').text(worker.last_login);
     $('#detailed_worker_date_joined').text(worker.date_joined);
@@ -39,11 +42,4 @@ function loadPatientItem(e){
     if($('#detailed_worker_supress_link')[0])
         $('#detailed_worker_supress_link')[0].href = '/worker/supress/'+worker.id;
     
-}
-
-function notifyItem(){
-    let request = new XMLHttpRequest();
-    request.url = 'tests/notify/';
-
-
 }
