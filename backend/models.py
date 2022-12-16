@@ -63,6 +63,90 @@ class SystemUser(User):
 
 class SystemUserManager:    
     
+    def filter_users(q_params:dict, response:dict):
+        
+        object_list = None
+        sql_query = None
+        filter = dict()
+        
+        # set default query params values
+        system_roles = ""
+        username = ""
+        excluded = ""
+        first_date = '1999-01-01'
+        last_date = datetime.strftime(datetime.now(),'%Y-%m-%d')
+        
+        ## get filter params values
+        if 'filter_system_roles' in q_params:
+            system_roles = str(q_params.get('filter_system_roles') or "")
+        
+        if 'filter_username' in q_params:
+            username = str(q_params.get('filter_username') or "")
+        
+        if 'filter_range_first_date' in q_params:
+            first_date = str(q_params.get('filter_range_first_date') or "")
+        
+        if 'filter_range_last_date' in q_params:
+            last_date = str(q_params.get('filter_range_last_date') or "")
+        
+        if 'filter_excluded' in q_params:
+            excluded = q_params.get('filter_excluded')
+            excluded = excluded.split(' ')
+        
+        # define response filter values
+        filter['system_roles'] = system_roles
+        filter['username'] = username
+        filter['range_first_date'] = first_date
+        filter['range_last_date'] = last_date
+        response['filter'] = filter
+        
+        ## start DB query pipeline
+        try:
+            
+            sql_query = SystemUser.objects.all()
+            
+            # filter user by system_role
+            if not 'patient' in system_roles:
+                sql_query = sql_query.exclude(system_role='patient')
+            if not 'worker' in system_roles:
+                sql_query = sql_query.exclude(system_role='worker')
+            if not 'admin' in system_roles:
+                sql_query = sql_query.exclude(system_role='admin')
+            
+            # filter user using math usernames
+            if username != '':
+                sql_query  = sql_query.filter(username__contains=username)
+            
+            # filter using excluded usernames
+            if excluded != "":
+                sql_query = sql_query.exclude(username__in=excluded)
+            
+            # filter user by last loguin
+            if first_date != '':
+                
+                # normalize range filter
+                if last_date == '':
+                    last_date = first_date
+                
+                # format q_params str on date object
+                t_first_date = datetime.strptime(first_date,'%Y-%m-%d')
+                t_last_date = datetime.strptime(last_date,'%Y-%m-%d')
+                
+                sql_query = sql_query.filter(last_login__date__range=(t_first_date, t_last_date))
+            
+            # order and get users
+            sql_query = sql_query.order_by('first_name')
+            object_list = sql_query.values()
+            
+            # define query response values
+            response['object_list'] = object_list
+            response['filtered_username'] = username
+            
+        except InternalError:
+            return INTERNAL_ERROR
+        
+        return SUCCESS
+    
     def get_registred_system_user(user:User):
         return SystemUser.objects.get(id=user.id)
     
@@ -84,7 +168,7 @@ class SystemUserManager:
             system_user = SystemUser.objects.get(username=username)
             existe_profile = True
         except:
-            EventManager.log_system_event('WARNING','AUTHENTICATION FAIL',f'Not registred user {username} intento iniciar sesion con password {password}')
+            EventManager.warning(None, 'AUTHENTICATION FAIL',f'Not registred user {username} intento iniciar sesion con password {password}')
             return UNREGISTRED_PROFILE
             
         # authenticate profile
@@ -92,19 +176,19 @@ class SystemUserManager:
         
         # check profile authentication
         if auth_user is None:
-            EventManager.log_system_event('WARNING','AUTHENTICATION FAIL',f'User {username} intento iniciar sesion con password {password}')
+            EventManager.warning(None, 'AUTHENTICATION FAIL',f'User {username} intento iniciar sesion con password {password}')
             return INVALID_CREDENTIAL
         
         # login authenticated user    
         login(req, auth_user)
-        EventManager.log_user_event(system_user, 'LOG','AUTHENTICATION',f'User {system_user.username} con rol {system_user.system_role} inicio sesion')
+        EventManager.log(system_user, 'AUTHENTICATION',f'User {system_user.username} con rol {system_user.system_role} inicio sesion')
         
         response['system_user'] = system_user
         return SUCCESS
     
     def deauthenticate_user(req:HttpRequest):
         # finish current user sesion
-        EventManager.log_user_event(req.user,'LOG','USER LOGGOUT',f'User {req.user.username} cerro su sesion ')    
+        EventManager.log(req.user,'USER LOGGOUT',f'User {req.user.username} cerro su sesion ')    
         logout(req)
 
 ###############################################################################
@@ -124,9 +208,13 @@ class PatientManager:
         except Patient.DoesNotExist:
             return False
     
-    def list_all():
-        return Patient.objects.values()
-    
+    def filter_patients(q_params:dict, response:dict):
+        
+        # add role filter param
+        q_params['filter_system_roles'] = 'patient'
+        
+        return SystemUserManager.filter_users(q_params, response)
+        
     def get_registred_patient_user(user:User):
         return Patient.objects.get(id=user.id)
     
@@ -152,6 +240,9 @@ class PatientManager:
             )
         except IntegrityError:
             return DUPLICATED_PROFILE
+        except InternalError:
+            EventManager.error(system_user, "PROFILE INTERNAL ERROR", "Un error interno impidio la creacion de un perfil")
+            return INTERNAL_ERROR
         
         # define patient profile permissions
         new_patient.user_permissions.add(
@@ -168,9 +259,9 @@ class PatientManager:
         
         # LOG ACTION
         if system_user is not None:
-            EventManager.log_user_event(system_user, EventType.LOG, 'PATIENT PROFILE CREATED', f'El perfil del paciente {new_patient.username} fue creado por {system_user.username}')
+            EventManager.log(system_user, 'PATIENT PROFILE CREATED', f'El perfil del paciente {new_patient.username} fue creado por {system_user.username}')
         else:
-            EventManager.log_user_event(system_user, EventType.LOG, 'PATIENT PROFILE CREATED', f'El paciente {new_patient.username} creo su perfil')
+            EventManager.log(new_patient, 'PATIENT PROFILE CREATED', f'El paciente {new_patient.username} creo su perfil')
         
         # response new profile
         response['patient'] = new_patient
@@ -193,6 +284,9 @@ class PatientManager:
             updated_patient = Patient.objects.get(id=patientID)
         except Patient.DoesNotExist:
             return UNREGISTRED_PROFILE
+        except InternalError:
+            EventManager.error(system_user, "PROFILE INTERNAL ERROR", "Un error interno impidio la actualizacion de un perfil")
+            return INTERNAL_ERROR
         
         ### update patient with new params fields values ##
         
@@ -250,7 +344,7 @@ class PatientManager:
             login(req, authenticate(update_last_login, q_params['password']))
         
         # LOG ACTION
-        EventManager.log_user_event(system_user, EventType.WARNING, 'PATIENT PROFILE UPDATED', f'El perfil del paciente {updated_patient.username} fue modificado por {system_user.username}')
+        EventManager.log(system_user, 'PATIENT PROFILE UPDATED', f'El perfil del paciente {updated_patient.username} fue modificado por {system_user.username}')
         
         response['patient'] = updated_patient
         return SUCCESS
@@ -266,9 +360,12 @@ class PatientManager:
             
         except Patient.DoesNotExist:
             return UNREGISTRED_PROFILE
+        except InternalError:
+            EventManager.error(system_user, "PROFILE INTERNAL ERROR", "Un error interno impidio la supresion de un perfil")
+            return INTERNAL_ERROR
         
         # LOG ACTION
-        EventManager.log_user_event(system_user, EventType.WARNING, 'PATIENT PROFILE SUPRESSED', f'El perfil del paciente {supressed_patient.username} fue suprimido por {system_user.username}')
+        EventManager.warning(system_user, EventType.WARNING, 'PATIENT PROFILE SUPRESSED', f'El perfil del paciente {supressed_patient.username} fue suprimido por {system_user.username}')
         
         return SUCCESS
     
@@ -291,8 +388,12 @@ class WorkerManager:
         except Worker.DoesNotExist:
             return False
     
-    def list_all():
-        return Worker.objects.values()
+    def filter_workers(q_params:dict, response:dict):
+        
+        # add role filter param
+        q_params['filter_system_roles'] = 'worker admin'
+        
+        return SystemUserManager.filter_users(q_params, response)
     
     def get_registred_worker_user(user:User):
         return Worker.objects.get(id=user.id)
@@ -317,6 +418,9 @@ class WorkerManager:
             )
         except IntegrityError:
             return DUPLICATED_PROFILE
+        except InternalError:
+            EventManager.error(system_user, "PROFILE INTERNAL ERROR", "Un error interno impidio la creacion de un perfil")
+            return INTERNAL_ERROR
         
         # (grant or not) super_user role
         if params.get('permission_root') == 'true':
@@ -365,7 +469,7 @@ class WorkerManager:
             return DUPLICATED_PROFILE
         
         # LOG ACTION
-        EventManager.log_user_event(system_user, EventType.LOG, 'WORKER PROFILE CREATED', f'El perfil del trabajador {new_worker.username} fue creado por {system_user.username}')
+        EventManager.log(system_user, 'WORKER PROFILE CREATED', f'El perfil del trabajador {new_worker.username} fue creado por {system_user.username}')
         
         response['worker'] = new_worker
         return SUCCESS
@@ -389,6 +493,9 @@ class WorkerManager:
             updated_worker = Worker.objects.get(id=worker_id) 
         except Worker.DoesNotExist:
             return UNREGISTRED_PROFILE
+        except InternalError:
+            EventManager.error(system_user, "PROFILE INTERNAL ERROR", "Un error interno impidio la actualizacion de un perfil")
+            return INTERNAL_ERROR
         
         # update worker with new param fields values
         field = 'username'
@@ -523,7 +630,7 @@ class WorkerManager:
             login(req, authenticate(update_last_login, q_params['password']))
         
         # LOG ACTION
-        EventManager.log_user_event(system_user, EventType.LOG, 'WORKER PROFILE UPDATED', f'El perfil del trabajador {updated_worker.username} fue modificado por {system_user.username}')
+        EventManager.log(system_user, 'WORKER PROFILE UPDATED', f'El perfil del trabajador {updated_worker.username} fue modificado por {system_user.username}')
         
         response['worker'] = updated_worker
         return SUCCESS
@@ -539,9 +646,12 @@ class WorkerManager:
             
         except Worker.DoesNotExist:
             return UNREGISTRED_PROFILE
+        except InternalError:
+            EventManager.error(system_user, "PROFILE INTERNAL ERROR", "Un error interno impidio la eliminacion de un perfil")
+            return INTERNAL_ERROR
         
         # LOG ACTION
-        EventManager.log_user_event(system_user, EventType.WARNING, 'WORKER PROFILE SUPRESSED', f'El perfil del trabajador {supressed_worker.username} fue suprimido por {system_user.username}')
+        EventManager.warning(system_user,'WORKER PROFILE SUPRESSED', f'El perfil del trabajador {supressed_worker.username} fue suprimido por {system_user.username}')
         
         return SUCCESS    
 
@@ -565,51 +675,82 @@ class TestManager:
             return UNREGISTRED_TEST
         except Test.MultipleObjectsReturned:
             return DUPLICATED_TEST
-    
+        except InternalError:
+            EventManager.error(None, "TEST INTERNAL ERROR", "Un error interno impidio recuperacion de un analisis")
+            return INTERNAL_ERROR
+        
     def filter_tests(system_user:SystemUser, q_params:dict, response:dict):
+        
+        # response values
         detailed_patient = None
         object_list = None
+        filter = dict()
         
-        # get test filter params
-        unnotified_only = q_params.get('unnotified_only')
-        patient_ci = q_params.get('patient_ci')
-        first_date = q_params.get('first_date')
-        last_date = q_params.get('last_date')
+        # set default query params values
+        ci = ""
+        states = None
+        first_date = datetime.strftime(datetime.now(),'%Y-%m-%d')
+        last_date = first_date
         
+        # get filter params values
+        if 'filter_ci' in q_params:
+            ci = str(q_params.get('filter_ci') or "")
+        
+        if 'filter_range_first_date' in q_params:
+            first_date = str(q_params.get('filter_range_first_date') or "")
+        
+        if 'filter_range_last_date' in q_params:
+            last_date = str(q_params.get('filter_range_last_date') or "")
+        
+        if 'filter_states' in q_params:
+            states = q_params.get('filter_states').split(' ')
+        
+        # define response filter values
+        filter['ci'] = ci
+        filter['range_first_date'] = first_date
+        filter['range_last_date'] = last_date
+        filter['states'] = str(states)
+        response['filter'] = filter
+        
+        # start DB query pipeline
         try:
             
-            if patient_ci is not None:
-                
-                try:
-                    # get user profile associated to ID or CI from DB
-                    detailed_patient = Patient.objects.get(Q(ci = patient_ci))
-                
-                except Patient.DoesNotExist:
-                    return UNREGISTRED_PROFILE
-                
-                except InternalError:
-                    return INTERNAL_ERROR
-
-                # filter only tests associated to profile
-                sql_query = Test.objects.filter(patientCI = detailed_patient.ci)
-
-            else:
-                # select all test
-                sql_query = Test.objects.all()
+            sql_query = Test.objects.all()
             
-            # filter test by state    
-            if unnotified_only is not None:
-                sql_query = sql_query.filter(~Q(state = 'notified'))
-            else:
-                sql_query = sql_query.all()
+            # filter test by patientCI
+            if ci != '':
+                sql_query = sql_query.filter(patientCI = ci)
             
             # filter test by time range
+            if first_date != '':
+                
+                # normalize filter
+                if last_date == '':
+                    last_date = first_date
+                
+                # format q_params str on date object
+                t_first_date = datetime.strptime(first_date,'%Y-%m-%d')
+                t_last_date = datetime.strptime(last_date,'%Y-%m-%d')
+                
+                sql_query = sql_query.filter(begin_date__range=(t_first_date, t_last_date))
             
-            # response filtereds tests
-            response['patient'] = detailed_patient
-            response['object_list'] = sql_query.values()
+            # filter test by states
+            if states is not None:
+                sql_query = sql_query.filter(state__in = states)
+            
+            # order tests by date
+            sql_query = sql_query.order_by('-begin_date')
+            object_list = sql_query.values()
+            
+            # define query response values
+            response['object_list'] = object_list
+            
+            # add profile data
+            if detailed_patient is not None:
+                response['filtered_username'] = detailed_patient.username
             
         except InternalError:
+            EventManager.error(None, "TEST INTERNAL ERROR", "Un error interno impidio la recuperacion de la lista de analisis")
             return INTERNAL_ERROR
         
         return SUCCESS
@@ -625,9 +766,13 @@ class TestManager:
                 begin_date = datetime.now
             )
             response['test'] = new_test
+
+            EventManager.log(system_user, "TEST CREATED", f"Se registro el nuevo analisis [{ new_test.id }]en la BD")
+            
         except IntegrityError:
             return DUPLICATED_TEST
         except InternalError:
+            EventManager.error(None, "TEST INTERNAL ERROR", "Un error interno impidio la creacion de un analisis")
             return INTERNAL_ERROR
         
         return SUCCESS
@@ -646,10 +791,12 @@ class TestManager:
             updated_test.save()
             
             response['test'] = updated_test
-
+            EventManager.log(system_user, "TEST UPDATED", f"Se registro el resultado del analisis [{updated_test.id}] en la BD ")
+            
         except Test.DoesNotExist:
             return UNREGISTRED_TEST
         except InternalError:
+            EventManager.error(None, "TEST INTERNAL ERROR", "Un error interno impidio la actualizacion de un analisis")
             return INTERNAL_ERROR
             
         
@@ -667,11 +814,13 @@ class TestManager:
             updated_test.save()
             
             response['test'] = updated_test
+            EventManager.log(system_user, "TEST NOTIFIED", f"Se envio el analisis [{updated_test.id}] hacia el usuario con CI: { updated_test.patientCI }")
             
         except Test.DoesNotExist:
             return UNREGISTRED_TEST
         
         except InternalError:
+            EventManager.error(None, "TEST INTERNAL ERROR", "Un error interno impidio la notificacion de un analisis")
             return INTERNAL_ERROR
         
         return SUCCESS
@@ -680,18 +829,21 @@ class TestManager:
         
         try:
             # delete test associeted to ID
-            supresssed_test = Test.objects.get(id=test_id)
-            supresssed_test.delete()
-            response['test'] = supresssed_test    
+            supressed_test = Test.objects.get(id=test_id)
+            supressed_test.delete()
+            response['test'] = supressed_test    
+            
+            EventManager.log(system_user, "TEST SUPRESSED", f"El usuario [{system_user.id}] elimino el analisis [{supressed_test.id}]")
                 
         except Test.DoesNotExist:
             return UNREGISTRED_TEST
         
         except InternalError:
+            EventManager.error(None, "TEST INTERNAL ERROR", "Un error interno impidio la eliminacion de un analisis")
             return INTERNAL_ERROR
         
         return SUCCESS
-    
+
 ###############################################################################
 
 #Event management model class
@@ -713,47 +865,90 @@ class UserEvent(SystemEvent):
 class EventManager:
     
     def filter_events(q_params:dict, response:dict):
+        
         object_list = None
         detailed_user = None
         sql_query = None
+        filter = dict()
+        
+        # set default query params values
+        id = ""
+        username = ""
+        first_date = datetime.strftime(datetime.now(),'%Y-%m-%d')
+        last_date = first_date
         
         # get event filter params
-        user_id = q_params.get('user_id')
-        first_date = q_params.get('first_date')
-        last_date = q_params.get('last_date')
+        if 'filter_id' in q_params:
+            id = str(q_params.get('filter_id') or "")
         
-        if user_id is not None:
-            uresponse = { 'system_user': None }
+        if 'filter_username' in q_params:
+            username = str(q_params.get('filter_username') or "")
+        
+        if 'filter_range_first_date' in q_params:
+            first_date = str(q_params.get('filter_range_first_date') or "")
+        
+        if 'filter_range_last_date' in q_params:
+            last_date = str(q_params.get('filter_range_last_date') or "")
+        
+        # define response filter values
+        filter['id'] = id
+        filter['username'] = username
+        filter['range_first_date'] = first_date
+        filter['range_last_date'] = last_date
+        response['filter'] = filter
+        
+        # start DB query pipeline
+        try:
             
-            ## get detailed events user profile associated to ID from DB ##
-            
-            state = detailed_user = SystemUserManager.get_system_user_by_id(user_id, uresponse)
-            
-            ## Chack profile state ##
-            
-            if state == UNREGISTRED_PROFILE:
-                return UNREGISTRED_PROFILE
-            elif state == INTERNAL_ERROR:
-                return INTERNAL_ERROR
-            else:
-                # filter al events of user profile
-                detailed_user = uresponse['system_user']
-                sql_query = UserEvent.objects.filter(user = detailed_user)
-                
-        else:
-            # select all events
             sql_query = SystemEvent.objects.all()
-        
-        # filter events by time range
-        
-        # order events by date
-        sql_query = sql_query.order_by('-date')
-        object_list = sql_query.values()
-        
-        # response events
-        response['user'] = detailed_user
-        response['object_list'] = object_list
-        
+            
+            # filter profile entry
+            if id != '' or username != '':
+                
+                try:    
+                    
+                    # get user associted to credentials
+                    if id != '':
+                        detailed_user = SystemUser.objects.get(id=id)        
+                    else:
+                        detailed_user = SystemUser.objects.get(username=username)
+                    
+                    # filter all events of user profile
+                    sql_query = UserEvent.objects.filter(user = detailed_user)
+                
+                except SystemUser.DoesNotExist:
+                    return UNREGISTRED_PROFILE
+                except InternalError:
+                    return INTERNAL_ERROR
+            
+            
+            # filter events by time range
+            if first_date != '':
+            
+                # normalize date filter
+                if last_date == '':
+                    last_date = first_date
+                
+                # format q_params str on date object
+                t_first_date = datetime.strptime(first_date,'%Y-%m-%d')
+                t_last_date = datetime.strptime(last_date,'%Y-%m-%d')
+                
+                sql_query = sql_query.filter(date__date__range=(t_first_date, t_last_date))
+            
+            # order and get events from DB
+            sql_query = sql_query.order_by('-date')
+            object_list = sql_query.values()
+            
+            # define query response values
+            response['object_list'] = object_list
+            
+            # add profile response data
+            if detailed_user is not None:
+                response['filtered_username'] = detailed_user.username
+            
+        except InternalError:
+            return INTERNAL_ERROR
+                        
         return SUCCESS
     
     # check if an instance of event is a UserEvent
@@ -781,11 +976,36 @@ class EventManager:
 
         return None
     
+    def error(user, title, message):
+        
+        # Store one Error Event Log on DB    
+        if user is None:
+            EventManager.log_system_event(EventType.ERROR, title, message)
+        else:
+            EventManager.log_user_event(user, EventType.ERROR, title, message)
+    
+    def warning(user, title, message):
+        
+        # Store one Warning Event Log on DB
+        if user is None:
+            EventManager.log_system_event(EventType.WARNING, title, message)
+        else:
+            EventManager.log_user_event(user, EventType.WARNING, title, message)
+    
+    def log(user, title, message):
+        
+        # Store one Normal Event Log on DB
+        if user is None:
+            EventManager.log_system_event(EventType.LOG, title, message)
+        else:
+            EventManager.log_user_event(user, EventType.LOG, title, message)
+    
     def supress_event_by_id(event_id):
         
         try:
+            # remove event asociated to id from DB
             SystemEvent.objects.get(id=event_id).delete()
-
+        
         except SystemEvent.DoesNotExist:
             return UNREGSTRED_EVENT
         
@@ -888,9 +1108,14 @@ def make_custom_permissions():
     if Permission.objects.filter(codename=codename).count() == 0:
        Permission.objects.create(codename=codename, name="see event details", content_type=systemuser_content_type)
     
-    ################################
-
-    """
-    for perm in Permission.objects.all().order_by('-id').values_list():
-        print(str(perm)+'\n')
-    """
+# UTIL FUNCTIONS ################
+    
+def copy_dict(dict1:dict):
+    
+    dict2 = dict()
+    
+    for k in dict1.keys():
+        dict2[k] = dict1[k]
+    
+    return dict2
+    

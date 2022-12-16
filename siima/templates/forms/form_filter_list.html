@@ -1,0 +1,73 @@
+{% load static %}
+
+<!-- Entry Filtering Formulary -->
+<form action="{{ filter_url }}" method="get" class="form mx-2">
+
+    {% if 'date' in list_filters %}
+    <fieldset class="row gy-2 fs-10">
+        <h5 class="col-12">Intervalo:</h5>
+
+        <!-- Filter range start date -->
+        <spam class="col text-start">Desde:</spam>
+        <input name="filter_range_first_date" type="date" placeholder="fecha inicial"
+            value="{{filter.range_first_date}}" class="col-8 form-control form-input">
+
+        <!-- Filter range final date -->
+        <spam class="col text-start">Hasta:</spam>
+        <input name="filter_range_last_date" type="date" placeholder="fecha final"
+            value="{{filter.range_last_date}}" class="col-8 form-control form-input">
+
+    </fieldset>
+    {% endif %}
+
+    {% if 'username' in list_filters %}
+    <fieldset class="row gy-2 fs-10 mt-2">
+
+        <!-- Filter username -->
+        <spam class="col text-start">Nombre de usuario:</spam>
+        <input name="filter_username" type="text" placeholder="usuario" value="{{filter.username}}"
+            class="col-8 form-control form-input">
+
+    </fieldset>
+    {% endif %}
+
+    {% if 'ci' in list_filters %}
+    <fieldset class="row gy-2 fs-10 mt-2">
+
+        <!-- Filter user CI -->
+        <spam class="col-4 text-start">CI:</spam>
+        <input name="filter_ci" type="text" placeholder="numero de CI" value="{{filter.ci}}"
+            class="col-8 form-control form-input">
+
+    </fieldset>
+    {% endif %}
+    
+    {% if 'test_state' in list_filters %}
+    <fieldset>
+        <div class="col-12 m-1 text-start">
+            
+            <!-- Filter by state -->
+            <label class="form-label m-1">Tipo:</label>
+            <select name="filter_states" class="form-select form-input"
+                value="{{filter.states}}">
+                
+                <option value="waiting">Pendiente</option>
+                <option value="resolved">Terminado</option>
+                <option value="notified">Notificado</option>
+                
+            </select>
+        </div>
+    </fieldset>
+    {% endif %}
+    
+
+    <fieldset class="row gy-2 fs-10 mt-2 text-center">
+        <button type="submit" class="btn btn-sm btn-primary col-12">
+            <img src="{% static 'img/filter.svg' %}" width="20" height="20"
+                class="img-fluid mb-1 me-1 d-sm-inline">
+            FILTRAR
+        </button>
+    </fieldset>
+    
+    </fieldset>
+</form>

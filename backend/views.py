@@ -22,9 +22,10 @@ PROFILES_ICON_DIR = '/static/img/profiles/'
 class AuthView(View):
     
     def get(self, req:HttpRequest):
+        
+        response = dict()
         query_message = ""
         authenticated = False
-        response = {}
         
         state = SystemUserManager.authenticate_user(req, req.GET, response)
         
@@ -48,7 +49,7 @@ class AuthView(View):
                 return redirect(reverse('worker'))
             else:
                 return redirect(reverse('patient'))
-
+        
         else:
             
             # go back to login
@@ -77,14 +78,17 @@ class LoginView(FormView):
         # renderize loguin form view page
         return render(req, self.template_name, context)
 
+#
+##
 ### PATIENT MANAGEMENT VIEWS ##########################################################
 
 class SiginPatientView(View):
     
     def post(self, req:HttpRequest):
+        
+        params = dict(req.POST)
+        response = dict()
         query_message = ""
-        params = req.POST
-        response = {'new_user': None}
         signed = False
         
         # registre new patient user
@@ -125,10 +129,10 @@ class SignoutPatientView(PermissionRequiredMixin, View):
     permission_required = ('backend.delete_patient_profile')
     
     def get(self, req:HttpRequest, user_id : int):
-        q_params = req.GET
+        
+        q_params = copy_dict(req.GET)
+        response = dict()
         query_message = ""
-        supressed = False
-        response = {'supressed_patient': None }
         
         # try to supress profile
         system_user = SystemUserManager.get_registred_system_user(req.user)
@@ -143,8 +147,7 @@ class SignoutPatientView(PermissionRequiredMixin, View):
         
         else: # state is SUCCESS:
             query_message = "SUCCESS: Perfil eliminado satisfacoriamente"
-            supressed = True
-        
+            
         # Make redirections    
         if system_user.system_role == 'admin':
             # go back to worker list
@@ -191,9 +194,10 @@ class EditPatientView(PermissionRequiredMixin, FormView):
     permission_required = ('backend.change_patient_profile')
     
     def get(self, req:HttpRequest, user_id:int):
-        q_params = req.GET
+        
+        q_params = copy_dict(req.GET)
+        response = dict()
         query_message = q_params.get('query_message')
-        response = {'patient': None}
         exists_profile = False
         
         ### try to get edited profile ###
@@ -255,10 +259,10 @@ class UpdatePatientView(PermissionRequiredMixin, UpdateView):
     permission_required = ('backend.change_patient_profile')
     
     def post(self, req:HttpRequest, user_id:int):
-        q_params = req.POST
+        
+        q_params = copy_dict(req.POST)
+        response = dict()
         query_message = q_params.get('query_message')
-        response = {'patient': None}
-        profile_updated = False
         
         ### try to update edited profile ###
         
@@ -275,8 +279,7 @@ class UpdatePatientView(PermissionRequiredMixin, UpdateView):
             
         else:
             query_message = 'SUCESS, Perfil de Actualizado satisfactoriamente'
-            profile_updated = True
-        
+            
         ### make HTTPResponse ###
         
         if system_user.system_role == 'admin':
@@ -310,39 +313,53 @@ class PatientListView(PermissionRequiredMixin, ListView):
     permission_required = ('backend.view_patient_list')
     
     def get(self, req:HttpRequest):
-        response = {}
-        query_message = req.GET.get('query_message')
+        
+        q_params = copy_dict(req.GET)
+        response = dict()
+        query_message = q_params.get('query_message')
         
         system_user = SystemUserManager.get_registred_system_user(req.user)
-        object_list = PatientManager.list_all()
+        state = PatientManager.filter_patients(q_params, response)
+        
+        # check query state
+        if state == UNREGISTRED_PROFILE:
+            query_message = 'ERROR, Usuario no registrado'
+        elif state == INTERNAL_ERROR:
+            query_message = 'ERROR, Error de Lista, No pudimmos recuperar la lista de pacientes por problemas tecnicos. Intetelo de nuevo'
         
         context = {
             'current_time': datetime.now,
             'query_message': query_message,
             'system_user': system_user,
-            'object_list': object_list
+            
+            # list values
+            'object_list': response.get('object_list'),
+            'filtered_username': response.get('filtered_username'),
+            'filter': response.get('filter'),
+            'list_filters': 'username date'
         }
         
-        EventManager.log_user_event(system_user, 'LOG','PATIENT LIST ACCESSED',f'El { system_user.system_role } {system_user.username} accedio a la lista de pacientes')
+        EventManager.log(system_user,'PATIENT LIST ACCESSED',f'El { system_user.system_role } {system_user.username} accedio a la lista de pacientes')
         
         # renderize patient list view page
         return render(req, self.template_name, context)
 
-
-
+#
+##
 ### WORKER MANAGEMENT VIEWS ###########################################################
 
 class SiginWorkerView(View):
     permission_required = ('backend.create_worker_profile')
     
     def post(self, req:HttpRequest):
+        
+        q_params = copy_dict(req.POST)
+        response = dict()
         query_message = ""
-        params = req.POST
-        response = {'worker': None}
         
         # try to registre new worker user
         system_user = SystemUserManager.get_registred_system_user(req.user)
-        state = WorkerManager.create_worker_user(system_user, params, response)
+        state = WorkerManager.create_worker_user(system_user, q_params, response)
         
         # check registration state
         if state == INVALID_CREDENTIAL:
@@ -368,10 +385,10 @@ class SignoutWorkerView(PermissionRequiredMixin, View):
     permission_required = ('backend.delete_worker_profile')
     
     def get(self, req:HttpRequest, user_id:int):
-        q_params = req.GET
+        
+        q_params = copy_dict(req.GET)
+        response = dict()
         query_message = ""
-        response = {'worker': None }
-        supressed = False
         
         ### try to supress profile ###
         
@@ -388,8 +405,7 @@ class SignoutWorkerView(PermissionRequiredMixin, View):
         
         else: # state is SUCCESS:
             query_message = "SUCCESS, Perfil eliminado satisfactoramente"
-            supressed = True
-        
+            
         ### Make HTTP Response ###
             
         if system_user.system_role == 'admin':
@@ -432,9 +448,10 @@ class EditWorkerView(PermissionRequiredMixin, FormView):
     permission_required = ('backend.change_worker_profile')
     
     def get(self, req:HttpRequest, user_id:int):
-        q_params = req.GET
+        
+        q_params = copy_dict(req.GET)
+        response = dict()
         query_message = q_params.get('query_message')
-        response = {'worker': None}
         exists_profile = False
         
         ### try to get edited worker profile ###
@@ -492,10 +509,10 @@ class UpdateWorkerView(PermissionRequiredMixin, UpdateView):
     permission_required = ('backend.change_worker_profile')
     
     def post(self, req:HttpRequest, user_id:int):
-        q_params = req.POST
+        
+        q_params = copy_dict(req.POST)
+        response = dict()
         query_message = q_params.get('query_message')
-        response = {'worker': None}
-        profile_updated = False
         
         ### Try to update edited profile ###
         
@@ -512,8 +529,7 @@ class UpdateWorkerView(PermissionRequiredMixin, UpdateView):
             
         else:
             query_message = 'SUCESS, Perfil actualizado satisfactoriamente'
-            profile_updated = True
-        
+            
         ### Make HTTP Response ###
         
         if system_user.system_role == 'admin':
@@ -539,38 +555,57 @@ class WorkerListView(PermissionRequiredMixin, ListView):
     permission_required = ('backend.view_worker_list')
     
     def get(self, req:HttpRequest):
-        response = {}
-        query_message = req.GET.get('query_message')
+        
+        q_params = copy_dict(req.GET)
+        response = dict()
+        query_message = q_params.get('query_message')
         
         system_user = SystemUserManager.get_registred_system_user(req.user)
-        object_list = WorkerManager.list_all()
         
+        # add [excluded] filter param value
+        q_params['filter_excluded'] = str(system_user.username)
+        
+        state = WorkerManager.filter_workers(q_params, response)
+        
+        # check query state
+        if state == UNREGISTRED_PROFILE:
+            query_message = 'ERROR, Usuario no registrado'
+        elif state == INTERNAL_ERROR:
+            query_message = 'ERROR, Error de Lista, No pudimmos recuperar la lista de trabajadores por problemas tecnicos. Intetelo de nuevo'
+        
+        # define context values
         context = {
             'current_time': datetime.now,
             'query_message': query_message,
             'system_user': system_user,
-            'object_list': object_list
+            
+            # list values
+            'object_list': response.get('object_list'),
+            'filtered_username': response.get('filtered_username'),
+            'filter': response.get('filter'),
+            'list_filters': 'username date'
         }
         
         # renderize list view page
         return render(req, self.template_name, context)
 
-
-
+#
+##
 ### TEST'S MANAGEMENT VIEWS ###########################################################
 
 class AddTestView(PermissionRequiredMixin, View):
     permission_required = ('backend.create_test')
     
     def post(self, req:HttpRequest):
-        params = req.POST
+        
+        q_params = copy_dict(req.POST)
+        response = dict()
         query_message = ''
-        response = {'test': None}
         
         ### Try to create a new test on DB ###
         
         system_user = SystemUserManager.get_registred_system_user(req.user)
-        state = TestManager.create_test(system_user, params, response)
+        state = TestManager.create_test(system_user, q_params, response)
         
         ### Check test creation state ###
         
@@ -596,14 +631,15 @@ class ResolveTestView(PermissionRequiredMixin, View):
     permission_required = ('backend.resolve_test')
     
     def post(self, req:HttpRequest, test_id):
-        params = req.POST
+        
+        q_params = copy_dict(req.POST)
+        response = dict()
         query_message = ''
-        response = {'test': None}
         
         ### Try to update test associted to ID ###
         
         system_user = SystemUserManager.get_registred_system_user(req.user)
-        state = TestManager.update_test_by_id(system_user, test_id, params, response)
+        state = TestManager.update_test_by_id(system_user, test_id, q_params, response)
         
         ### Check test update state ###
         
@@ -626,9 +662,9 @@ class NotifyTestView(PermissionRequiredMixin, View):
     permission_required = ('backend.notify_test')
     
     def get(self, req:HttpRequest, test_id):
-        params = req.POST
+        
         query_message = ''
-        response = {'test': None}
+        response = {}
         
         ### Try to notify test associted to ID ###
         
@@ -657,12 +693,14 @@ class TestListView(PermissionRequiredMixin, ListView):
     permission_required = ('backend.view_test_list')
     
     def get(self, req:HttpRequest):
-        q_params = dict(req.GET)
-        query_message = q_params.get('query_message')
-        response = { 'object_list': None, 'patient': None }
         
-        # define default filter param
-        q_params['unnotified_only'] = True
+        q_params = copy_dict(req.GET)
+        response = dict()
+        query_message = q_params.get('query_message')
+        
+        # add [states] filter param value
+        if not 'filter_states' in q_params:
+            q_params['filter_states'] = 'waiting resolved'
         
         # get logged user profile
         system_user = SystemUserManager.get_registred_system_user(req.user)
@@ -683,8 +721,12 @@ class TestListView(PermissionRequiredMixin, ListView):
             'current_time': datetime.now,
             'query_message': query_message,
             'system_user': system_user,
-            'detailed_patient': response['patient'],
-            'object_list': response['object_list']
+            
+            # list values
+            'object_list': response.get('object_list'),
+            'filtered_username': response.get('filtered_username'),
+            'filter': response.get('filter'),
+            'list_filters': 'ci date test_state'
         }
         
         # renderize test list view
@@ -696,7 +738,7 @@ class SupressResultView(PermissionRequiredMixin, View):
     permission_required = ('backend.delete_result')
     
     def get(self, req:HttpRequest, test_id):
-        params = req.POST
+        
         query_message = ''
         response = {'test': None}
         
@@ -727,16 +769,26 @@ class ResultListView(PermissionRequiredMixin, ListView):
     permission_required = ('backend.view_result_list')
     
     def get(self, req:HttpRequest):
-        q_params = dict(req.GET)
+        
+        q_params = copy_dict(req.GET)
+        response = dict()
         query_message = q_params.get('query_message')
-        response = {'object_list': None, 'patient': None }
         
         # get logued patient profile
         system_patient = PatientManager.get_registred_patient_user(req.user)
         
-        # get test associateds to patient profile
-        q_params['patient_ci'] = system_patient.ci
-        state = TestManager.filter_tests(system_patient, q_params, response)
+        if not 'filter_range_first_date' in q_params:
+            q_params['filter_range_first_date'] = system_patient.date_joined.date().strftime('%Y-%m-%d')
+        
+        # add [ci] filter param value
+        q_params['filter_ci'] = system_patient.ci
+        
+        # add [states] filter param value
+        q_params['filter_states'] = 'waithing resolved notified'
+        
+        # get logged user profile
+        system_user = SystemUserManager.get_registred_system_user(req.user)
+        state = TestManager.filter_tests(system_user, q_params, response)
         
         ### Check query state ###
         
@@ -745,12 +797,17 @@ class ResultListView(PermissionRequiredMixin, ListView):
         
         ### Make HTTP Response ###
         
-        # define ontext values
+        # define context values
         context = {
             'current_time': datetime.now,
             'query_message': query_message,
-            'system_user': system_patient,
-            'object_list': response['object_list']
+            'system_user': system_user,
+            
+            # list values
+            'object_list': response.get('object_list'),
+            'filtered_username': response.get('filtered_username'),
+            'filter': response.get('filter'),
+            'list_filters': 'date state'
         }
         
         # renderize patient test list view page
@@ -787,14 +844,16 @@ class EventListView(PermissionRequiredMixin, ListView):
     
     def get(self, req:HttpRequest):
         
-        q_params = req.GET
+        q_params = copy_dict(req.GET)
+        response = dict()
         query_message = q_params.get('query_message')
+        
+        if not 'filter_types' in q_params:
+            q_params['filter_types'] = 'danger warning log'
+        
         
         # get loggued admin profile
         system_user = SystemUserManager.get_registred_system_user(req.user)
-        detailed_user = None
-        object_list = None
-        response = {'user': None, 'object_list': None }
         
         ### Filter events from DB ###
         
@@ -807,38 +866,19 @@ class EventListView(PermissionRequiredMixin, ListView):
         
         if state == UNREGISTRED_PROFILE:
             query_message = 'ERROR, Usuario no registrado'
-
-        else:
-            # get response events associeted to profile
-            detailed_user = response['user']
-            object_list = response['object_list']
             
         context = {
             'current_time': datetime.now,
             'query_message': query_message,
             'system_user': system_user,
-            'detailed_user': detailed_user,
-            'object_list': object_list
+            
+            # list values
+            'object_list': response.get('object_list'),
+            'filtered_username': response.get('filtered_username'),
+            'filter': response.get('filter'),
+            'list_filters': 'username date event_type'
+            
         }
         
         # renderize profile event list view page
         return render(req, self.template_name, context)
-
-
-# Custom template filter 
-
-from django import template
-
-register = template.Library()
-
-@register.filter
-def replace(value, arg):
-    """
-    Replacing filter
-    Use `{{ "aaa"|replace:"a|b" }}`
-    """
-    if len(arg.split('|')) != 2:
-        return value
-    
-    what, to = arg.split('|')
-    return value.replace(what, to)

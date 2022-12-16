@@ -91,6 +91,12 @@
 
     <!-- User actions-->
     <div class="col-11 col-md-10 mt-2 text-end">
+        <button class="btn p-1 px-3 me-3 --button" data-bs-toggle="modal"
+            data-bs-target="#filterListDialog">
+            <img src="{% static 'img/filter.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
+            FILTRAR
+        </button>
+        
         <button class="btn btn-sm --button p-1 px-3 me-3" data-bs-toggle="modal"
             data-bs-target="#userSiginDialog">
             <img src="{% static 'img/add-profile.svg' %}" width="20" height="20"
@@ -102,5 +108,6 @@
     <!-- Include togleables modal dialogs -->
     {% include 'modals/modal_signin_patient.html' %}
     {% include 'modals/modal_detail_patient.html' %}
+    {% include 'modals/modal_filter_list.html' %}
 
 </div>

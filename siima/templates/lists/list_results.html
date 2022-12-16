@@ -28,8 +28,12 @@
 
     <div class="col-12 text-center fs-5 fw-bold">
         Registro de Examenes
+        <br>
+        <sub>
+            [{{filter.range_first_date}}] -> [{{filter.range_last_date}}] 
+        <sub>
     </div>
-
+    
     <!-- User analisis list-->
     <div class="col-11 col-md-10 mt-2 border border-dark overflow-auto" style="height: 50vh;">
         
@@ -98,7 +102,16 @@
 
     </div>
 
-
+    <!--User analisis actions-->
+    <div class="col-11 col-md-10 mt-2 text-end">
+        <button class="btn p-1 px-3 me-3 --button" data-bs-toggle="modal"
+            data-bs-target="#filterListDialog">
+            <img src="{% static 'img/filter.svg' %}" width="20" height="20" class="img-fluid mb-1 me-1">
+            FILTRAR
+        </button>
+    </div>
+    
     {% include 'modals/modal_detail_result.html' %}
+    {% include 'modals/modal_filter_list.html' %}
 
 </div>
