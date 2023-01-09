@@ -86,41 +86,47 @@ class SiginPatientView(View):
     
     def post(self, req:HttpRequest):
         
-        params = dict(req.POST)
+        params = copy_dict(req.POST)
         response = dict()
         query_message = ""
         signed = False
         
         # registre new patient user
-        system_user = SystemUserManager.get_system_user(req.user)
+        system_user = SystemUserManager.get_registred_system_user(req.user)
         state = PatientManager.create_patient_user(system_user, params, response)
         
         # check registration state
         if state == INVALID_CREDENTIAL:
             query_message = 'ERROR, Credenciales duplicadas, Sus credenciales de registros ya estan siendo usadas por otro usuario. Cambielas e intente el registro nuevamente'
         else:
-            query_message = 'SUCESS, Su cuenta se creo satisfactoriamente'
+            
+            if system_user is None:
+                query_message = 'SUCCESS, Su cuenta se creo satisfactoriamente'
+            else:
+                query_message = 'SUCCESS, Cuenta creada satisfactoriamente'
+            
             signed = True
         
         # execute redirections
-        if req.user.is_authenticated:
-            # go back to patient list
-            return redirect(reverse('patients')+'?'+urlencode({
-                'query_message': query_message 
-            }))
+        if signed:
+            if system_user is not None:
+                # go back to patient list
+                return redirect(reverse('patients')+'?'+urlencode({
+                    'query_message': query_message 
+                }))
         
-        elif signed:
-            # authenticate automatically a new patient
-            return redirect(reverse('auth')+'?'+urlencode({
-                'username': params.get('username'),
-                'password': params.get('password'),
-                'query_message': query_message 
-            }))
-        
+            else:
+                # authenticate automatically a new patient
+                return redirect(reverse('auth')+'?'+urlencode({
+                    'username': params.get('username'),
+                    'password': params.get('password'),
+                    'query_message': query_message 
+                }))
+            
         else:
-            # go back to loguin
+            # go back to login
             return redirect(reverse('login')+'?'+urlencode({
-            'query_message': query_message 
+                'query_message': query_message 
             }))
 
 ##################################################

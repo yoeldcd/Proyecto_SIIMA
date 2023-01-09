@@ -148,8 +148,12 @@ class SystemUserManager:
         return SUCCESS
     
     def get_registred_system_user(user:User):
-        return SystemUser.objects.get(id=user.id)
-    
+        
+        if user is None:
+            return None
+        else:
+            return SystemUser.objects.get(id=user.id)
+        
     def get_system_user_by_id(user_id:int, response:dict):
         try:
             response['system_user'] = SystemUser.objects.get(id=user_id)
