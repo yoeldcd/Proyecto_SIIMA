@@ -34,7 +34,7 @@ function loadPatientItem(e){
     $('#detailed_worker_date_joined').text(worker.date_joined);
     
     if($('#detailed_worker_events_link')[0])
-        $('#detailed_worker_events_link')[0].href = '/events/?user_id='+worker.id;
+        $('#detailed_worker_events_link')[0].href = '/events/?filter_id='+worker.id;
     
     if($('#detailed_worker_edit_link')[0])
         $('#detailed_worker_edit_link')[0].href = '/worker/edit/'+worker.id;

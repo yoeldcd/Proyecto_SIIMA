@@ -28,7 +28,7 @@ function loadPatientItem(e){
     $('#detailed_patient_last_login').text(patient.last_login);
     $('#detailed_patient_date_joined').text(patient.date_joined);
     
-    $('#detailed_patient_events_link')[0].href = '/events/?user_id='+patient.id;
+    $('#detailed_patient_events_link')[0].href = '/events/?filter_id='+patient.id;
     $('#detailed_patient_edit_link')[0].href = '/patient/edit/'+patient.id;
     $('#detailed_patient_supress_link')[0].href = '/patient/supress/'+patient.id;
     

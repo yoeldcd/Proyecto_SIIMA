@@ -28,18 +28,37 @@
 
     <div class="col-12 text-center fs-5 fw-bold">
         Registro de Examenes
-        <br>
-        <sub>
-            [{{filter.range_first_date}}] -> [{{filter.range_last_date}}] 
-        <sub>
     </div>
     
+    <!-- Show List filter values --->
+    <div class="col-12 text-center fs-5 fw-bold">
+        
+        {% if filter.test_states %}
+            {% if 'waiting' in filter.test_states %}
+            <b class="filter-field">Pendientes</b> 
+            {% elif 'resolved' in filter.test_states %}
+            <b class="filter-field">Pocesados</b> 
+            {% elif 'notified' in filter.test_states %}
+            <b class="filter-field">Listo</b> 
+            {% else %}
+            <b class="filter-field">Todos</b> 
+            {% endif %}
+        {% endif %}
+        
+        {% if filter.test_type %} de tipo <b class="filter-field">{{ filter.test_type }}</b> {% endif %}
+        
+        {% if filter.range_first_date %} 
+            desde <b class="filter-field">{{ filter.range_first_date }}</b>
+            hasta <b class="filter-field">{{ filter.range_last_date }}</b> 
+        {% endif %}
+    
+    </div>
+
     <!-- User analisis list-->
     <div class="col-11 col-md-10 mt-2 border border-dark overflow-auto" style="height: 50vh;">
         
         <table class="table">
             <thead>
-                <th scope="col" class="col-1 text-center"></th>
                 <th scope="col" class="col text-center">Tipo</th>
                 <th scope="col" class="col text-center">Fecha</th>
                 <th scope="col" class="col text-center">Estado</th>
@@ -48,22 +67,17 @@
             <tbody>
 
                 {% for test in object_list %}
-
-                <tr class="examen {% if test.state == 'notified' %}bg-sucess{% endif %}">
-                    <td class="col-1">
-                        {% if test.state == 'notified' %}
-                        <input type="checkbox" class="form-ckeck">
-                        {% endif %}
-                    </td>
-                    <td class="col">
+                
+                <tr class="examen {% if test.state == 'notified' %}bg-sucess{% endif %} fw-bold border border-dark">
+                    <td class="col text-center">
                         {{test.type}}
                     </td>
-                    <td class="col">
+                    <td class="col text-center">
                         <time>
                             {{test.begin_date}}
                         </time>
                     </td>
-                    <td class="col text-green">
+                    <td class="col text-center text-green">
                         {% if test.state == 'notified' %}
                         Listo
                         {% else %}

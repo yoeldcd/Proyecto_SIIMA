@@ -47,19 +47,21 @@
 
         <!-- Filter test by type -->
         <label class="form-label m-1">Tipo de Analisis:</label>
-        <select name="filter_test_types" class="form-select form-input col-12">
+        <select name="filter_test_type" class="form-select form-input col-12">
             
-            <option></option>
-
-            <option {% if 'Nefrologico' in filter.test_types %} selected {% endif %}>
+            <option value="*">
+                Todos
+            </option>
+            
+            <option {% if 'Nefrologico' in filter.test_type %} selected {% endif %}>
                 Nefrologico
             </option>
             
-            <option {% if 'Sanguineo' in filter.test_types %} selected {% endif %}>
+            <option {% if 'Sanguineo' in filter.test_type %} selected {% endif %}>
                 Sanguineo
             </option>
             
-            <option {% if 'Virologico' in filter.test_types %} selected {% endif %}>
+            <option {% if 'Virologico' in filter.test_type %} selected {% endif %}>
                 Virologico
             </option>
 
@@ -70,21 +72,25 @@
     
     {% if 'test_state' in list_filters %}
     <fieldset class="col-12 qy-2 m-1 text-start">
-
+        
         <!-- Filter test by state -->
         <label class="form-label m-1">Estado del Analisis:</label>
         <select name="filter_test_states" class="form-select form-input col-12">
             
+            <option value="*">
+                Todos
+            </option>
+            
             <option value="waiting" {% if 'waiting' in filter.event_states %} selected {% endif %}>
-                PENDIENTE
+                Pendientes
             </option>
             
             <option value="resolved" {% if 'resolved' in filter.event_states %} selected {% endif %}>
-                LISTO
+                Listos
             </option>
             
             <option value="notified" {% if 'notified' in filter.event_states %} selected {% endif %}>
-                NOTIFICADO
+                Notificados
             </option>
         
         </select>
@@ -97,18 +103,22 @@
 
         <!-- Filter events by type -->
         <label class="form-label m-1">Tipo de Evento:</label>
-        <select name="filter_event_types" class="form-select form-input col-12">
+        <select name="filter_event_type" class="form-select form-input col-12">
             
-            <option value="log" {% if 'log' in filter.event_types %} selected {% endif %}>
-                LOGS
+            <option value="*" selected>
+                Todos (&star;)
+            </option>  
+            
+            <option value="log" {% if 'log' in filter.event_type %} selected {% endif %}>
+                Acciones normales (LOGs)
             </option>
             
-            <option value="warning" {% if 'warning' in filter.event_types %} selected {% endif %}>
-                PROBLEMAS
+            <option value="warning" {% if 'warning' in filter.event_type %} selected {% endif %}>
+                Acciones inusuales (WARNINGs)
             </option>
         
-            <option value="danger" {% if 'danger' in filter.event_types %} selected {% endif %}>
-                ERRORES
+            <option value="danger" {% if 'danger' in filter.event_type %} selected {% endif %}>
+                Errores de sistema (ERRORs)
             </option>    
 
         </select>

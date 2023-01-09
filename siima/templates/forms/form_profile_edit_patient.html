@@ -14,7 +14,7 @@
         </div>
         <div class="col-12">
             <input type="text" name="first_name" id="patient_first_name" maxlength="120"
-                placeholder="Primer Nombre" {% if edited_patient is None %} required {% endif %}
+                placeholder="Nombre" {% if edited_patient is None %} required {% endif %}
                 value="{{ edited_patient.first_name }}" class="form-control form-input">
         </div>
     </fieldset>
@@ -26,7 +26,7 @@
         </div>
         <div class="col-12">
             <input type="text" name="last_name" id="patient_last_name" maxlength="120"
-                placeholder="Primer Apellido" {% if edited_patient is None %} required {% endif %}
+                placeholder="Apellidos" {% if edited_patient is None %} required {% endif %}
                 value="{{ edited_patient.last_name }}" class="form-control form-input">
         </div>
     </fieldset>
@@ -86,7 +86,7 @@
                 {% if "C" in edited_patient.blod_group %} checked {% endif %} value="C"
                 class="form-check-input">
         </div>
-
+        
         <div class="col">
             <input type="radio" name="blod_group_signus" id="patient_blod_group_signus_plus"
                 {% if "+" in edited_patient.blod_group %} checked {% endif %} value="+"

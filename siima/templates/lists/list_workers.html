@@ -34,6 +34,16 @@
         Gestion de Especialistas
     </div>
     
+    <!-- Show List filter values --->
+    <div class="col-12 text-center fs-5 fw-bold">
+        {% if filter.username %} usuario <b class="filter-field">{{ filter.username }}</b> {% endif %}
+        
+        {% if filter.range_first_date %} 
+            logueado desde <b class="filter-field">{{ filter.range_first_date }}</b>
+            hasta <b class="filter-field">{{ filter.range_last_date }}</b> 
+        {% endif %}
+    </div>
+    
     <!-- Registreds Workers List -->
     <div class="col-11 col-md-10 mt-2 overflow-auto" style="height: 50vh;">
         <table class="table">

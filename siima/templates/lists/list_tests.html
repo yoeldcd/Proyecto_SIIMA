@@ -22,11 +22,28 @@
     
     <div class="col-12 text-center fs-5 fw-bold">
         Gestion de Analisis:
-        <br>
-        <sub>
-            [{{filter.range_first_date}}] -> [{{filter.range_last_date}}] 
-            {%if filter.ci != "" %}CI: {{filter.ci}}{% endif %}
-        <sub>
+    </div>
+    
+    <!-- Show List filter values --->
+    <div class="col-12 text-center fs-5 fw-bold">
+        {% if filter.test_states %}
+            {% if 'waiting' in filter.test_states %}
+            <b class="filter-field">Pendientes</b> 
+            {% elif 'resolved' in filter.test_states %}
+            <b class="filter-field">Listos</b> 
+            {% elif 'notified' in filter.test_states %}
+            <b class="filter-field">Notificados</b> 
+            {% else %}
+            <b class="filter-field">Todos</b> 
+            {% endif %}
+        {% endif %}{% if filter.test_type %} de tipo <b class="filter-field">{{ filter.test_type }}</b> {% endif %}
+        
+        {% if filter.ci %} para ci <b class="filter-field">{{ filter.ci }}</b> {% endif %}
+        
+        {% if filter.range_first_date %} 
+            desde <b class="filter-field">{{ filter.range_first_date }}</b>
+            hasta <b class="filter-field">{{ filter.range_last_date }}</b> 
+        {% endif %}
     </div>
     
     <!-- User analisis editable list -->
@@ -45,15 +62,15 @@
 
                 {% if test.state == "waiting" %}
                 <!-- Pending Test Entry row mode -->
-                <tr class="examen bg-warning">
+                <tr class="examen bg-warning fw-bold">
                 
                 {% elif test.state == "notified" %}
                 <!-- Pending Test Entry row mode -->
-                <tr class="examen border border-dark">
+                <tr class="examen border border-dark fw-bold">
                 
                 {% else %}
                 <!-- Executed Test Entry row mode -->
-                <tr class="examen bg-green">
+                <tr class="examen bg-green fw-bold">
                 
                     {% endif %}
 

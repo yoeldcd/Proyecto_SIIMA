@@ -71,9 +71,9 @@ class SystemUserManager:
         
         # set default query params values
         system_roles = ""
-        username = ""
-        excluded = ""
-        first_date = '1999-01-01'
+        username = ''
+        excluded = ''
+        first_date = ''
         last_date = datetime.strftime(datetime.now(),'%Y-%m-%d')
         
         ## get filter params values
@@ -90,8 +90,7 @@ class SystemUserManager:
             last_date = str(q_params.get('filter_range_last_date') or "")
         
         if 'filter_excluded' in q_params:
-            excluded = q_params.get('filter_excluded')
-            excluded = excluded.split(' ')
+            excluded = str(q_params.get('filter_excluded'))
         
         # define response filter values
         filter['system_roles'] = system_roles
@@ -118,8 +117,8 @@ class SystemUserManager:
                 sql_query  = sql_query.filter(username__contains=username)
             
             # filter using excluded usernames
-            if excluded != "":
-                sql_query = sql_query.exclude(username__in=excluded)
+            if excluded != '':
+                sql_query = sql_query.exclude(username__in=excluded.split(' '))
             
             # filter user by last loguin
             if first_date != '':
@@ -374,6 +373,9 @@ class PatientManager:
             supressed_patient = Patient.objects.get(id=patientID)
             supressed_patient.delete()
             response['patient'] = supressed_patient
+            
+            # delete all test of suressed patient profile
+            return TestManager.delete_patient_test(supressed_patient)
             
         except Patient.DoesNotExist:
             return UNREGISTRED_PROFILE
@@ -717,9 +719,9 @@ class TestManager:
         filter = dict()
         
         # set default query params values
-        ci = None
-        test_states = None
-        test_types = None
+        ci = ''
+        test_type = '*'
+        test_states = '*'
         first_date = datetime.strftime(datetime.now(),'%Y-%m-%d')
         last_date = first_date
         
@@ -734,17 +736,17 @@ class TestManager:
             last_date = str(q_params.get('filter_range_last_date') or "")
         
         if 'filter_test_states' in q_params:
-            test_states = q_params.get('filter_test_states').split(' ')
+            test_states = str(q_params.get('filter_test_states') or '*')
         
-        if 'filter_test_types' in q_params:
-            test_types = q_params.get('filter_test_types').split(' ')
+        if 'filter_test_type' in q_params:
+            test_type = str(q_params.get('filter_test_type') or '*')
         
         # define response filter values
         filter['ci'] = ci
         filter['range_first_date'] = first_date
         filter['range_last_date'] = last_date
-        filter['test_states'] = str(test_states)
-        filter['test_types'] = str(test_types)
+        filter['test_states'] = test_states
+        filter['test_type'] = test_type
         
         response['filter'] = filter
         
@@ -754,7 +756,7 @@ class TestManager:
             sql_query = Test.objects.all()
             
             # filter test by patientCI
-            if ci is not None:
+            if ci != '':
                 sql_query = sql_query.filter(patientCI = ci)
             
             # filter test by time range
@@ -770,13 +772,13 @@ class TestManager:
                 
                 sql_query = sql_query.filter(begin_date__range=(t_first_date, t_last_date))
             
-            # filter test by states
-            if test_states is not None:
-                sql_query = sql_query.filter(state__in = test_states)
-            
             # filter test by type
-            if test_types is not None:
-                sql_query = sql_query.filter(type__in = test_types)
+            if test_type != '*':
+                sql_query = sql_query.filter(type__in = test_type)
+            
+            # filter test by states
+            if test_states != '*':
+                sql_query = sql_query.filter(state__in = test_states.split(' '))
             
             # order tests by date
             sql_query = sql_query.order_by('-begin_date')
@@ -873,7 +875,7 @@ class TestManager:
             supressed_test.delete()
             response['test'] = supressed_test    
             
-            EventManager.log(system_user, "TEST SUPRESSED", f"El usuario [{system_user.id}] elimino el analisis [{supressed_test.id}]")
+            EventManager.log(system_user, "TEST SUPRESSED", f"El usuario [{system_user.username}] elimino el analisis [{supressed_test.id }]")
                 
         except Test.DoesNotExist:
             return UNREGISTRED_TEST
@@ -884,6 +886,20 @@ class TestManager:
         
         return SUCCESS
 
+    def delete_patient_test(patient:Patient):
+        
+        try:
+            Test.objects.all().filter(patient_ci = patient.ci).delete()
+            EventManager.log(None, "TESTS SUPRESSED", f"Los analisis del usuario [{patient.name}] fueron eliminados")
+        
+        except Test.DoesNotExist:
+            return SUCCESS
+        
+        except InternalError:
+            return INTERNAL_ERROR
+        
+        return SUCCESS
+    
 ###############################################################################
 
 #Event management model class
@@ -912,9 +928,9 @@ class EventManager:
         filter = dict()
         
         # set default query params values
-        id = ""
-        username = ""
-        event_type = None
+        id = ''
+        username = ''
+        event_type = '*'
         first_date = '1999-01-01'
         last_date = datetime.strftime(datetime.now(),'%Y-%m-%d')
         
@@ -925,21 +941,21 @@ class EventManager:
         if 'filter_username' in q_params:
             username = str(q_params.get('filter_username') or "")
         
-        if 'filter_event_type' in q_params:
-            event_type = str(q_params.get('filter_event_type') or "")
-        
         if 'filter_range_first_date' in q_params:
             first_date = str(q_params.get('filter_range_first_date') or "")
         
         if 'filter_range_last_date' in q_params:
             last_date = str(q_params.get('filter_range_last_date') or "")
         
+        if 'filter_event_type' in q_params:
+            event_type = str(q_params.get('filter_event_type') or "*")
+        
         # define response filter values
         filter['id'] = str(id)
         filter['username'] = str(username)
-        filter['event_type'] = str(event_type)
         filter['range_first_date'] = str(first_date)
         filter['range_last_date'] = str(last_date)
+        filter['event_type'] = str(event_type)
         
         response['filter'] = filter
         
@@ -955,7 +971,8 @@ class EventManager:
                     
                     # get user associted to credentials
                     if id != '':
-                        detailed_user = SystemUser.objects.get(id=id)        
+                        detailed_user = SystemUser.objects.get(id=id)   
+                        filter['username'] = str(detailed_user.username)     
                     else:
                         detailed_user = SystemUser.objects.get(username=username)
                     
@@ -966,11 +983,6 @@ class EventManager:
                     return UNREGISTRED_PROFILE
                 except InternalError:
                     return INTERNAL_ERROR
-            
-            
-            # filter events by type
-            if event_type != None:
-                sql_query = UserEvent.objects.filter(type=event_type)
             
             
             # filter events by time range
@@ -985,6 +997,10 @@ class EventManager:
                 t_last_date = datetime.strptime(last_date,'%Y-%m-%d')
                 
                 sql_query = sql_query.filter(date__date__range=(t_first_date, t_last_date))
+            
+            # filter events by type
+            if event_type != '*':
+                sql_query = sql_query.filter(type=event_type)
             
             # order and get events from DB
             sql_query = sql_query.order_by('-date')

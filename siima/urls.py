@@ -1,15 +1,14 @@
 """siima URL Configuration"""
 
-from datetime import *
-from cmath import log
-from django.contrib import admin
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login
 from django.urls import path
+
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.contrib import admin
+
 from backend.views import *
 
 urlpatterns = [
-    #path('admin/', admin.sites.site.urls),
     
     # uthentication views
     path('', LoginView.as_view()),

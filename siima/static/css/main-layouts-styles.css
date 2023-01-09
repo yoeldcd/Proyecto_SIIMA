@@ -258,3 +258,8 @@ input[type="radio"]:checked {
     font-weight: bold;
     color: red;
 }
+
+.filter-field {
+    font-weight: bold;
+    color: blue;
+}
