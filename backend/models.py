@@ -365,7 +365,7 @@ class PatientManager:
             return INTERNAL_ERROR
         
         # LOG ACTION
-        EventManager.warning(system_user, EventType.WARNING, 'PATIENT PROFILE SUPRESSED', f'El perfil del paciente {supressed_patient.username} fue suprimido por {system_user.username}')
+        EventManager.warning(system_user, 'PATIENT PROFILE SUPRESSED', f'El perfil del paciente {supressed_patient.username} fue suprimido por {system_user.username}')
         
         return SUCCESS
     
@@ -687,8 +687,9 @@ class TestManager:
         filter = dict()
         
         # set default query params values
-        ci = ""
-        states = None
+        ci = None
+        test_states = None
+        test_types = None
         first_date = datetime.strftime(datetime.now(),'%Y-%m-%d')
         last_date = first_date
         
@@ -702,14 +703,19 @@ class TestManager:
         if 'filter_range_last_date' in q_params:
             last_date = str(q_params.get('filter_range_last_date') or "")
         
-        if 'filter_states' in q_params:
-            states = q_params.get('filter_states').split(' ')
+        if 'filter_test_states' in q_params:
+            test_states = q_params.get('filter_test_states').split(' ')
+        
+        if 'filter_test_types' in q_params:
+            test_types = q_params.get('filter_test_types').split(' ')
         
         # define response filter values
         filter['ci'] = ci
         filter['range_first_date'] = first_date
         filter['range_last_date'] = last_date
-        filter['states'] = str(states)
+        filter['test_states'] = str(test_states)
+        filter['test_types'] = str(test_types)
+        
         response['filter'] = filter
         
         # start DB query pipeline
@@ -718,7 +724,7 @@ class TestManager:
             sql_query = Test.objects.all()
             
             # filter test by patientCI
-            if ci != '':
+            if ci is not None:
                 sql_query = sql_query.filter(patientCI = ci)
             
             # filter test by time range
@@ -735,8 +741,12 @@ class TestManager:
                 sql_query = sql_query.filter(begin_date__range=(t_first_date, t_last_date))
             
             # filter test by states
-            if states is not None:
-                sql_query = sql_query.filter(state__in = states)
+            if test_states is not None:
+                sql_query = sql_query.filter(state__in = test_states)
+            
+            # filter test by type
+            if test_types is not None:
+                sql_query = sql_query.filter(type__in = test_types)
             
             # order tests by date
             sql_query = sql_query.order_by('-begin_date')
@@ -874,8 +884,9 @@ class EventManager:
         # set default query params values
         id = ""
         username = ""
-        first_date = datetime.strftime(datetime.now(),'%Y-%m-%d')
-        last_date = first_date
+        event_type = None
+        first_date = '1999-01-01'
+        last_date = datetime.strftime(datetime.now(),'%Y-%m-%d')
         
         # get event filter params
         if 'filter_id' in q_params:
@@ -884,6 +895,9 @@ class EventManager:
         if 'filter_username' in q_params:
             username = str(q_params.get('filter_username') or "")
         
+        if 'filter_event_type' in q_params:
+            event_type = str(q_params.get('filter_event_type') or "")
+        
         if 'filter_range_first_date' in q_params:
             first_date = str(q_params.get('filter_range_first_date') or "")
         
@@ -891,10 +905,12 @@ class EventManager:
             last_date = str(q_params.get('filter_range_last_date') or "")
         
         # define response filter values
-        filter['id'] = id
-        filter['username'] = username
-        filter['range_first_date'] = first_date
-        filter['range_last_date'] = last_date
+        filter['id'] = str(id)
+        filter['username'] = str(username)
+        filter['event_type'] = str(event_type)
+        filter['range_first_date'] = str(first_date)
+        filter['range_last_date'] = str(last_date)
+        
         response['filter'] = filter
         
         # start DB query pipeline
@@ -902,7 +918,7 @@ class EventManager:
             
             sql_query = SystemEvent.objects.all()
             
-            # filter profile entry
+            # filter events by profile entry
             if id != '' or username != '':
                 
                 try:    
@@ -920,6 +936,11 @@ class EventManager:
                     return UNREGISTRED_PROFILE
                 except InternalError:
                     return INTERNAL_ERROR
+            
+            
+            # filter events by type
+            if event_type != None:
+                sql_query = UserEvent.objects.filter(type=event_type)
             
             
             # filter events by time range
@@ -1110,6 +1131,7 @@ def make_custom_permissions():
     
 # UTIL FUNCTIONS ################
     
+# clone an unmutable dict into one mutable dict to modify query input's params
 def copy_dict(dict1:dict):
     
     dict2 = dict()

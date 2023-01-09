@@ -41,25 +41,81 @@
 
     </fieldset>
     {% endif %}
-    
-    {% if 'test_state' in list_filters %}
-    <fieldset>
-        <div class="col-12 m-1 text-start">
+
+    {% if 'test_type' in list_filters %}
+    <fieldset class="col-12 qy-2 m-1 text-start">
+
+        <!-- Filter test by type -->
+        <label class="form-label m-1">Tipo de Analisis:</label>
+        <select name="filter_test_types" class="form-select form-input col-12">
             
-            <!-- Filter by state -->
-            <label class="form-label m-1">Tipo:</label>
-            <select name="filter_states" class="form-select form-input"
-                value="{{filter.states}}">
-                
-                <option value="waiting">Pendiente</option>
-                <option value="resolved">Terminado</option>
-                <option value="notified">Notificado</option>
-                
-            </select>
-        </div>
+            <option></option>
+
+            <option {% if 'Nefrologico' in filter.test_types %} selected {% endif %}>
+                Nefrologico
+            </option>
+            
+            <option {% if 'Sanguineo' in filter.test_types %} selected {% endif %}>
+                Sanguineo
+            </option>
+            
+            <option {% if 'Virologico' in filter.test_types %} selected {% endif %}>
+                Virologico
+            </option>
+
+        </select>
+
     </fieldset>
     {% endif %}
     
+    {% if 'test_state' in list_filters %}
+    <fieldset class="col-12 qy-2 m-1 text-start">
+
+        <!-- Filter test by state -->
+        <label class="form-label m-1">Estado del Analisis:</label>
+        <select name="filter_test_states" class="form-select form-input col-12">
+            
+            <option value="waiting" {% if 'waiting' in filter.event_states %} selected {% endif %}>
+                PENDIENTE
+            </option>
+            
+            <option value="resolved" {% if 'resolved' in filter.event_states %} selected {% endif %}>
+                LISTO
+            </option>
+            
+            <option value="notified" {% if 'notified' in filter.event_states %} selected {% endif %}>
+                NOTIFICADO
+            </option>
+        
+        </select>
+    
+    </fieldset>
+    {% endif %}
+    
+    {% if 'event_type' in list_filters %}
+    <fieldset class="col-12 qy-2 m-1 text-start">
+
+        <!-- Filter events by type -->
+        <label class="form-label m-1">Tipo de Evento:</label>
+        <select name="filter_event_types" class="form-select form-input col-12">
+            
+            <option value="log" {% if 'log' in filter.event_types %} selected {% endif %}>
+                LOGS
+            </option>
+            
+            <option value="warning" {% if 'warning' in filter.event_types %} selected {% endif %}>
+                PROBLEMAS
+            </option>
+        
+            <option value="danger" {% if 'danger' in filter.event_types %} selected {% endif %}>
+                ERRORES
+            </option>    
+
+        </select>
+
+    </fieldset>
+    {% endif %}
+
 
     <fieldset class="row gy-2 fs-10 mt-2 text-center">
         <button type="submit" class="btn btn-sm btn-primary col-12">
@@ -68,6 +124,6 @@
             FILTRAR
         </button>
     </fieldset>
-    
+
     </fieldset>
 </form>

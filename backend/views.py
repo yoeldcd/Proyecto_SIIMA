@@ -698,9 +698,9 @@ class TestListView(PermissionRequiredMixin, ListView):
         response = dict()
         query_message = q_params.get('query_message')
         
-        # add [states] filter param value
-        if not 'filter_states' in q_params:
-            q_params['filter_states'] = 'waiting resolved'
+        # add [filter_test_states] filter param value
+        if not 'filter_test_states' in q_params:
+            q_params['filter_test_states'] = 'waiting resolved'
         
         # get logged user profile
         system_user = SystemUserManager.get_registred_system_user(req.user)
@@ -726,7 +726,7 @@ class TestListView(PermissionRequiredMixin, ListView):
             'object_list': response.get('object_list'),
             'filtered_username': response.get('filtered_username'),
             'filter': response.get('filter'),
-            'list_filters': 'ci date test_state'
+            'list_filters': 'ci date test_state test_type'
         }
         
         # renderize test list view
@@ -807,7 +807,8 @@ class ResultListView(PermissionRequiredMixin, ListView):
             'object_list': response.get('object_list'),
             'filtered_username': response.get('filtered_username'),
             'filter': response.get('filter'),
-            'list_filters': 'date state'
+            'list_filters': 'date test_state test_type patient_filter'
+        
         }
         
         # renderize patient test list view page
@@ -847,10 +848,6 @@ class EventListView(PermissionRequiredMixin, ListView):
         q_params = copy_dict(req.GET)
         response = dict()
         query_message = q_params.get('query_message')
-        
-        if not 'filter_types' in q_params:
-            q_params['filter_types'] = 'danger warning log'
-        
         
         # get loggued admin profile
         system_user = SystemUserManager.get_registred_system_user(req.user)
