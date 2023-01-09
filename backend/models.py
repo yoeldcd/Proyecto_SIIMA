@@ -217,7 +217,20 @@ class PatientManager:
         # add role filter param
         q_params['filter_system_roles'] = 'patient'
         
-        return SystemUserManager.filter_users(q_params, response)
+        state = SystemUserManager.filter_users(q_params, response)
+        
+        if 'object_list' in response:
+            user_list = response.get('object_list')
+            patient_list = list()
+            
+            # load all filtered patient instances
+            for user in user_list:
+                patient_list.append(Patient.objects.get(id=user['id']))
+            
+            # update responsed object list
+            response['object_list'] = patient_list
+            
+        return state
         
     def get_registred_patient_user(user:User):
         return Patient.objects.get(id=user.id)
@@ -397,7 +410,20 @@ class WorkerManager:
         # add role filter param
         q_params['filter_system_roles'] = 'worker admin'
         
-        return SystemUserManager.filter_users(q_params, response)
+        state = SystemUserManager.filter_users(q_params, response)
+        
+        if 'object_list' in response:
+            user_list = response.get('object_list')
+            worker_list = list()
+            
+            # load all filtered workers instances
+            for user in user_list:
+                worker_list.append(Worker.objects.get(id=user['id']))
+            
+            # update responsed object list
+            response['object_list'] = worker_list
+            
+        return state
     
     def get_registred_worker_user(user:User):
         return Worker.objects.get(id=user.id)
