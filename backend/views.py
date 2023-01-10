@@ -841,6 +841,27 @@ class SupressEventView(PermissionRequiredMixin, View):
             'query_message': query_message
         }))
 
+class SupressSelectedEventsView(PermissionRequiredMixin, View):
+    permission_required = ('backend.delete_event')
+    
+    def get(self, req):
+        q_params = copy_dict(req.GET)
+        response = dict()
+        query_message = q_params.get('query_message')
+        
+        # delete log of DB model 
+        state = EventManager.delete_events(q_params, response)
+        
+        # check operation state
+        if state == SUCCESS:
+            query_message = 'SUCESS, Seleccion eliminada satisfactoriamente'
+        else:
+            query_message = 'ERROR, No se pudieron eliminar los eventos seleccionados'
+        
+        return redirect('/events/?'+urlencode({
+            'query_message': query_message
+        }))
+
 # VISUAL ##############################################################################
 
 class EventListView(PermissionRequiredMixin, ListView):

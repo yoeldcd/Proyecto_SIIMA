@@ -1,0 +1,49 @@
+{% load static %}
+
+<!-- Modal Add test Dialog-->
+<div class="modal fade" tabindex="-1" aria-hidden="true" id="confirmEventSelectionDeletionDialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header text-center">
+                <b class="modal-title">
+                    Confirmar eliminaci&oacute;n:
+                </b>
+            </div>
+
+            <!--test description formulary-->
+            <div class="modal-body">
+                Seran eliminados todos los registros de evento en la seleccion actual.
+                <br>
+                <b>Seleccionados {{object_list|length}} entradas</b>
+            </div>
+            
+            <div class="modal-footer">
+                <div class="row justify-content-center">
+
+                    <spam class="col">
+                        <a href="/events/supress/?
+                        {% if filter.range_first_date %}filter_range_first_date={{filter.range_first_date}}&{% endif %}
+                        {% if filter.range_last_date %}filter_range_last_date={{filter.range_last_date}}&{% endif %}
+                        {% if filter.event_type %}filter_event_type={{filter.event_type}}&{% endif %}
+                        {% if filter.id %}filter_id={{filter.id}}&{% endif %}">
+                            <button class="btn btn-danger p-1 px-3">
+                                ELIMINAR
+                            </button>
+                        </a>
+                    </spam>
+
+                    <spam class="col">
+                        <button class="btn --button p-1 px-3" data-bs-toggle="modal"
+                            data-bs-target="#confirmEventSelectionDeletionDialog">
+                            CANCELAR
+                        </button>
+                    </spam>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

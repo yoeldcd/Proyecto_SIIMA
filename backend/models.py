@@ -163,15 +163,19 @@ class SystemUserManager:
     def authenticate_user(req:HttpRequest, params:dict, response:dict):
         username = params.get('username')
         password = params.get('password')
-        existe_profile = False
         system_user = None
         
         try:
             # get profile asociated to username from DB
             system_user = SystemUser.objects.get(username=username)
-            existe_profile = True
-        except:
-            EventManager.warning(None, 'AUTHENTICATION FAIL',f'Not registred user {username} intento iniciar sesion con password {password}')
+            
+        except SystemUser.DoesNotExist:
+            
+            if username != 'root' and SystemUser.objects.count() == 0:
+                EventManager.warning(None, 'AUTHENTICATION FAIL',f'usuario {username} intento iniciar sesion sin estar registrado')
+            else:
+                SystemUserManager.create_root_user()
+            
             return UNREGISTRED_PROFILE
             
         # authenticate profile
@@ -179,7 +183,7 @@ class SystemUserManager:
         
         # check profile authentication
         if auth_user is None:
-            EventManager.warning(None, 'AUTHENTICATION FAIL',f'User {username} intento iniciar sesion con password {password}')
+            EventManager.warning(None, 'AUTHENTICATION FAIL',f'User {username} intento iniciar sesion con una credencial invalida')
             return INVALID_CREDENTIAL
         
         # login authenticated user    
@@ -193,7 +197,41 @@ class SystemUserManager:
         # finish current user sesion
         EventManager.log(req.user,'USER LOGGOUT',f'User {req.user.username} cerro su sesion ')    
         logout(req)
-
+    
+    def create_root_user():
+        try:
+            
+            # create a default superuser worker profile
+            root_user = Worker.objects.create_user(
+                username = 'root',
+                password = 'root@6267',
+                email = '',
+                system_role = 'admin',
+                
+                ci = '00000000000',
+                first_name = 'root',
+                last_name = 'root',
+                sex = 'M',
+                age = '279',
+                phone = '00000000',
+                role = 'NoRole'
+            )
+            
+            # grant root permissions
+            root_user.is_superuser = True
+            root_user.actions ="-root" 
+            
+            EventManager.warning(root_user, 'DEFAULT ROOT PROFILE CREATED', 'Se configuro un perfil de superusuario defecto para el sistema')
+        
+        except IntegrityError:
+            return DUPLICATED_PROFILE
+        
+        except InternalError:
+            EventManager.error(None, "PROFILE INTERNAL ERROR", "Un error interno impidio la creacion de un perfil")
+            return INTERNAL_ERROR   
+            
+        return SUCCESS
+    
 ###############################################################################
 class Patient(SystemUser):
     blod_group = CharField(max_length=5, null=True)
@@ -921,6 +959,12 @@ class UserEvent(SystemEvent):
 class EventManager:
     
     def filter_events(q_params:dict, response:dict):
+        return EventManager.filter_or_delete_events(q_params, response, False)
+    
+    def delete_events(q_params:dict, response:dict):
+        return EventManager.filter_or_delete_events(q_params, response, True)
+    
+    def filter_or_delete_events(q_params:dict, response:dict, delete:bool):
         
         object_list = None
         detailed_user = None
@@ -981,14 +1025,13 @@ class EventManager:
                 
                 except SystemUser.DoesNotExist:
                     return UNREGISTRED_PROFILE
+                
                 except InternalError:
                     return INTERNAL_ERROR
             
-            
             # filter events by time range
             if first_date != '':
-            
-                # normalize date filter
+                
                 if last_date == '':
                     last_date = first_date
                 
@@ -996,15 +1039,20 @@ class EventManager:
                 t_first_date = datetime.strptime(first_date,'%Y-%m-%d')
                 t_last_date = datetime.strptime(last_date,'%Y-%m-%d')
                 
-                sql_query = sql_query.filter(date__date__range=(t_first_date, t_last_date))
+                print(sql_query.values())    
+                sql_query = sql_query.filter(date__range=[t_first_date, t_last_date])
             
             # filter events by type
             if event_type != '*':
                 sql_query = sql_query.filter(type=event_type)
             
-            # order and get events from DB
+            # order query output
             sql_query = sql_query.order_by('-date')
             object_list = sql_query.values()
+            
+            # get or remove events from DB
+            if delete is True:
+                object_list = sql_query.delete()
             
             # define query response values
             response['object_list'] = object_list

@@ -45,6 +45,7 @@ urlpatterns = [
     
     # events management views
     path('events/', login_required(EventListView.as_view()), name='events'),
+    path('events/supress/', login_required(SupressSelectedEventsView.as_view()), name='supress_event'),
     path('event/supress/<int:event_id>', login_required(SupressEventView.as_view()), name='supress_event'),
     
 ]
