@@ -1,9 +1,11 @@
 
 # ignore
 
-/bootstrap-5.1.3-dist/*
-/bootstrap-5.2.2-dist/*
-/.tmp.driveupload/*
-/.gitignore
+bootstrap-5.1.3-dist/
+bootstrap-5.2.2-dist/
+venv/
+
+.tmp.driveupload/
+.gitignore
 
 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.git.token

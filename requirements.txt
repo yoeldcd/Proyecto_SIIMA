@@ -1,0 +1,6 @@
+# proyect venv dependencies
+
+django
+django-cors-headers
+djangorestframework
+psycopg2

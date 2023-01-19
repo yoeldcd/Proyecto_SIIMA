@@ -1040,8 +1040,8 @@ class EventManager:
                 t_last_date = datetime.strptime(last_date,'%Y-%m-%d')
                 
                 print(sql_query.values())    
-                sql_query = sql_query.filter(date__range=[t_first_date, t_last_date])
-            
+                sql_query = sql_query.filter(date__date__range=(t_first_date, t_last_date))
+            # 
             # filter events by type
             if event_type != '*':
                 sql_query = sql_query.filter(type=event_type)
